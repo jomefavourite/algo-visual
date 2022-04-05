@@ -1,5 +1,6 @@
 import type { NextPage } from "next";
 import Head from "next/head";
+import Link from "next/link";
 
 const Home: NextPage = () => {
   return (
@@ -12,6 +13,8 @@ const Home: NextPage = () => {
 
       <div>
         <p className='mx-auto'>Hello</p>
+
+        <Link href='/sorting/bubble'>Bubble Sort</Link>
       </div>
     </div>
   );

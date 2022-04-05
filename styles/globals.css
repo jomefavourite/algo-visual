@@ -1,3 +1,9 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+text {
+  fill: black;
+  /* font: 20px sans-serif; */
+  text-anchor: middle;
+}

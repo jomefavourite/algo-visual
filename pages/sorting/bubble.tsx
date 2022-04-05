@@ -1,133 +1,158 @@
-import React from "react";
+import Head from "next/head";
+import { useState } from "react";
 
 function bubble() {
+  const [data, setData] = useState([
+    {
+      transform: "translate(0,107.95918273925781)",
+      textValue: "26",
+      textX: "22.5",
+      textY: "107.04081632653062",
+      rectWidth: "45",
+      rectHeight: "122.04081632653062",
+    },
+    {
+      transform: "translate(50,136.12245178222656)",
+      textValue: "20",
+      textX: "22.5",
+      textY: "78.87755102040816",
+      rectWidth: "45",
+      rectHeight: "93.87755102040816",
+    },
+    {
+      transform: "translate(100,140.8163299560547)",
+      textValue: "19",
+      textX: "22.5",
+      textY: "74.18367346938776",
+      rectWidth: "45",
+      rectHeight: "89.18367346938776",
+    },
+    {
+      transform: "translate(150,4.693877696990967)",
+      textValue: "48",
+      textX: "22.5",
+      textY: "210.30612244897958",
+      rectWidth: "45",
+      rectHeight: "225.30612244897958",
+    },
+    {
+      transform: "translate(200,61.020408630371094)",
+      textValue: "36",
+      textX: "22.5",
+      textY: "153.9795918367347",
+      rectWidth: "45",
+      rectHeight: "168.9795918367347",
+    },
+    {
+      transform: "translate(250,0)",
+      textValue: "49",
+      textX: "22.5",
+      textY: "215",
+      rectWidth: "45",
+      rectHeight: "230",
+    },
+    {
+      transform: "translate(300,122.04081726074219)",
+      textValue: "50",
+      textX: "22.5",
+      textY: "92.9591836734694",
+      rectWidth: "45",
+      rectHeight: "107.95918273925781",
+    },
+    {
+      transform: "translate(350,211.2244873046875)",
+      textValue: "4",
+      textX: "22.5",
+      textY: "-15",
+      rectWidth: "45",
+      rectHeight: "18.77551020408163",
+    },
+    {
+      transform: "translate(400,103.26530456542969)",
+      textValue: "27",
+      textX: "22.5",
+      textY: "111.73469387755101",
+      rectWidth: "45",
+      rectHeight: "126.73469387755101",
+    },
+    {
+      transform: "translate(450,18.775510787963867)",
+      textValue: "45",
+      textX: "22.5",
+      textY: "196.22448979591837",
+      rectWidth: "45",
+      rectHeight: "211.22448979591837",
+    },
+    {
+      transform: "translate(500,61.020408630371094)",
+      textValue: "36",
+      textX: "22.5",
+      textY: "153.9795918367347",
+      rectWidth: "45",
+      rectHeight: "168.9795918367347",
+    },
+    {
+      transform: "translate(550,107.95918273925781)",
+      textValue: "26",
+      textX: "22.5",
+      textY: "107.04081632653062",
+      rectWidth: "45",
+      rectHeight: "122.04081632653062",
+    },
+  ]);
+
+  function bubbleSort(arr) {
+    let swapped;
+
+    do {
+      swapped = false;
+      for (let i = 1; i < arr.length; i++) {
+        if (Number(arr[i - 1].textValue) > Number(arr[i].textValue)) {
+          let temp = arr[i - 1];
+          arr[i - 1] = arr[i];
+          arr[i] = temp;
+
+          swapped = true;
+        }
+      }
+    } while (swapped === true);
+
+    return arr;
+  }
+
+  // bubbleSort(data);
+
   return (
-    <div>
+    <>
+      <Head>
+        <title>Bubble Sort</title>
+      </Head>
       <div id='sort-viz'>
-        <svg id='viz' height='580' width='900'>
-          <g transform='translate(150,107.95918273925781)'>
-            <rect
-              height='122.04081632653062'
-              width='45'
-              style={{ fill: "rgb(173, 216, 230);" }}
-            ></rect>
-            <text dy='.35em' x='22.5' y='107.04081632653062'>
-              26
-            </text>
-          </g>
-          <g transform='translate(200,136.12245178222656)'>
-            <rect
-              height='93.87755102040816'
-              width='45'
-              style={{ fill: "rgb(173, 216, 230);" }}
-            ></rect>
-            <text dy='.35em' x='22.5' y='78.87755102040816'>
-              20
-            </text>
-          </g>
-          <g transform='translate(250,140.8163299560547)'>
-            <rect
-              height='89.18367346938776'
-              width='45'
-              style={{ fill: "rgb(173, 216, 230);" }}
-            ></rect>
-            <text dy='.35em' x='22.5' y='74.18367346938776'>
-              19
-            </text>
-          </g>
-          <g transform='translate(300,4.693877696990967)'>
-            <rect
-              height='225.30612244897958'
-              width='45'
-              style={{ fill: "rgb(173, 216, 230);" }}
-            ></rect>
-            <text dy='.35em' x='22.5' y='210.30612244897958'>
-              48
-            </text>
-          </g>
-          <g transform='translate(350,61.020408630371094)'>
-            <rect
-              height='168.9795918367347'
-              width='45'
-              style={{ fill: "rgb(173, 216, 230);" }}
-            ></rect>
-            <text dy='.35em' x='22.5' y='153.9795918367347'>
-              36
-            </text>
-          </g>
-          <g transform='translate(400,0)'>
-            <rect
-              height='230'
-              width='45'
-              style={{ fill: "rgb(173, 216, 230);" }}
-            ></rect>
-            <text dy='.35em' x='22.5' y='215'>
-              49
-            </text>
-          </g>
-          <g transform='translate(450,122.04081726074219)'>
-            <rect
-              height='107.9591836734694'
-              width='45'
-              style={{ fill: "rgb(173, 216, 230);" }}
-            ></rect>
-            <text dy='.35em' x='22.5' y='92.9591836734694'>
-              23
-            </text>
-          </g>
-          <g transform='translate(500,211.2244873046875)'>
-            <rect
-              height='18.77551020408163'
-              width='45'
-              style={{ fill: "rgb(173, 216, 230);" }}
-            ></rect>
-            <text dy='.35em' x='22.5' y='-15'>
-              4
-            </text>
-          </g>
-          <g transform='translate(550,103.26530456542969)'>
-            <rect
-              height='126.73469387755101'
-              width='45'
-              style={{ fill: "rgb(173, 216, 230);" }}
-            ></rect>
-            <text dy='.35em' x='22.5' y='111.73469387755101'>
-              27
-            </text>
-          </g>
-          <g transform='translate(600,18.775510787963867)'>
-            <rect
-              height='211.22448979591837'
-              width='45'
-              style={{ fill: "rgb(173, 216, 230);" }}
-            ></rect>
-            <text dy='.35em' x='22.5' y='196.22448979591837'>
-              45
-            </text>
-          </g>
-          <g transform='translate(650,61.020408630371094)'>
-            <rect
-              height='168.9795918367347'
-              width='45'
-              style={{ fill: "rgb(173, 216, 230);" }}
-            ></rect>
-            <text dy='.35em' x='22.5' y='153.9795918367347'>
-              36
-            </text>
-          </g>
-          <g transform='translate(700,107.95918273925781)'>
-            <rect
-              height='122.04081632653062'
-              width='45'
-              style={{ fill: "rgb(173, 216, 230);" }}
-            ></rect>
-            <text dy='.35em' x='22.5' y='107.04081632653062'>
-              26
-            </text>
-          </g>
+        <svg
+          id='viz'
+          // height='580'
+          // width='900'
+          // width={680}
+          // height={300}
+          preserveAspectRatio='xMaxYMid meet'
+          viewBox='-40 0 680 300'
+          className='max-w-[1000px] mx-auto'
+        >
+          {data.map((item, index) => (
+            <g key={index} transform={`${item.transform}`}>
+              <rect
+                height={`${item.rectHeight}`}
+                width={`${item.rectWidth}`}
+                style={{ fill: "rgb(173, 216, 230)" }}
+              ></rect>
+              <text dy='.35em' x={`${item.textX}`} y={`${item.textY}`}>
+                {item.textValue}
+              </text>
+            </g>
+          ))}
         </svg>
       </div>
-    </div>
+    </>
   );
 }
 
