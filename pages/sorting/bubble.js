@@ -1,7 +1,8 @@
 import Head from "next/head";
 import { useState } from "react";
+import Layout from "../../components/layout";
 
-function bubble() {
+export default function Bubble() {
   const [data, setData] = useState([
     {
       transform: "translate(0,107.95918273925781)",
@@ -156,4 +157,17 @@ function bubble() {
   );
 }
 
-export default bubble;
+Bubble.getLayout = function getLayout(page) {
+  const options = [
+    {
+      value: "Home",
+      href: "/",
+    },
+    {
+      value: "Bubble Sort",
+      href: "/sorting/bubble",
+    },
+  ];
+
+  return <Layout options={options}>{page}</Layout>;
+};
