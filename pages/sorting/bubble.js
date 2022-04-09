@@ -1,6 +1,7 @@
 import Head from "next/head";
-import { useState } from "react";
-import Layout from "../../components/layout";
+import { useState, useEffect } from "react";
+import Layout from "../../components/Layout";
+import { generateChartData } from "../../util/utility";
 
 export default function Bubble() {
   const [data, setData] = useState([
@@ -101,27 +102,41 @@ export default function Bubble() {
       rectHeight: "122.04081632653062",
     },
   ]);
+  const [inputValue, setInputValue] = useState("");
 
-  function bubbleSort(arr) {
-    let swapped;
+  useEffect(() => {
+    console.log(data.map((item) => item.textValue));
+  }, [data]);
 
-    do {
-      swapped = false;
-      for (let i = 1; i < arr.length; i++) {
-        if (Number(arr[i - 1].textValue) > Number(arr[i].textValue)) {
-          let temp = arr[i - 1];
-          arr[i - 1] = arr[i];
-          arr[i] = temp;
+  const handleClick = (inputValue) => {
+    const arrOfInputs = inputValue.split(",").map((str) => Number(str));
+    const newChartData = generateChartData(arrOfInputs);
 
-          swapped = true;
-        }
-      }
-    } while (swapped === true);
+    setData(() => {
+      return [...newChartData];
+    });
+  };
 
-    return arr;
-  }
+  const generateRandom = () => {
+    const randomArr = Array.from({ length: randomIntFromInterval(8, 12) }, () =>
+      Math.floor(Math.random() * 40)
+    );
 
-  // bubbleSort(data);
+    function randomIntFromInterval(min, max) {
+      return Math.floor(Math.random() * (max - min + 1) + min);
+    }
+
+    const newChartData = generateChartData(randomArr);
+
+    setData(newChartData);
+  };
+
+  // let regex = new RegExp(/^[0-9](,[1-8])*$/);
+  // let regex2 = new RegExp(/^[0-50]/);
+
+  // const found = regex.test("2,3,4");
+
+  // console.log(regex2.test("59"));
 
   return (
     <>
@@ -152,6 +167,21 @@ export default function Bubble() {
             </g>
           ))}
         </svg>
+      </div>
+
+      <button onClick={generateRandom}>Generate Random</button>
+
+      <div>
+        <input
+          type='text'
+          value={inputValue}
+          placeholder='12,20,33,45,20'
+          className='bg-black text-white'
+          onChange={(event) => {
+            setInputValue(event.target.value);
+          }}
+        />
+        <button onClick={() => handleClick(inputValue)}>Set inputs</button>
       </div>
     </>
   );
