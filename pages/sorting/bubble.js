@@ -105,9 +105,9 @@ export default function Bubble() {
   ]);
   const [inputValue, setInputValue] = useState("");
 
-  useEffect(() => {
-    console.log(data.map((item) => item.textValue));
-  }, [data]);
+  // useEffect(() => {
+  //   console.log(data.map((item) => item.textValue));
+  // }, [data]);
 
   const handleClick = (inputValue) => {
     const arrOfInputs = inputValue.split(",").map((str) => Number(str));

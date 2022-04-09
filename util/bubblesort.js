@@ -4,39 +4,30 @@ var yellow_color = "#F59E0B"; // selected
 var purple_color = "#8B5CF6";
 
 export function BubbleSort(data) {
-  for (var i = 0; i < array_size - 1; i++) {
-    for (var j = 0; j < array_size - i - 1; j++) {
-      div_update(data[j], div_sizes[j], "#F59E0B"); //Color update
+  for (let i = 0; i < data.length - 1; i++) {
+    for (let j = 0; j < data.length - i - 1; j++) {
+      div_update(data[j], "#F59E0B"); //Color update
 
-      if (div_sizes[j] > div_sizes[j + 1]) {
-        div_update(data[j], div_sizes[j], "#EF4444"); //Color update
-        div_update(data[j + 1], div_sizes[j + 1], "#EF4444"); //Color update
+      if (data[j].textValue > data[j + 1].textValue) {
+        div_update(data[j], "#EF4444"); //Color update
+        div_update(data[j + 1], "#EF4444"); //Color update
 
-        var temp = div_sizes[j];
-        div_sizes[j] = div_sizes[j + 1];
-        div_sizes[j + 1] = temp;
+        let temp = data[j];
+        data[j] = data[j + 1];
+        data[j + 1] = temp;
 
-        div_update(data[j], div_sizes[j], "#EF4444"); //Height update
-        div_update(data[j + 1], div_sizes[j + 1], "#EF4444"); //Height update
+        div_update(data[j], "#EF4444"); //Height update
+        div_update(data[j + 1], "#EF4444"); //Height update
       }
-      div_update(data[j], div_sizes[j], "#60A5FA"); //Color updat
+      div_update(data[j], "#60A5FA"); //Color updat
     }
-    div_update(data[j], div_sizes[j], "#3B82F6"); //Color update
+    div_update(data[j], "#3B82F6"); //Color update
   }
-  div_update(data[0], div_sizes[0], "#3B82F6"); //Color update
+  div_update(data[0], "#3B82F6"); //Color update
 }
 
-function div_update(cont, height, color) {
+function div_update(data, color) {
   window.setTimeout(function () {
-    cont.style =
-      " margin:0% " +
-      margin_size +
-      "%; width:" +
-      (100 / array_size - 2 * margin_size) +
-      "%; height:" +
-      height +
-      "%; background-color:" +
-      color +
-      ";";
-  }, (c_delay += delay_time));
+    console.log(data);
+  }, 200);
 }
