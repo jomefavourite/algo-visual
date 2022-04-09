@@ -1,14 +1,13 @@
 import { find, matchesProperty } from "lodash";
 
 export function generateChartData(arr, h = 230) {
-  const res = determineTranslateX(arr, h);
+  const res = determineChartData(arr, h);
 
   return res;
 }
 
-function determineTranslateX(arr, h) {
+function determineChartData(arr, h) {
   let arrSorted = [...arr].sort((a, b) => a - b);
-  // arr.sort((a, b) => a - b);
 
   let yn = [];
   let constant;
@@ -26,16 +25,13 @@ function determineTranslateX(arr, h) {
 
   const heightArr = yn.map((item) => h - item);
 
-  let obj = [];
+  let sortedDataProperties = [];
 
   for (let i = 0; i < arrSorted.length; i++) {
-    obj.push({
+    sortedDataProperties.push({
       rectHeight:
         i === arrSorted.length - 1 ? h : heightArr[heightArr.length - (i + 1)],
       textValue: arrSorted[i],
-      // transform: `translate(${i === 0 ? 0 : (translateX += 50)},${
-      //   i === arrSorted.length - 1 ? 0 : yn[yn.length - (i + 1)]
-      // })`,
       transform: `translate(0,${
         i === arrSorted.length - 1 ? 0 : yn[yn.length - (i + 1)]
       })`,
@@ -48,24 +44,24 @@ function determineTranslateX(arr, h) {
     });
   }
 
-  let newData = [];
+  let unsortedNewData = [];
+
   for (let i = 0; i < arr.length; i++) {
-    newData.push(find(obj, matchesProperty("textValue", arr[i])));
+    unsortedNewData.push(
+      find(sortedDataProperties, matchesProperty("textValue", arr[i]))
+    );
   }
 
-  for (let i = 0; i < newData.length; i++) {
-    console.log(newData[i].transform.split(",")[1]);
-    newData[i] = {
-      ...newData[i],
+  for (let i = 0; i < unsortedNewData.length; i++) {
+    unsortedNewData[i] = {
+      ...unsortedNewData[i],
       transform: `translate(${i === 0 ? 0 : (translateX += 50)},${
-        newData[i].transform.split(",")[1]
+        unsortedNewData[i].transform.split(",")[1]
       }`,
     };
   }
 
-  console.log(newData, "newData");
-
-  return newData;
+  return unsortedNewData;
 }
 
 function bubbleSort(arr) {

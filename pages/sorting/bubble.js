@@ -1,6 +1,7 @@
 import Head from "next/head";
 import { useState, useEffect } from "react";
 import Layout from "../../components/Layout";
+import { BubbleSort } from "../../util/bubblesort";
 import { generateChartData } from "../../util/utility";
 
 export default function Bubble() {
@@ -112,9 +113,7 @@ export default function Bubble() {
     const arrOfInputs = inputValue.split(",").map((str) => Number(str));
     const newChartData = generateChartData(arrOfInputs);
 
-    setData(() => {
-      return [...newChartData];
-    });
+    setData(newChartData);
   };
 
   const generateRandom = () => {
@@ -137,6 +136,10 @@ export default function Bubble() {
   // const found = regex.test("2,3,4");
 
   // console.log(regex2.test("59"));
+
+  const handleBubbleSort = (data) => {
+    BubbleSort(data);
+  };
 
   return (
     <>
@@ -183,6 +186,10 @@ export default function Bubble() {
         />
         <button onClick={() => handleClick(inputValue)}>Set inputs</button>
       </div>
+
+      <button className='bg-black text-white mt-28' onClick={handleBubbleSort}>
+        Play
+      </button>
     </>
   );
 }
