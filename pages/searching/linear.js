@@ -1,10 +1,7 @@
-import Head from "next/head";
-import { useState, useEffect } from "react";
+import { useState } from "react";
 import Layout from "../../components/Layout";
-import { BubbleSort } from "../../util/bubblesort";
-import { generateChartData } from "../../util/utility";
 
-export default function Bubble() {
+export default function LinearSearch() {
   const [data, setData] = useState([
     {
       textValue: "26",
@@ -107,6 +104,7 @@ export default function Bubble() {
       fillColor: "rgb(173, 216, 230)",
     },
   ]);
+
   const [inputValue, setInputValue] = useState("");
 
   // useEffect(() => {
@@ -116,8 +114,8 @@ export default function Bubble() {
   console.log(data, "data");
 
   const handleClick = (inputValue) => {
-    const arrOfInputs = inputValue.split(",").map((str) => Number(str));
-    const newChartData = generateChartData(arrOfInputs);
+    const arrOfInputs = Number(inputValue);
+    // const newChartData = generateChartData(arrOfInputs);
 
     setData(newChartData);
   };
@@ -131,36 +129,13 @@ export default function Bubble() {
       return Math.floor(Math.random() * (max - min + 1) + min);
     }
 
-    const newChartData = generateChartData(randomArr);
+    // const newChartData = generateChartData(randomArr);
 
     setData(newChartData);
   };
 
-  // let regex = new RegExp(/^[0-9](,[1-8])*$/);
-  // let regex2 = new RegExp(/^[0-50]/);
-
-  // const found = regex.test("2,3,4");
-
-  // console.log(regex2.test("59"));
-
-  function div_update(data, color) {
-    setData([]);
-    setData((prevState) => {
-      return [...prevState, data];
-    });
-  }
-
-  const handleBubbleSort = (data) => {
-    const newData = BubbleSort(data, () => {});
-    console.log(newData, "newData");
-    setData(newData);
-  };
-
   return (
     <>
-      <Head>
-        <title>Bubble Sort</title>
-      </Head>
       <div id='sort-viz'>
         <svg
           id='viz'
@@ -190,11 +165,9 @@ export default function Bubble() {
         </svg>
       </div>
 
-      <button onClick={generateRandom}>Generate Random</button>
-
       <div>
         <input
-          type='text'
+          type='number'
           value={inputValue}
           placeholder='12,20,33,45,20'
           className='bg-black text-white'
@@ -204,26 +177,19 @@ export default function Bubble() {
         />
         <button onClick={() => handleClick(inputValue)}>Set inputs</button>
       </div>
-
-      <button
-        className='bg-black text-white mt-28'
-        onClick={() => handleBubbleSort(data)}
-      >
-        Play
-      </button>
     </>
   );
 }
 
-Bubble.getLayout = function getLayout(page) {
+LinearSearch.getLayout = function getLayout(page) {
   const options = [
     {
       value: "Home",
       href: "/",
     },
     {
-      value: "Bubble Sort",
-      href: "/sorting/bubble",
+      value: "Linear Search",
+      href: "/searching/linear",
     },
   ];
 

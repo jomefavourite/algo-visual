@@ -32,15 +32,15 @@ function determineChartData(arr, h) {
       rectHeight:
         i === arrSorted.length - 1 ? h : heightArr[heightArr.length - (i + 1)],
       textValue: arrSorted[i],
-      transform: `translate(0,${
-        i === arrSorted.length - 1 ? 0 : yn[yn.length - (i + 1)]
-      })`,
+      translateX: "0",
+      translateY: `${i === arrSorted.length - 1 ? 0 : yn[yn.length - (i + 1)]}`,
       textY:
         i === arrSorted.length - 1
           ? h - 20
           : heightArr[heightArr.length - (i + 1)] - 20,
       textX: "22.5",
       rectWidth: "45",
+      fillColor: "rgb(173, 216, 230)",
     });
   }
 
@@ -55,9 +55,8 @@ function determineChartData(arr, h) {
   for (let i = 0; i < unsortedNewData.length; i++) {
     unsortedNewData[i] = {
       ...unsortedNewData[i],
-      transform: `translate(${i === 0 ? 0 : (translateX += 50)},${
-        unsortedNewData[i].transform.split(",")[1]
-      }`,
+      translateX: `${i === 0 ? 0 : (translateX += 50)}`,
+      translateY: `${unsortedNewData[i].translateY}`,
     };
   }
 

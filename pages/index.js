@@ -14,6 +14,7 @@ export default function Home() {
         <p className='mx-auto'>Hello</p>
 
         <Link href='/sorting/bubble'>Bubble Sort</Link>
+        <Link href='/searching/linear'>Linear Search</Link>
       </div>
     </div>
   );
