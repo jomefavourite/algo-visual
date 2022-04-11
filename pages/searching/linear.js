@@ -1,5 +1,6 @@
 import { useState } from "react";
 import Layout from "../../components/Layout";
+import View2 from "../../components/LinearSearch/View2";
 
 export default function LinearSearch() {
   const [data, setData] = useState([
@@ -114,7 +115,7 @@ export default function LinearSearch() {
   console.log(data, "data");
 
   const handleClick = (inputValue) => {
-    const arrOfInputs = Number(inputValue);
+    const arrOfInput = Number(inputValue);
     // const newChartData = generateChartData(arrOfInputs);
 
     setData(newChartData);
@@ -136,7 +137,7 @@ export default function LinearSearch() {
 
   return (
     <>
-      <div id='sort-viz'>
+      {/* <div id='sort-viz'>
         <svg
           id='viz'
           // height='580'
@@ -163,13 +164,15 @@ export default function LinearSearch() {
             </g>
           ))}
         </svg>
-      </div>
+      </div> */}
+
+      <View2 />
 
       <div>
         <input
           type='number'
           value={inputValue}
-          placeholder='12,20,33,45,20'
+          placeholder='12'
           className='bg-black text-white'
           onChange={(event) => {
             setInputValue(event.target.value);
