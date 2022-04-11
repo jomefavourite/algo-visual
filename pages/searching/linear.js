@@ -1,3 +1,4 @@
+import Head from "next/head";
 import { useState } from "react";
 import Layout from "../../components/Layout";
 import View2 from "../../components/LinearSearch/View2";
@@ -137,6 +138,9 @@ export default function LinearSearch() {
 
   return (
     <>
+      <Head>
+        <title>Linear Search</title>
+      </Head>
       {/* <div id='sort-viz'>
         <svg
           id='viz'

@@ -6,6 +6,8 @@ export function generateChartData(arr, h = 230) {
   return res;
 }
 
+// This function determines the SVG data for the chart,
+// based on the data provided.
 function determineChartData(arr, h) {
   let arrSorted = [...arr].sort((a, b) => a - b);
 
@@ -61,23 +63,4 @@ function determineChartData(arr, h) {
   }
 
   return unsortedNewData;
-}
-
-function bubbleSort(arr) {
-  let swapped;
-
-  do {
-    swapped = false;
-    for (let i = 1; i < arr.length; i++) {
-      if (Number(arr[i - 1]) > Number(arr[i])) {
-        let temp = arr[i - 1];
-        arr[i - 1] = arr[i];
-        arr[i] = temp;
-
-        swapped = true;
-      }
-    }
-  } while (swapped === true);
-
-  return arr;
 }
