@@ -1,10 +1,8 @@
 import Head from "next/head";
 import { useState, useEffect } from "react";
-import { Flipper, Flipped } from 'react-flip-toolkit'
 import Layout from "../../components/Layout";
-import { BubbleSort , bubbleSort } from "../../util/bubblesort";
+import { BubbleSort } from "../../util/bubblesort";
 import { generateChartData } from "../../util/utility";
-import SvgRect from "../../components/svg-rect/svg-rect";
 
 export default function Bubble() {
   const [data, setData] = useState([
@@ -17,8 +15,6 @@ export default function Bubble() {
       rectWidth: "45",
       rectHeight: "122.04081632653062",
       fillColor: "rgb(173, 216, 230)",
-      sortingColor : "rgb(13, 121, 152)",
-      sortedColor : "rgb(13, 121, 15)",
     },
     {
       textValue: "20",
@@ -29,8 +25,6 @@ export default function Bubble() {
       rectWidth: "45",
       rectHeight: "93.87755102040816",
       fillColor: "rgb(173, 216, 230)",
-      sortingColor : "rgb(13, 121, 152)",
-      sortedColor : "rgb(13, 121, 15)",
     },
     {
       textValue: "19",
@@ -41,20 +35,16 @@ export default function Bubble() {
       rectWidth: "45",
       rectHeight: "89.18367346938776",
       fillColor: "rgb(173, 216, 230)",
-      sortingColor : "rgb(13, 121, 152)",
-      sortedColor : "rgb(13, 121, 15)",
     },
     {
       textValue: "48",
       translateX: "150",
-      translateY: "14",
+      translateY: "4.693877696990967",
       textX: "22.5",
-      textY: "200.30612244897958",
+      textY: "210.30612244897958",
       rectWidth: "45",
-      rectHeight: "215",
+      rectHeight: "225.30612244897958",
       fillColor: "rgb(173, 216, 230)",
-      sortingColor : "rgb(13, 121, 152)",
-      sortedColor : "rgb(13, 121, 15)",
     },
     {
       textValue: "36",
@@ -65,47 +55,36 @@ export default function Bubble() {
       rectWidth: "45",
       rectHeight: "168.9795918367347",
       fillColor: "rgb(173, 216, 230)",
-      sortingColor : "rgb(13, 121, 152)",
-      sortedColor : "rgb(13, 121, 15)",
     },
     {
       textValue: "49",
       translateX: "250",
-      translateY: "10",
+      translateY: "0",
       textX: "22.5",
-      textY: "205",
+      textY: "215",
       rectWidth: "45",
-      rectHeight: "220",
+      rectHeight: "230",
       fillColor: "rgb(173, 216, 230)",
-      sortingColor : "rgb(13, 121, 152)",
-      sortedColor : "rgb(13, 121, 15)",
     },
     {
       textValue: "50",
       translateX: "300",
-      // translateY: "122.04081726074219",
-      translateY: "0",
+      translateY: "122.04081726074219",
       textX: "22.5",
-      textY: "215",
-      // textY: "92.9591836734694",
+      textY: "92.9591836734694",
       rectWidth: "45",
-      // rectHeight: "107.95918273925781",
-      rectHeight: "230",
+      rectHeight: "107.95918273925781",
       fillColor: "rgb(173, 216, 230)",
-      sortingColor : "rgb(13, 121, 152)",
-      sortedColor : "rgb(13, 121, 15)",
     },
     {
       textValue: "4",
       translateX: "350",
-      translateY: "181.2244873046875",
+      translateY: "211.2244873046875",
       textX: "22.5",
-      textY: "35",
+      textY: "-15",
       rectWidth: "45",
-      rectHeight: "48.77551020408163",
+      rectHeight: "18.77551020408163",
       fillColor: "rgb(173, 216, 230)",
-      sortingColor : "rgb(13, 121, 152)",
-      sortedColor : "rgb(13, 121, 15)",
     },
     {
       textValue: "27",
@@ -116,8 +95,6 @@ export default function Bubble() {
       rectWidth: "45",
       rectHeight: "126.73469387755101",
       fillColor: "rgb(173, 216, 230)",
-      sortingColor : "rgb(13, 121, 152)",
-      sortedColor : "rgb(13, 121, 15)",
     },
     {
       textValue: "45",
@@ -128,21 +105,18 @@ export default function Bubble() {
       rectWidth: "45",
       rectHeight: "211.22448979591837",
       fillColor: "rgb(173, 216, 230)",
-      sortingColor : "rgb(13, 121, 152)",
-      sortedColor : "rgb(13, 121, 15)",
     },
   ]);
   const [inputValue, setInputValue] = useState("");
 
   // useEffect(() => {
-  //   setData(bubbleSort(data))
+  //   console.log(data, "useE");
   // }, [data]);
 
   console.log(data, "data");
 
   const handleClick = (inputValue) => {
     const arrOfInputs = inputValue.split(",").map((str) => Number(str));
-
     const newChartData = generateChartData(arrOfInputs);
 
     setData(newChartData);
@@ -177,12 +151,8 @@ export default function Bubble() {
   }
 
   const handleBubbleSort = (data) => {
-    // const newData = BubbleSort(data, () => {});
-
-    const newData = bubbleSort(data);
-    
+    const newData = BubbleSort(data, () => {});
     console.log(newData, "newData");
-    
     setData(newData);
   };
 
@@ -192,7 +162,6 @@ export default function Bubble() {
         <title>Bubble Sort</title>
       </Head>
       <div id='sort-viz'>
-        <Flipper flipKey="bubbleSort" spring={{ stiffness: 280, damping: 22 }}>
         <svg
           id='viz'
           // height='580'
@@ -204,18 +173,21 @@ export default function Bubble() {
           className='max-w-[1000px] mx-auto'
         >
           {data.map((item, index) => (
-            
-            <Flipped key={index} flipId={index}>
-
-              <SvgRect  item={item} /> 
-
-            </Flipped>
-
-
-
+            <g
+              key={index}
+              transform={`translate(${item.translateX},${item.translateY})`}
+            >
+              <rect
+                height={`${item?.rectHeight}`}
+                width={`${item?.rectWidth}`}
+                style={{ fill: `${item.fillColor}` }}
+              ></rect>
+              <text dy='.35em' x={`${item.textX}`} y={`${item.textY}`}>
+                {item.textValue}
+              </text>
+            </g>
           ))}
         </svg>
-        </Flipper>
       </div>
 
       <button onClick={generateRandom}>Generate Random</button>
@@ -235,9 +207,7 @@ export default function Bubble() {
 
       <button
         className='bg-black text-white mt-28'
-
         onClick={() => handleBubbleSort(data)}
-
       >
         Play
       </button>
