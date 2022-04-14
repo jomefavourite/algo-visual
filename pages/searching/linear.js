@@ -1,125 +1,48 @@
 import Head from "next/head";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import Layout from "../../components/Layout";
 import View2 from "../../components/LinearSearch/View2";
+import { generateChartData, LinearSearch } from "../../util/search/linear";
+import { randomIntFromInterval } from "../../util/utility";
 
-export default function LinearSearch() {
+export default function Linear() {
   const [data, setData] = useState([
     {
       textValue: "26",
       translateX: "0",
-      translateY: "107.95918273925781",
-      textX: "22.5",
-      textY: "107.04081632653062",
-      rectWidth: "45",
-      rectHeight: "122.04081632653062",
-      fillColor: "rgb(173, 216, 230)",
+      translateY: "100",
+      rectWidth: "50",
+      rectHeight: "50",
+      textX: "25",
+    },
+    {
+      textValue: "12",
+      translateX: "50",
+      translateY: "100",
+      rectWidth: "50",
+      rectHeight: "50",
+      textX: "75",
     },
     {
       textValue: "20",
-      translateX: "50",
-      translateY: "136.12245178222656",
-      textX: "22.5",
-      textY: "78.87755102040816",
-      rectWidth: "45",
-      rectHeight: "93.87755102040816",
-      fillColor: "rgb(173, 216, 230)",
-    },
-    {
-      textValue: "19",
       translateX: "100",
-      translateY: "140.8163299560547",
-      textX: "22.5",
-      textY: "74.18367346938776",
-      rectWidth: "45",
-      rectHeight: "89.18367346938776",
-      fillColor: "rgb(173, 216, 230)",
-    },
-    {
-      textValue: "48",
-      translateX: "150",
-      translateY: "4.693877696990967",
-      textX: "22.5",
-      textY: "210.30612244897958",
-      rectWidth: "45",
-      rectHeight: "225.30612244897958",
-      fillColor: "rgb(173, 216, 230)",
-    },
-    {
-      textValue: "36",
-      translateX: "200",
-      translateY: "61.020408630371094",
-      textX: "22.5",
-      textY: "153.9795918367347",
-      rectWidth: "45",
-      rectHeight: "168.9795918367347",
-      fillColor: "rgb(173, 216, 230)",
-    },
-    {
-      textValue: "49",
-      translateX: "250",
-      translateY: "0",
-      textX: "22.5",
-      textY: "215",
-      rectWidth: "45",
-      rectHeight: "230",
-      fillColor: "rgb(173, 216, 230)",
-    },
-    {
-      textValue: "50",
-      translateX: "300",
-      translateY: "122.04081726074219",
-      textX: "22.5",
-      textY: "92.9591836734694",
-      rectWidth: "45",
-      rectHeight: "107.95918273925781",
-      fillColor: "rgb(173, 216, 230)",
-    },
-    {
-      textValue: "4",
-      translateX: "350",
-      translateY: "211.2244873046875",
-      textX: "22.5",
-      textY: "-15",
-      rectWidth: "45",
-      rectHeight: "18.77551020408163",
-      fillColor: "rgb(173, 216, 230)",
-    },
-    {
-      textValue: "27",
-      translateX: "400",
-      translateY: "103.26530456542969",
-      textX: "22.5",
-      textY: "111.73469387755101",
-      rectWidth: "45",
-      rectHeight: "126.73469387755101",
-      fillColor: "rgb(173, 216, 230)",
-    },
-    {
-      textValue: "45",
-      translateX: "450",
-      translateY: "18.775510787963867",
-      textX: "22.5",
-      textY: "196.22448979591837",
-      rectWidth: "45",
-      rectHeight: "211.22448979591837",
-      fillColor: "rgb(173, 216, 230)",
+      translateY: "100",
+      rectWidth: "50",
+      rectHeight: "50",
+      textX: "125",
     },
   ]);
 
   const [inputValue, setInputValue] = useState("");
 
-  // useEffect(() => {
-  //   console.log(data, "useE");
-  // }, [data]);
-
-  console.log(data, "data");
+  useEffect(() => {
+    generateRandom();
+  }, []);
 
   const handleClick = (inputValue) => {
-    const arrOfInput = Number(inputValue);
-    // const newChartData = generateChartData(arrOfInputs);
+    const searchIndex = LinearSearch(data, inputValue);
 
-    setData(newChartData);
+    console.log(searchIndex);
   };
 
   const generateRandom = () => {
@@ -127,11 +50,9 @@ export default function LinearSearch() {
       Math.floor(Math.random() * 40)
     );
 
-    function randomIntFromInterval(min, max) {
-      return Math.floor(Math.random() * (max - min + 1) + min);
-    }
+    const noDuplicateArray = Array.from(new Set(randomArr));
 
-    // const newChartData = generateChartData(randomArr);
+    const newChartData = generateChartData(noDuplicateArray);
 
     setData(newChartData);
   };
@@ -141,38 +62,44 @@ export default function LinearSearch() {
       <Head>
         <title>Linear Search</title>
       </Head>
-      {/* <div id='sort-viz'>
-        <svg
-          id='viz'
-          // height='580'
-          // width='900'
-          // width={680}
-          // height={300}
-          preserveAspectRatio='xMaxYMid meet'
-          viewBox='-40 0 680 300'
-          className='max-w-[1000px] mx-auto'
-        >
-          {data.map((item, index) => (
-            <g
-              key={index}
-              transform={`translate(${item.translateX},${item.translateY})`}
-            >
-              <rect
-                height={`${item?.rectHeight}`}
-                width={`${item?.rectWidth}`}
-                style={{ fill: `${item.fillColor}` }}
-              ></rect>
-              <text dy='.35em' x={`${item.textX}`} y={`${item.textY}`}>
-                {item.textValue}
-              </text>
-            </g>
-          ))}
-        </svg>
-      </div> */}
 
-      <View2 />
+      <svg
+        preserveAspectRatio='xMaxYMid meet'
+        viewBox='-40 0 680 300'
+        className='max-w-[1000px] mx-auto'
+      >
+        {data.map((item, index) => (
+          <g transform={`translate(${item.translateX},${item.translateY})`}>
+            <rect width='50' height='50' fill='white' stroke='black' />
+            <text dy='.35em' x='25' y='25'>
+              {item.textValue}
+            </text>
+          </g>
+        ))}
+        <g transform='translate(-52,150)'>
+          {data.map((item, index) => (
+            <text key={index} dy='.35em' x={`${item.textX}`} y='25'>
+              {index}
+            </text>
+          ))}
+        </g>
+
+        <circle
+          id='linear-circle'
+          cx='24'
+          cy='71'
+          r='16.5'
+          fill='none'
+          stroke='black'
+          transform='translate(0,105)'
+        />
+      </svg>
+
+      {/* <View2 /> */}
 
       <div>
+        <p>Search for a Number above</p>
+
         <input
           type='number'
           value={inputValue}
@@ -182,13 +109,19 @@ export default function LinearSearch() {
             setInputValue(event.target.value);
           }}
         />
-        <button onClick={() => handleClick(inputValue)}>Set inputs</button>
+        <button onClick={() => handleClick(inputValue)}>Search</button>
+      </div>
+
+      <div>
+        <h3>Pseudo Code</h3>
+
+        <code></code>
       </div>
     </>
   );
 }
 
-LinearSearch.getLayout = function getLayout(page) {
+Linear.getLayout = function getLayout(page) {
   const options = [
     {
       value: "Home",

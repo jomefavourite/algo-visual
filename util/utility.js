@@ -64,3 +64,8 @@ function determineChartData(arr, h) {
 
   return unsortedNewData;
 }
+
+// To generate random data with a range of numbera
+export function randomIntFromInterval(min, max) {
+  return Math.floor(Math.random() * (max - min + 1) + min);
+}
