@@ -12,16 +12,27 @@ function determineChartData(arr, h) {
   let arrSorted = [...arr].sort((a, b) => a - b);
 
   let yn = [];
+
   let constant;
+
   let translateX = 0;
+
   for (let i = 0; i < arrSorted.length - 1; i++) {
+
     let max = arrSorted[arrSorted.length - (i + 1)];
+
     let secMax = arrSorted[arrSorted.length - (i + 2)];
+
     constant = h / arrSorted[arrSorted.length - 1];
+
     if (i === 0) {
+
       yn.push(constant * (max - secMax));
+
     } else {
-      yn.push(yn[yn.length - 1] + constant * (max - secMax));
+
+      yn.push( yn[yn.length - 1] + constant * (max - secMax) );
+      
     }
   }
 
