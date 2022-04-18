@@ -1,6 +1,6 @@
 import Head from "next/head";
 import Link from "next/link";
-
+// import {withRedux} from "."
 export default function Home() {
   return (
     <>
@@ -16,7 +16,6 @@ export default function Home() {
             <a className='text-blue-600'>Bubble Sort</a>
           </Link>
         </div>
-
         <div>
           <Link href='/searching/linear'>
             <a className='text-blue-600'>Linear Search</a>

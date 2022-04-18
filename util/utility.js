@@ -46,7 +46,8 @@ function determineChartData(arr, h) {
         i === arrSorted.length - 1 ? h : heightArr[heightArr.length - (i + 1)],
       textValue: arrSorted[i],
       translateX: "0",
-      translateY: `${i === arrSorted.length - 1 ? 0 : yn[yn.length - (i + 1)]}`,
+      translateY: `${ i === arrSorted.length - 1 ? 0 : yn[yn.length - (i + 1)]}`,
+      
       textY:
         i === arrSorted.length - 1
           ? h - 20
