@@ -2,9 +2,8 @@ import Head from "next/head";
 import { useState, useEffect ,useRef } from "react";
 import { useDispatch,useSelector } from "react-redux";
 import { setArray } from "../../redux/algo.actions";
-import { Flipper, Flipped } from 'react-flip-toolkit';
-import { times }                        from 'lodash';
-import FlipMove from 'react-flip-move';
+import { times }     from 'lodash';
+
 import Layout from "../../components/Layout";
 import bubbleSort2,{ BubbleSort , bubbleSort , waitforAnim } from "../../util/bubblesort";
 import { generateChartData } from "../../util/utility";
