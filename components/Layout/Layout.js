@@ -1,3 +1,4 @@
+import Footer from "./Footer";
 import Navigation from "./Navigation";
 
 export default function Layout({ children, options }) {
@@ -5,6 +6,7 @@ export default function Layout({ children, options }) {
     <>
       <Navigation options={options} />
       <main>{children}</main>
+      <Footer />
     </>
   );
 }

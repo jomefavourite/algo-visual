@@ -18,7 +18,6 @@ function determineChartData(arr, h) {
   let translateX = 0;
 
   for (let i = 0; i < arrSorted.length - 1; i++) {
-
     let max = arrSorted[arrSorted.length - (i + 1)];
 
     let secMax = arrSorted[arrSorted.length - (i + 2)];
@@ -26,13 +25,9 @@ function determineChartData(arr, h) {
     constant = h / arrSorted[arrSorted.length - 1];
 
     if (i === 0) {
-
       yn.push(constant * (max - secMax));
-
     } else {
-
-      yn.push( yn[yn.length - 1] + constant * (max - secMax) );
-      
+      yn.push(yn[yn.length - 1] + constant * (max - secMax));
     }
   }
 
@@ -46,8 +41,7 @@ function determineChartData(arr, h) {
         i === arrSorted.length - 1 ? h : heightArr[heightArr.length - (i + 1)],
       textValue: arrSorted[i],
       translateX: "0",
-      translateY: `${ i === arrSorted.length - 1 ? 0 : yn[yn.length - (i + 1)]}`,
-      
+      translateY: `${i === arrSorted.length - 1 ? 0 : yn[yn.length - (i + 1)]}`,
       textY:
         i === arrSorted.length - 1
           ? h - 20
@@ -77,7 +71,7 @@ function determineChartData(arr, h) {
   return unsortedNewData;
 }
 
-// To generate random data with a range of numbera
+// To generate random data with a range of numbers
 export function randomIntFromInterval(min, max) {
   return Math.floor(Math.random() * (max - min + 1) + min);
 }
