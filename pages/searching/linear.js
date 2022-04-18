@@ -1,6 +1,6 @@
 import Head from "next/head";
 import { useEffect, useState } from "react";
-import Layout from "../../components/Layout";
+import Layout from "../../components/Layout/Layout";
 import View2 from "../../components/LinearSearch/View2";
 import { generateChartData, LinearSearch } from "../../util/search/linear";
 import { randomIntFromInterval } from "../../util/utility";
@@ -69,7 +69,10 @@ export default function Linear() {
         className='max-w-[1000px] mx-auto'
       >
         {data.map((item, index) => (
-          <g transform={`translate(${item.translateX},${item.translateY})`}>
+          <g
+            key={index}
+            transform={`translate(${item.translateX},${item.translateY})`}
+          >
             <rect width='50' height='50' fill='white' stroke='black' />
             <text dy='.35em' x='25' y='25'>
               {item.textValue}

@@ -6,7 +6,7 @@ function Footer({ handleBubblePlay }) {
 
   const handlePlay = () => {
     setPlaying(!playing);
-    // handleBubblePlay(playing);
+    handleBubblePlay(playing);
   };
 
   return (

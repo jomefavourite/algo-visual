@@ -14,6 +14,7 @@ import bubbleSort2, {
 import { generateChartData } from "../../util/utility";
 import SvgRect from "../../components/svg-rect/svg-rect";
 import { randomIntFromInterval } from "../../util/utility";
+import Footer from "../../components/Layout/Footer";
 
 export default function Bubble() {
   const dispatch = useDispatch();
@@ -282,6 +283,7 @@ export default function Bubble() {
       <Head>
         <title>Bubble Sort</title>
       </Head>
+
       <div id='sort-viz' className='pt-[200px]'>
         <svg
           id='viz'
@@ -328,6 +330,8 @@ export default function Bubble() {
       <button className='bg-black text-white mt-28' onClick={handleBubblePlay}>
         Play
       </button>
+
+      <Footer handleBubblePlay={handleBubblePlay} />
     </>
   );
 }
@@ -337,10 +341,37 @@ Bubble.getLayout = function getLayout(page) {
     {
       value: "Home",
       href: "/",
+      active: false,
     },
     {
       value: "Bubble Sort",
       href: "/sorting/bubble",
+      active: true,
+    },
+    {
+      value: "Selection Sort",
+      href: "#",
+      active: false,
+    },
+    {
+      value: "Insertion Sort",
+      href: "#",
+      active: false,
+    },
+    {
+      value: "Merge Sort",
+      href: "#",
+      active: false,
+    },
+    {
+      value: "Merge Sort",
+      href: "#",
+      active: false,
+    },
+    {
+      value: "Quick Sort",
+      href: "#",
+      active: false,
     },
   ];
 
