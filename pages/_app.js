@@ -1,8 +1,13 @@
 import "../styles/globals.css";
+// import { Provider } from "react-redux";
+import { wrapper } from "../redux/store";
 
-export default function MyApp({ Component, pageProps }) {
+function MyApp({ Component, pageProps }) {
   // Use the layout defined at the page level, if available
   const getLayout = Component.getLayout ?? ((page) => page);
 
-  return getLayout(<Component {...pageProps} />);
+  return getLayout( <Component {...pageProps}/>);
 }
+
+
+export default wrapper.withRedux(MyApp);

@@ -1,12 +1,23 @@
 import Head from "next/head";
-import { useState, useEffect } from "react";
-import { Flipper, Flipped } from 'react-flip-toolkit'
+import { useState, useEffect ,useRef } from "react";
+import { useDispatch,useSelector } from "react-redux";
+import { setArray } from "../../redux/algo.actions";
+import { Flipper, Flipped } from 'react-flip-toolkit';
+import { times }                        from 'lodash';
+import FlipMove from 'react-flip-move';
 import Layout from "../../components/Layout";
-import { BubbleSort , bubbleSort } from "../../util/bubblesort";
+import bubbleSort2,{ BubbleSort , bubbleSort , waitforAnim } from "../../util/bubblesort";
 import { generateChartData } from "../../util/utility";
 import SvgRect from "../../components/svg-rect/svg-rect";
 
 export default function Bubble() {
+  const dispatch = useDispatch();
+  const arr = useSelector((state) => state.algo.arr);
+  const currentSwapItems = useSelector((state) => state.algo.currentSwapItems);
+  const currentSortedItems = useSelector((state) => state.algo.currentSortedItems);
+  const currentBubbleItems = useSelector((state) => state.algo.currentBubbleItems);
+  // const gRef = useRef();
+  const [inputValue, setInputValue] = useState("");
   const [data, setData] = useState([
     {
       textValue: "26",
@@ -132,13 +143,21 @@ export default function Bubble() {
       sortedColor : "rgb(13, 121, 15)",
     },
   ]);
-  const [inputValue, setInputValue] = useState("");
+  const [allColors,setAllColors] = useState(["#EF4444","#3B82F6","#8B5CF6", "#F59E0B","rgb(173, 216, 230)", "rgb(13, 121, 152)","rgb(13, 121, 15)"])
+  
+
+  useEffect(() => {
+    dispatch(setArray(data));
+  }, [data]);
 
   // useEffect(() => {
-  //   setData(bubbleSort(data))
-  // }, [data]);
+  //   console.log(arr);
+  // }, [arr]);
 
-  console.log(data, "data");
+  // console.log(data, "data");
+
+
+
 
   const handleClick = (inputValue) => {
     const arrOfInputs = inputValue.split(",").map((str) => Number(str));
@@ -160,7 +179,9 @@ export default function Bubble() {
     const newChartData = generateChartData(randomArr);
 
     setData(newChartData);
+    // setCurrentStep(0);
   };
+
 
   // let regex = new RegExp(/^[0-9](,[1-8])*$/);
   // let regex2 = new RegExp(/^[0-50]/);
@@ -169,6 +190,9 @@ export default function Bubble() {
 
   // console.log(regex2.test("59"));
 
+  const speed = 570 - Math.pow(arr.length, 2) > 0 ?
+      570 - Math.pow(arr.length, 2) : 0;
+
   function div_update(data, color) {
     setData([]);
     setData((prevState) => {
@@ -176,23 +200,125 @@ export default function Bubble() {
     });
   }
 
-  const handleBubbleSort = (data) => {
-    // const newData = BubbleSort(data, () => {});
+  const handleBubbleSort = () => {
 
-    const newData = bubbleSort(data);
-    
-    console.log(newData, "newData");
+    const rects = document.querySelectorAll(".bar .rect");
+    console.log(rects);
+
+    // for(let i = 0 ; i < rects.length ;i++){
+    //   rects[i].style.fill=allColors[0]
+    // }
+
+
+    const newData = bubbleSort(arr);
+
+    // bubbleSort2(data,dispatch,10000);
     
     setData(newData);
   };
+
+
+
+
+  const handleBubble = async () => {
+    const swapRectNodes = (node1, node2 , data , i ,j) => {
+
+      const {translateX:x1,translateY:y1} = data[i];
+      const {translateX:x2,translateY:y2} = data[j];
+      const [tempX,tempY] = [x1,y1];
+      const node1Parent = node1.parentNode;
+      const node2Parent = node2.parentNode;
+      // console.log(node1Parent)
+      node1Parent.style.transform = `translate(${x2}px,${y2}px)`;
+      node2Parent.style.transform = `translate(${tempX}px,${tempY}px)`;
+
+      // data[i].translateX = x2;
+      // data[j].translateX = tempX;
+
+      // data[i].translateY = y2;
+      // data[j].translateY = tempY;
+
+      // [ data[i] , data[j] ] = [ data[j] , data[i] ];
+
+      
+
+      // const afterNode2 = node2.nextElementSibling;
+      // const parent = node2.parentNode;
+      // node1.replaceWith(node2);
+      // parent.insertBefore(node1, afterNode2);
+
+
+      
+    }
+
+    let results = data;
+    const rects = document.querySelectorAll(".bar .rect");
+    const txts = document.querySelectorAll(".bar .text");
+
+
+    const swapper = (data,i,j) => {
+      const {translateX:x1,translateY:y1} = data[i];
+      const {translateX:x2,translateY:y2} = data[j];
+      const [tempX,tempY] = [x1,y1];
+      data[i].translateX = x2;
+      data[j].translateX = tempX;
+      [ data[i] , data[j] ] = [ data[j] , data[i] ];
+    }
+
+
+
+  for(let i = results.length  ;i > 0 ; i--){
+    
+    for(var j = 0;j < i - 1 ; j++){
+      rects[j].style.fill = allColors[0];
+      rects[j+1].style.fill = allColors[0];
+
+      await waitforAnim();
+
+
+      // results[j].isGettingSorted = true;
+
+      if( +results[j].textValue > +results[j+1].textValue){
+
+        rects[j+1].style.fill = allColors[1];
+           
+        await waitforAnim();
+        
+
+        swapRectNodes(rects[j],rects[j+1],results,j,j+1);
+
+        // await waitforAnim();
+        // swapper(results,j,j+1);
+      //   console.log("start waiting after swap")
+      //   rects[j].style.fill = allColors[2];
+      //   rects[j+1].style.fill = allColors[2];
+      //   await waitforAnim();
+      //   console.log("finished waiting after swap")
+
+
+      }
+
+      rects[j+1].style.fill = allColors[2];
+      rects[j].style.fill = allColors[2];
+    }
+    
+
+
+  }
+
+
+
+  return results;
+}
+
 
   return (
     <>
       <Head>
         <title>Bubble Sort</title>
       </Head>
-      <div id='sort-viz'>
-        <Flipper flipKey="bubbleSort" spring={{ stiffness: 280, damping: 22 }}>
+      <div id='sort-viz' className="pt-[200px]">
+
         <svg
           id='viz'
           // height='580'
@@ -203,19 +329,27 @@ export default function Bubble() {
           viewBox='-40 0 680 300'
           className='max-w-[1000px] mx-auto'
         >
-          {data.map((item, index) => (
+
+          
             
-            <Flipped key={index} flipId={index}>
+          {data.map((item, index) => {
+            const filler = currentSwapItems.includes(index) ?
+              "rgba(219, 57, 57, 0.8)" : currentBubbleItems.includes(index)  ?
+                  "rgba(237, 234, 59, 0.8)" : currentSortedItems.includes(index) ?
+                    "rgba(169, 92, 232, 0.8)" : "rgb(173, 216, 230)";
+            
 
-              <SvgRect  item={item} /> 
+                    // console.log(filler)
+            return   (
+              <SvgRect key={index} index={index} item={item} filler={filler}/>
+              )
 
-            </Flipped>
+          })}
 
+           
 
-
-          ))}
         </svg>
-        </Flipper>
+
       </div>
 
       <button onClick={generateRandom}>Generate Random</button>
@@ -236,7 +370,7 @@ export default function Bubble() {
       <button
         className='bg-black text-white mt-28'
 
-        onClick={() => handleBubbleSort(data)}
+        onClick={handleBubble}
 
       >
         Play
@@ -244,6 +378,8 @@ export default function Bubble() {
     </>
   );
 }
+
+
 
 Bubble.getLayout = function getLayout(page) {
   const options = [
