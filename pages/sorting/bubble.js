@@ -3,7 +3,7 @@ import { useState, useEffect, useRef } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { setArray } from "../../redux/algo.actions";
 import { times }     from 'lodash';
-import Layout from "../../components/Layout";
+import Layout from "../../components/Layout/Layout";
 import bubbleSort2,{ BubbleSort , bubbleSort , waitforAnim } from "../../util/bubblesort";
 
 import { generateChartData } from "../../util/utility";
@@ -14,6 +14,7 @@ import Footer from "../../components/Layout/Footer";
 export default function Bubble() {
   const dispatch = useDispatch();
   const arr = useSelector((state) => state.algo.arr);
+  const [playing, setPlaying] = useState(false);
   const currentSwapItems = useSelector((state) => state.algo.currentSwapItems);
   const currentSortedItems = useSelector(
     (state) => state.algo.currentSortedItems
@@ -21,7 +22,6 @@ export default function Bubble() {
   const currentBubbleItems = useSelector(
     (state) => state.algo.currentBubbleItems
   );
-  // const gRef = useRef();
   const [inputValue, setInputValue] = useState("");
   const [data, setData] = useState([
     {
@@ -99,13 +99,13 @@ export default function Bubble() {
     {
       textValue: "50",
       translateX: "300",
-      // translateY: "122.04081726074219",
+      translateY: "122.04081726074219",
       translateY: "0",
       textX: "22.5",
       textY: "215",
-      // textY: "92.9591836734694",
+      textY: "92.9591836734694",
       rectWidth: "45",
-      // rectHeight: "107.95918273925781",
+      rectHeight: "107.95918273925781",
       rectHeight: "230",
       fillColor: "rgb(173, 216, 230)",
       sortingColor: "rgb(13, 121, 152)",
@@ -149,18 +149,15 @@ export default function Bubble() {
     },
   ]);
   const [allColors, setAllColors] = useState([
-    "#EF4444",
     "#3B82F6",
     "#8B5CF6",
     "#F59E0B",
-    "rgb(173, 216, 230)",
-    "rgb(13, 121, 152)",
+    "#EF4444",
     "rgb(13, 121, 15)",
+    "rgb(173, 216, 230)",
+        "rgb(13, 121, 152)"
   ]);
 
-  useEffect(() => {
-    dispatch(setArray(data));
-  }, [data]);
 
   const handleClick = (inputValue) => {
     const arrOfInputs = inputValue.split(",").map((str) => Number(str));
@@ -187,90 +184,48 @@ export default function Bubble() {
   const speed =
     570 - Math.pow(arr.length, 2) > 0 ? 570 - Math.pow(arr.length, 2) : 0;
 
-  const handleBubbleSort = () => {
-    const rects = document.querySelectorAll(".bar .rect");
-    console.log(rects);
 
-    // for(let i = 0 ; i < rects.length ;i++){
-    //   rects[i].style.fill=allColors[0]
-    // }
+  const handleBubbleSort = async () => {
+    console.log("clicked called")
+    setPlaying(true);
+    let res = [...data];
 
-    const newData = bubbleSort(arr);
-
-    // bubbleSort2(data,dispatch,10000);
-
-    setData(newData);
-  };
-
-  const handleBubblePlay = async () => {
-    const swapRectNodes = (node1, node2, data, i, j) => {
+    const swapper = (data, i, j) =>{
       const { translateX: x1, translateY: y1 } = data[i];
       const { translateX: x2, translateY: y2 } = data[j];
-      const [tempX, tempY] = [x1, y1];
-      const node1Parent = node1.parentNode;
-      const node2Parent = node2.parentNode;
-      // console.log(node1Parent)
-      node1Parent.style.transform = `translate(${x2}px,${y2}px)`;
-      node2Parent.style.transform = `translate(${tempX}px,${tempY}px)`;
-
-      // data[i].translateX = x2;
-      // data[j].translateX = tempX;
-
-      // data[i].translateY = y2;
-      // data[j].translateY = tempY;
-
-      // [ data[i] , data[j] ] = [ data[j] , data[i] ];
-
-      // const afterNode2 = node2.nextElementSibling;
-      // const parent = node2.parentNode;
-      // node1.replaceWith(node2);
-      // parent.insertBefore(node1, afterNode2);
-    };
-
-    let results = data;
-    const rects = document.querySelectorAll(".bar .rect");
-    const txts = document.querySelectorAll(".bar .text");
-
-    const swapper = (data, i, j) => {
-      const { translateX: x1, translateY: y1 } = data[i];
-      const { translateX: x2, translateY: y2 } = data[j];
-      const [tempX, tempY] = [x1, y1];
       data[i].translateX = x2;
-      data[j].translateX = tempX;
-      [data[i], data[j]] = [data[j], data[i]];
+      data[j].translateX = x1;
+      [data[i] , data[j] ] = [data[j] , data[i]];
     };
 
-    for (let i = results.length; i > 0; i--) {
-      for (var j = 0; j < i - 1; j++) {
-        rects[j].style.fill = allColors[0];
-        rects[j + 1].style.fill = allColors[0];
+    for (let i = res.length; i > 0; i--) {
 
+      for (var j = 0; j < i - 1; j++) {
+
+
+        res[j].fillColor = "#F59E0B"
+        res[j+1].fillColor = "#F59E0B"
+        setData([...res]);
         await waitforAnim();
 
-        // results[j].isGettingSorted = true;
-
-        if (+results[j].textValue > +results[j + 1].textValue) {
-          rects[j + 1].style.fill = allColors[1];
+        if ( +res[j].textValue  >  +res[j + 1].textValue ) {
 
           await waitforAnim();
-
-          swapRectNodes(rects[j], rects[j + 1], results, j, j + 1);
-
-          // await waitforAnim();
-          // swapper(results,j,j+1);
-          //   console.log("start waiting after swap")
-          //   rects[j].style.fill = allColors[2];
-          //   rects[j+1].style.fill = allColors[2];
-          //   await waitforAnim();
-          //   console.log("finished waiting after swap")
+          swapper(res,j,j+1);
+          await waitforAnim();
+          setData([...res]);
+          
+      
         }
 
-        rects[j + 1].style.fill = allColors[2];
-        rects[j].style.fill = allColors[2];
       }
+
+      // res[j].fillColor = allColors.at(-1)
+      // res[j+1].fillColor = allColors.at(-1)
     }
 
-    return results;
+
+    setPlaying(false);
   };
 
   return (
@@ -291,17 +246,8 @@ export default function Bubble() {
           className='max-w-[1000px] mx-auto'
         >
           {data.map((item, index) => {
-            const filler = currentSwapItems.includes(index)
-              ? "rgba(219, 57, 57, 0.8)"
-              : currentBubbleItems.includes(index)
-              ? "rgba(237, 234, 59, 0.8)"
-              : currentSortedItems.includes(index)
-              ? "rgba(169, 92, 232, 0.8)"
-              : "rgb(173, 216, 230)";
-
-            // console.log(filler)
             return (
-              <SvgRect key={index} index={index} item={item} filler={filler} />
+              <SvgRect key={index} index={index} item={item}  />
             );
           })}
         </svg>
@@ -321,12 +267,7 @@ export default function Bubble() {
         />
         <button onClick={() => handleClick(inputValue)}>Set inputs</button>
       </div>
-
-      <button className='bg-black text-white mt-28' onClick={handleBubblePlay}>
-        Play
-      </button>
-
-      <Footer handleBubblePlay={handleBubblePlay} />
+      <Footer handleBubbleSort={handleBubbleSort} playing={playing} />
     </>
   );
 }
