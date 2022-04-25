@@ -203,8 +203,8 @@ export default function Bubble() {
       for (var j = 0; j < i - 1; j++) {
 
 
-        res[j].fillColor = "#F59E0B"
-        res[j+1].fillColor = "#F59E0B"
+        res[j].fillColor = "#F59E0B";
+        res[j+1].fillColor = "#F59E0B";
         setData([...res]);
         await waitforAnim();
 
@@ -218,10 +218,15 @@ export default function Bubble() {
       
         }
 
+        res[j].fillColor = "rgb(173, 216, 230)";
+        res[j+1].fillColor = "rgb(173, 216, 230)";
+
       }
 
-      // res[j].fillColor = allColors.at(-1)
-      // res[j+1].fillColor = allColors.at(-1)
+
+      res[i - 1].fillColor = "#3B82F6";
+
+      
     }
 
 

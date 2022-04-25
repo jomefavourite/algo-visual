@@ -52,7 +52,7 @@ function swapProperties(sourceObj, sourceKey, targetObj, targetKey) {
 }
 
 
-export const waitforAnim = function(milisec = 1000) { 
+export const waitforAnim = function(milisec = 800) { 
     return new Promise(resolve => { 
         setTimeout(() => { resolve('') }, milisec); 
     }) 
