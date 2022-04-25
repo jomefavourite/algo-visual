@@ -15,6 +15,7 @@ import { generateChartData } from "../../util/utility";
 import SvgRect from "../../components/svg-rect/svg-rect";
 import { randomIntFromInterval } from "../../util/utility";
 import Footer from "../../components/Layout/Footer";
+import Dropdown from "../../components/Dropdown";
 
 export default function Bubble() {
   const dispatch = useDispatch();
@@ -284,6 +285,8 @@ export default function Bubble() {
         <title>Bubble Sort</title>
       </Head>
 
+      <Dropdown />
+
       <div id='sort-viz' className='pt-[200px]'>
         <svg
           id='viz'
@@ -293,22 +296,28 @@ export default function Bubble() {
           // height={300}
           preserveAspectRatio='xMaxYMid meet'
           viewBox='-40 0 680 300'
-          className='max-w-[1000px] mx-auto'
+          className='max-w-[1000px] mx-auto text-center block'
         >
-          {data.map((item, index) => {
-            const filler = currentSwapItems.includes(index)
-              ? "rgba(219, 57, 57, 0.8)"
-              : currentBubbleItems.includes(index)
-              ? "rgba(237, 234, 59, 0.8)"
-              : currentSortedItems.includes(index)
-              ? "rgba(169, 92, 232, 0.8)"
-              : "rgb(173, 216, 230)";
+          <g>
+            {data.map((item, index) => {
+              const filler = currentSwapItems.includes(index)
+                ? "rgba(219, 57, 57, 0.8)"
+                : currentBubbleItems.includes(index)
+                ? "rgba(237, 234, 59, 0.8)"
+                : currentSortedItems.includes(index)
+                ? "rgba(169, 92, 232, 0.8)"
+                : "rgb(173, 216, 230)";
 
-            // console.log(filler)
-            return (
-              <SvgRect key={index} index={index} item={item} filler={filler} />
-            );
-          })}
+              return (
+                <SvgRect
+                  key={index}
+                  index={index}
+                  item={item}
+                  filler={filler}
+                />
+              );
+            })}
+          </g>
         </svg>
       </div>
 
@@ -337,6 +346,7 @@ export default function Bubble() {
 }
 
 Bubble.getLayout = function getLayout(page) {
+  const pageTitle = "Sorting Algorithms";
   const options = [
     {
       value: "Home",
@@ -375,5 +385,9 @@ Bubble.getLayout = function getLayout(page) {
     },
   ];
 
-  return <Layout options={options}>{page}</Layout>;
+  return (
+    <Layout pageTitle={pageTitle} options={options}>
+      {page}
+    </Layout>
+  );
 };

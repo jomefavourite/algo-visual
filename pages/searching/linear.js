@@ -46,7 +46,7 @@ export default function Linear() {
   };
 
   const generateRandom = () => {
-    const randomArr = Array.from({ length: randomIntFromInterval(8, 12) }, () =>
+    const randomArr = Array.from({ length: 11 }, () =>
       Math.floor(Math.random() * 40)
     );
 
