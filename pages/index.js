@@ -17,6 +17,11 @@ export default function Home() {
           </Link>
         </div>
         <div>
+          <Link href='/sorting/selection'>
+            <a className='text-blue-600'>Selection Sort</a>
+          </Link>
+        </div>
+        <div>
           <Link href='/searching/linear'>
             <a className='text-blue-600'>Linear Search</a>
           </Link>

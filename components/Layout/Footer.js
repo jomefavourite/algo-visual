@@ -2,11 +2,11 @@ import React, { useState, memo } from "react";
 
 import { FaPlay, FaStepForward, FaStepBackward, FaPause } from "react-icons/fa";
 
-function Footer({ handleBubbleSort , playing}) {
+function Footer({ handleSort , playing}) {
 
 
   const handlePlay = () => {
-    handleBubbleSort(playing);
+    handleSort();
   };
 
   return (

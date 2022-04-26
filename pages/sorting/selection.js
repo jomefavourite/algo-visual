@@ -4,24 +4,18 @@ import { useDispatch, useSelector } from "react-redux";
 import { setArray } from "../../redux/algo.actions";
 import { times }     from 'lodash';
 import Layout from "../../components/Layout/Layout";
-import bubbleSort2,{ BubbleSort , bubbleSort , waitforAnim } from "../../util/bubblesort";
+import { waitforAnim } from "../../util/bubblesort";
 
 import { generateChartData } from "../../util/utility";
 import SvgRect from "../../components/svg-rect/svg-rect";
 import { randomIntFromInterval } from "../../util/utility";
 import Footer from "../../components/Layout/Footer";
 
-export default function Bubble() {
+export default function Selection() {
   const dispatch = useDispatch();
   const arr = useSelector((state) => state.algo.arr);
   const [playing, setPlaying] = useState(false);
-  const currentSwapItems = useSelector((state) => state.algo.currentSwapItems);
-  const currentSortedItems = useSelector(
-    (state) => state.algo.currentSortedItems
-  );
-  const currentBubbleItems = useSelector(
-    (state) => state.algo.currentBubbleItems
-  );
+  
   const [inputValue, setInputValue] = useState("");
   const [data, setData] = useState([
     {
@@ -185,8 +179,8 @@ export default function Bubble() {
     570 - Math.pow(arr.length, 2) > 0 ? 570 - Math.pow(arr.length, 2) : 0;
 
 
-  const handleBubbleSort = async () => {
-    console.log("clicked called")
+  const handleSelectionSort = async () => {
+    console.log("selection called")
     setPlaying(true);
     let res = [...data];
 
@@ -198,35 +192,27 @@ export default function Bubble() {
       [data[i] , data[j] ] = [data[j] , data[i]];
     };
 
-    for (let i = res.length; i > 0; i--) {
-
-      for (var j = 0; j < i - 1; j++) {
-
-
-        res[j].fillColor = "#F59E0B";
-        res[j+1].fillColor = "#F59E0B";
-        setData([...res]);
+    for(let i = 0;i < res.length;i++){
+        let min = i;
+        res[min].fillColor =  "#F59E0B";
         await waitforAnim();
+        setData([...res]);
 
-        if ( +res[j].textValue  >  +res[j + 1].textValue ) {
+        for(let j = i+1;j < res.length;j++){
 
-          await waitforAnim();
-          swapper(res,j,j+1);
-          await waitforAnim();
-          setData([...res]);
-          
-      
+            if(+res[min].textValue > +res[j].textValue){
+                res[min].fillColor =  "rgb(173, 216, 230)";
+                res[j].fillColor =  "#F59E0B";
+                min = j;
+            }
+            await waitforAnim();
+            setData([...res]);
         }
 
-        res[j].fillColor = "rgb(173, 216, 230)";
-        res[j+1].fillColor = "rgb(173, 216, 230)";
-
-      }
-
-
-      res[i - 1].fillColor = "#3B82F6";
-
-      
+        
+        if(min !== i) swapper(res,i,min);
+        await waitforAnim();
+        setData([...res]);
     }
 
 
@@ -236,7 +222,7 @@ export default function Bubble() {
   return (
     <>
       <Head>
-        <title>Bubble Sort</title>
+        <title>Selection Sort</title>
       </Head>
 
       <div id='sort-viz' className='pt-[200px]'>
@@ -272,12 +258,12 @@ export default function Bubble() {
         />
         <button onClick={() => handleClick(inputValue)}>Set inputs</button>
       </div>
-      <Footer handleSort={handleBubbleSort} playing={playing} />
+      <Footer handleSort={handleSelectionSort} playing={playing} />
     </>
   );
 }
 
-Bubble.getLayout = function getLayout(page) {
+Selection.getLayout = function getLayout(page) {
   const options = [
     {
       value: "Home",
@@ -287,12 +273,12 @@ Bubble.getLayout = function getLayout(page) {
     {
       value: "Bubble Sort",
       href: "/sorting/bubble",
-      active: true,
+      active: false
     },
     {
       value: "Selection Sort",
-      href: "#",
-      active: false,
+      href: "/sorting/selection",
+      active: true,
     },
     {
       value: "Insertion Sort",
