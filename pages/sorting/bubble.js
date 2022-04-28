@@ -346,7 +346,7 @@ export default function Bubble() {
 }
 
 Bubble.getLayout = function getLayout(page) {
-  const pageTitle = "Sorting Algorithms";
+  const pageTitle = "Sorting Algorithm";
   const options = [
     {
       value: "Home",
