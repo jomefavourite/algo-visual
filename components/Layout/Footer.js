@@ -1,16 +1,16 @@
 import React, { useState, memo } from "react";
+
 import { FaPlay, FaStepForward, FaStepBackward, FaPause } from "react-icons/fa";
 
-function Footer({ handleBubblePlay }) {
-  const [playing, setPlaying] = useState(false);
+function Footer({ handleSort , playing}) {
+
 
   const handlePlay = () => {
-    setPlaying(!playing);
-    handleBubblePlay(playing);
+    handleSort();
   };
 
   return (
-    <footer className='bg-black text-white p-4 text-center'>
+    <footer className='bg-black text-white p-4 text-center mt-8'>
       <div className='flex justify-center gap-10'>
         <button className='cursor-pointer'>
           <FaStepBackward />

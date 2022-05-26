@@ -8,7 +8,10 @@ const INITIAL_STATE = {
     isRunning:false,
     arr:[],
     sortingAlgos:{
-        bubbleSort:"bubbleSort"
+        bubbleSort:"bubbleSort",
+        selectionSort:"selectionSort",
+        insertionSort:"insertionSort",
+        quickSort:"quickSort",
     },
     currentAlgo:""
 }
@@ -36,7 +39,7 @@ const algoReducer = (state = INITIAL_STATE,action) => {
                 currentSwapItems:swapItems
             }
         case AlgoActionsTypes.SET_CURRENT_BUBBLE_ITEMS:
-            let bubbleItems = []
+            let bubbleItems = [];
             if(action.payload.length > 0){
                 bubbleItems.concat(action.payload)
             }
