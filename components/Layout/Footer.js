@@ -2,7 +2,7 @@ import React, { useState, memo } from "react";
 
 import { FaPlay, FaStepForward, FaStepBackward, FaPause } from "react-icons/fa";
 
-function Footer({ handleSort , playing}) {
+function Footer({ handleSort , playing, nextStep}) {
 
 
   const handlePlay = () => {
@@ -22,7 +22,7 @@ function Footer({ handleSort , playing}) {
             <FaPlay className='text-2xl' />
           )}
         </button>
-        <button className='cursor-pointer'>
+        <button className='cursor-pointer' onClick={() => nextStep()}>
           <FaStepForward />
         </button>
       </div>
