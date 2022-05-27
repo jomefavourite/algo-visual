@@ -12,35 +12,34 @@ var yellow_color = "#F59E0B"; // selected
 var purple_color = "#8B5CF6";
 
 export function generateDataSteps(data) {
-  let dataSteps = []
+  const cloneData = JSON.parse(JSON.stringify(data));
+  console.log(data, "initData - cloneNewChartData");
+  let dataSteps = [];
 
-	for (let i = 0; i < data.length - 1; i++) {
-		for (let j = 0; j < data.length - i - 1; j++) {
-      if (data[j].textValue > data[j + 1].textValue) {
-          swap(data, j, j + 1);
+  for (let i = 0; i < cloneData.length - 1; i++) {
+    for (let j = 0; j < cloneData.length - i - 1; j++) {
+      if (+cloneData[j].textValue > +cloneData[j + 1].textValue) {
+        swap(cloneData, j, j + 1);
       }
-      dataSteps.push([...data]);
+      dataSteps.push([...cloneData]);
+      console.log(dataSteps, "dataSteps--");
     }
-    dataSteps.push([...data]);
-	}
+    dataSteps.push([...cloneData]);
+  }
   return dataSteps;
+}
+
+const swap = (data, i, j) => {
+  const { translateX: x1, translateY: y1 } = data[i];
+  const { translateX: x2, translateY: y2 } = data[j];
+
+  data[i].translateX = x2;
+  data[j].translateX = x1;
+
+  [data[i], data[j]] = [data[j], data[i]];
+
+  // return data;
 };
-
-  const swap = (data, i, j) => {
-    const { translateX: x1, translateY: y1 } = data[i];
-    const { translateX: x2, translateY: y2 } = data[j];
-
-    const [tempX, tempY] = [x1, y1];
-
-    data[i].translateX = x2;
-    data[i].translateY = y2;
-    data[j].translateX = tempX;
-    data[j].translateY = tempY;
-
-    [data[i], data[j]] = [data[j], data[i]];
-
-    // return data;
-  };
 
 function swapProperties(sourceObj, sourceKey, targetObj, targetKey) {
   var temp = sourceObj[sourceKey];
@@ -126,8 +125,6 @@ function bubbleSort2(arr, dispatch, speed) {
 
     // return data;
   };
-
-  
 
   let array = arr.slice(0);
   let toDispatch = [];

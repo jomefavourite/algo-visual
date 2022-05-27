@@ -2,7 +2,7 @@ import Head from "next/head";
 import { useState, useEffect, useRef } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { setArray } from "../../redux/algo.actions";
-import { times } from "lodash";
+import { cloneDeep } from "lodash";
 import Layout from "../../components/Layout/Layout";
 import bubbleSort2, {
   BubbleSort,
@@ -155,7 +155,7 @@ export default function Bubble() {
     },
   ]);
   const [dataSteps, setDataSteps] = useState([]);
-  const [currentStep, setCurrentStep] = useState(0)
+  const [currentStep, setCurrentStep] = useState(0);
 
   const [allColors, setAllColors] = useState([
     "#3B82F6",
@@ -168,23 +168,27 @@ export default function Bubble() {
   ]);
 
   useEffect(() => {
-    console.log(currentStep, "currentStep")
-    console.log(data, "data")
-  }, [currentStep])
+    console.log(currentStep, "currentStep");
+    console.log(data, "data");
+  }, [currentStep]);
 
   const handleClick = (inputValue) => {
-    reset()
+    reset();
 
     const arrOfInputs = inputValue.split(",").map((str) => Number(str));
     const newChartData = generateChartData(arrOfInputs);
-    const cloneNewChartData = JSON.parse(JSON.stringify(newChartData))
-    const dataSteps = generateDataSteps(cloneNewChartData)
-    
-    console.log(newChartData, "newChartData")
-    console.log(dataSteps, "dataSteps")
-    
+    // const cloneNewChartData = JSON.parse(JSON.stringify(newChartData));
+    const cloneNewChartData = cloneDeep(newChartData);
+
+    console.log(newChartData, "newChartData");
+    console.log(cloneNewChartData, "cloneNewChartData");
+
+    const dataSteps = generateDataSteps(cloneNewChartData);
+
+    console.log(dataSteps, "dataSteps");
+
     setData(newChartData);
-    setDataSteps(dataSteps)
+    setDataSteps(dataSteps);
   };
 
   const generateRandom = () => {
@@ -199,19 +203,19 @@ export default function Bubble() {
 
   const previousStep = () => {
     if (currentStep === 0) return;
-    setCurrentStep(currentStep - 1)
-    setData(dataSteps[currentStep + 1])
+    setCurrentStep(currentStep - 1);
+    setData(dataSteps[currentStep - 1]);
   };
 
   const nextStep = () => {
     if (currentStep >= dataSteps.length - 1) return;
-    setCurrentStep(currentStep + 1)
-    setData(dataSteps[currentStep + 1])
+    setCurrentStep(currentStep + 1);
+    setData(dataSteps[currentStep + 1]);
   };
-  
+
   const reset = () => {
-    setCurrentStep(0)
-  }
+    setCurrentStep(0);
+  };
 
   // let regex = new RegExp(/^[0-9](,[1-8])*$/);
   // let regex2 = new RegExp(/^[0-50]/);
@@ -275,7 +279,7 @@ export default function Bubble() {
           // height={300}
           preserveAspectRatio='xMaxYMid meet'
           viewBox='-40 0 680 300'
-          className='max-w-[1000px] mx-auto text-center block'
+          className='mx-auto block max-w-[1000px] text-center'
         >
           {data.map((item, index) => {
             return <SvgRect key={index} index={index} item={item} />;
@@ -297,7 +301,12 @@ export default function Bubble() {
         />
         <button onClick={() => handleClick(inputValue)}>Set inputs</button>
       </div>
-      <Footer handleSort={handleBubbleSort} playing={playing} nextStep={nextStep} previousStep={previousSteps} />
+      <Footer
+        handleSort={handleBubbleSort}
+        playing={playing}
+        nextStep={nextStep}
+        previousStep={previousStep}
+      />
     </>
   );
 }

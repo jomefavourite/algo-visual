@@ -2,7 +2,7 @@ import React, { useState, memo } from "react";
 
 import { FaPlay, FaStepForward, FaStepBackward, FaPause } from "react-icons/fa";
 
-function Footer({ handleSort , playing, nextStep}) {
+function Footer({ handleSort , playing, nextStep, previousStep}) {
 
 
   const handlePlay = () => {
@@ -12,7 +12,7 @@ function Footer({ handleSort , playing, nextStep}) {
   return (
     <footer className='bg-black text-white p-4 text-center mt-8'>
       <div className='flex justify-center gap-10'>
-        <button className='cursor-pointer'>
+        <button className='cursor-pointer' onClick={() => previousStep()}>
           <FaStepBackward />
         </button>
         <button className='cursor-pointer' onClick={handlePlay}>
