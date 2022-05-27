@@ -55,6 +55,124 @@ export const waitforAnim = function (milisec = 1000) {
   });
 };
 
+export const sampleDataSteps = [
+  [
+    {
+      rectHeight: 172.5,
+      textValue: 3,
+      translateX: "0",
+      translateY: "57.5",
+      textY: 152.5,
+    },
+    {
+      rectHeight: 230,
+      textValue: 4,
+      translateX: "50",
+      translateY: "0",
+      textY: 210,
+    },
+    {
+      rectHeight: 115,
+      textValue: 2,
+      translateX: "100",
+      translateY: "115",
+      textY: 95,
+    },
+  ],
+  [
+    {
+      rectHeight: 172.5,
+      textValue: 3,
+      translateX: "0",
+      translateY: "57.5",
+      textY: 152.5,
+    },
+    {
+      rectHeight: 115,
+      textValue: 2,
+      translateX: "100",
+      translateY: "115",
+      textY: 95,
+    },
+    {
+      rectHeight: 230,
+      textValue: 4,
+      translateX: "50",
+      translateY: "0",
+      textY: 210,
+    },
+  ],
+  [
+    {
+      rectHeight: 172.5,
+      textValue: 3,
+      translateX: "0",
+      translateY: "57.5",
+      textY: 152.5,
+    },
+    {
+      rectHeight: 115,
+      textValue: 2,
+      translateX: "50",
+      translateY: "115",
+      textY: 95,
+    },
+    {
+      rectHeight: 230,
+      textValue: 4,
+      translateX: "100",
+      translateY: "0",
+      textY: 210,
+    },
+  ],
+  [
+    {
+      rectHeight: 115,
+      textValue: 2,
+      translateX: "50",
+      translateY: "115",
+      textY: 95,
+    },
+    {
+      rectHeight: 172.5,
+      textValue: 3,
+      translateX: "0",
+      translateY: "57.5",
+      textY: 152.5,
+    },
+    {
+      rectHeight: 230,
+      textValue: 4,
+      translateX: "50",
+      translateY: "0",
+      textY: 210,
+    },
+  ],
+  [
+    {
+      rectHeight: 115,
+      textValue: 2,
+      translateX: "100",
+      translateY: "115",
+      textY: 95,
+    },
+    {
+      rectHeight: 172.5,
+      textValue: 3,
+      translateX: "0",
+      translateY: "57.5",
+      textY: 152.5,
+    },
+    {
+      rectHeight: 230,
+      textValue: 4,
+      translateX: "50",
+      translateY: "0",
+      textY: 210,
+    },
+  ],
+];
+
 export const bubbleSort = async (arr) => {
   let results = arr;
   // let arr  = [...results]

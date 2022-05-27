@@ -4,10 +4,11 @@ import { useDispatch, useSelector } from "react-redux";
 import { setArray } from "../../redux/algo.actions";
 import { cloneDeep } from "lodash";
 import Layout from "../../components/Layout/Layout";
-import bubbleSort2, {
-  BubbleSort,
-  bubbleSort,
+import {
+  // BubbleSort,
+  // bubbleSort,
   generateDataSteps,
+  sampleDataSteps,
   waitforAnim,
 } from "../../util/bubblesort";
 
@@ -188,7 +189,9 @@ export default function Bubble() {
     console.log(dataSteps, "dataSteps");
 
     setData(newChartData);
-    setDataSteps(dataSteps);
+    setDataSteps(sampleDataSteps);
+
+    // setDataSteps(dataSteps);
   };
 
   const generateRandom = () => {
@@ -293,6 +296,7 @@ export default function Bubble() {
         <input
           type='text'
           value={inputValue}
+          defaultValue='3,4,2'
           placeholder='12,20,33,45,20'
           className='bg-black text-white'
           onChange={(event) => {
