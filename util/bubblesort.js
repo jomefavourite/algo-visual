@@ -14,7 +14,8 @@ var purple_color = "#8B5CF6";
 export function generateDataSteps(data, colorSteps) {
   const cloneData = JSON.parse(JSON.stringify(data));
   const cloneData2 = JSON.parse(JSON.stringify(data));
-  let colorKey = colorSteps[colorSteps.length - 1].slice();
+  console.log(colorSteps, "colorSteps");
+  let colorKey = [...colorSteps[colorSteps.length - 1]];
   console.log(colorKey, "colorKey");
   console.log(data, "initData - cloneNewChartData");
 

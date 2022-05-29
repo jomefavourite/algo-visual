@@ -1,16 +1,18 @@
 import React from "react";
 
-function Bar({ item, index, color }) {
+function Bar({ item, color }) {
   const {
     translateX,
     translateY,
     rectHeight,
-    rectWidth,
-    fillColor = "red",
+    rectWidth = 45,
+    fillColor,
     textX,
     textY,
     textValue,
   } = item;
+
+  // console.log(colorKey, "colorKey");
 
   const colors = [
     ["rgba(61, 90, 241, 0.5)", "rgba(61, 90, 241, 0.2)"],
@@ -18,14 +20,20 @@ function Bar({ item, index, color }) {
     ["rgba(131, 232, 90, 0.5)", "rgba(131, 232, 90, 0.2)"],
   ];
 
+  // console.log(rectWidth, "rectWidth");
+
   const boxStyle = {
-    width: rectWidth,
+    width: "clamp(2rem, 10vw, 5rem)",
+    textAlign: "center",
+    maxWidth: "70px",
     height: rectHeight,
-    background: `${colors[color || 0][0]}`,
+    backgroundColor: `${colors[color][0]}`,
+    transition: "0.3s",
   };
+
   return (
-    <div>
-      <div style={boxStyle}>{textValue}</div>
+    <div style={boxStyle} className='flex items-end justify-center'>
+      <span className='mb-3 text-[clamp(1rem,2vw,2rem)]'>{textValue}</span>
     </div>
   );
 }

@@ -1,6 +1,6 @@
 import { find, matchesProperty } from "lodash";
 
-export function generateChartData(arr, h = 230) {
+export function generateChartData(arr, h = 300) {
   const res = determineChartData(arr, h);
 
   return res;
