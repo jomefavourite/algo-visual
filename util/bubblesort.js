@@ -11,10 +11,15 @@ var blue_color = "#3B82F6"; // default color
 var yellow_color = "#F59E0B"; // selected
 var purple_color = "#8B5CF6";
 
-export function generateDataSteps(data) {
+export function generateDataSteps(data, colorSteps) {
   const cloneData = JSON.parse(JSON.stringify(data));
+  const cloneData2 = JSON.parse(JSON.stringify(data));
+  let colorKey = colorSteps[colorSteps.length - 1].slice();
+  console.log(colorKey, "colorKey");
   console.log(data, "initData - cloneNewChartData");
+
   let dataSteps = [];
+  dataSteps.push(cloneData2);
 
   for (let i = 0; i < cloneData.length - 1; i++) {
     for (let j = 0; j < cloneData.length - i - 1; j++) {
@@ -22,11 +27,21 @@ export function generateDataSteps(data) {
         swap(cloneData, j, j + 1);
       }
       dataSteps.push([...cloneData]);
+      colorKey[j] = 1;
+      colorKey[j + 1] = 1;
+      colorSteps.push([...colorKey]);
+      colorKey[j] = 0;
+      colorKey[j + 1] = 0;
       console.log(dataSteps, "dataSteps--");
     }
+    colorKey[dataSteps.length - 1 - i] = 2;
     dataSteps.push([...cloneData]);
+    colorSteps.push([...colorKey]);
   }
-  return dataSteps;
+  colorSteps[colorSteps.length - 1] = new Array(cloneData.length).fill(2);
+
+  console.log(colorSteps, "colorSteps");
+  return { dataSteps, colorSteps };
 }
 
 const swap = (data, i, j) => {
@@ -58,117 +73,162 @@ export const waitforAnim = function (milisec = 1000) {
 export const sampleDataSteps = [
   [
     {
+      fillColor: "rgb(173, 216, 230)",
       rectHeight: 172.5,
+      rectWidth: "45",
       textValue: 3,
+      textX: "22.5",
+      textY: 152.5,
       translateX: "0",
       translateY: "57.5",
-      textY: 152.5,
     },
     {
+      fillColor: "rgb(173, 216, 230)",
       rectHeight: 230,
+      rectWidth: "45",
       textValue: 4,
+      textX: "22.5",
+      textY: 210,
       translateX: "50",
       translateY: "0",
-      textY: 210,
     },
     {
+      fillColor: "rgb(173, 216, 230)",
       rectHeight: 115,
+      rectWidth: "45",
       textValue: 2,
+      textX: "22.5",
+      textY: 95,
       translateX: "100",
       translateY: "115",
-      textY: 95,
     },
   ],
   [
     {
+      fillColor: "rgb(173, 216, 230)",
       rectHeight: 172.5,
+      rectWidth: "45",
       textValue: 3,
+      textX: "22.5",
+      textY: 152.5,
       translateX: "0",
       translateY: "57.5",
-      textY: 152.5,
     },
     {
+      fillColor: "rgb(173, 216, 230)",
       rectHeight: 115,
+      rectWidth: "45",
       textValue: 2,
+      textX: "22.5",
+      textY: 95,
       translateX: "100",
       translateY: "115",
-      textY: 95,
     },
     {
+      fillColor: "rgb(173, 216, 230)",
       rectHeight: 230,
+      rectWidth: "45",
       textValue: 4,
+      textX: "22.5",
+      textY: 210,
       translateX: "50",
       translateY: "0",
-      textY: 210,
     },
   ],
   [
     {
+      fillColor: "rgb(173, 216, 230)",
       rectHeight: 172.5,
+      rectWidth: "45",
       textValue: 3,
+      textX: "22.5",
+      textY: 152.5,
       translateX: "0",
       translateY: "57.5",
-      textY: 152.5,
     },
     {
+      fillColor: "rgb(173, 216, 230)",
       rectHeight: 115,
+      rectWidth: "45",
       textValue: 2,
+      textX: "22.5",
+      textY: 95,
       translateX: "50",
       translateY: "115",
-      textY: 95,
     },
     {
+      fillColor: "rgb(173, 216, 230)",
       rectHeight: 230,
+      rectWidth: "45",
       textValue: 4,
+      textX: "22.5",
+      textY: 210,
       translateX: "100",
       translateY: "0",
-      textY: 210,
     },
   ],
   [
     {
+      fillColor: "rgb(173, 216, 230)",
       rectHeight: 115,
+      rectWidth: "45",
       textValue: 2,
-      translateX: "50",
-      translateY: "115",
+      textX: "22.5",
       textY: 95,
-    },
-    {
-      rectHeight: 172.5,
-      textValue: 3,
       translateX: "0",
-      translateY: "57.5",
-      textY: 152.5,
+      translateY: "115",
     },
     {
-      rectHeight: 230,
-      textValue: 4,
+      fillColor: "rgb(173, 216, 230)",
+      rectHeight: 172.5,
+      rectWidth: "45",
+      textValue: 3,
+      textX: "22.5",
+      textY: 152.5,
       translateX: "50",
-      translateY: "0",
+      translateY: "57.5",
+    },
+    {
+      fillColor: "rgb(173, 216, 230)",
+      rectHeight: 230,
+      rectWidth: "45",
+      textValue: 4,
+      textX: "22.5",
       textY: 210,
+      translateX: "100",
+      translateY: "0",
     },
   ],
   [
     {
+      fillColor: "rgb(173, 216, 230)",
       rectHeight: 115,
+      rectWidth: "45",
       textValue: 2,
-      translateX: "100",
-      translateY: "115",
+      textX: "22.5",
       textY: 95,
-    },
-    {
-      rectHeight: 172.5,
-      textValue: 3,
       translateX: "0",
-      translateY: "57.5",
-      textY: 152.5,
+      translateY: "115",
     },
     {
-      rectHeight: 230,
-      textValue: 4,
+      fillColor: "rgb(173, 216, 230)",
+      rectHeight: 172.5,
+      rectWidth: "45",
+      textValue: 3,
+      textX: "22.5",
+      textY: 152.5,
       translateX: "50",
-      translateY: "0",
+      translateY: "57.5",
+    },
+    {
+      fillColor: "rgb(173, 216, 230)",
+      rectHeight: 230,
+      rectWidth: "45",
+      textValue: 4,
+      textX: "22.5",
       textY: 210,
+      translateX: "100",
+      translateY: "0",
     },
   ],
 ];

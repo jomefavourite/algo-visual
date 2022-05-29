@@ -2,15 +2,14 @@ import React, { useState, memo } from "react";
 
 import { FaPlay, FaStepForward, FaStepBackward, FaPause } from "react-icons/fa";
 
-function Footer({ handleSort , playing, nextStep, previousStep}) {
-
-
+function Footer({ handleSort, playing, nextStep, previousStep, start }) {
   const handlePlay = () => {
     handleSort();
+    // start();
   };
 
   return (
-    <footer className='bg-black text-white p-4 text-center mt-8'>
+    <footer className='mt-8 bg-black p-4 text-center text-white'>
       <div className='flex justify-center gap-10'>
         <button className='cursor-pointer' onClick={() => previousStep()}>
           <FaStepBackward />
@@ -28,7 +27,7 @@ function Footer({ handleSort , playing, nextStep, previousStep}) {
       </div>
 
       <div className='mt-3'>
-        <progress className='w-64 h-3' value='20' max='100'>
+        <progress className='h-3 w-64' value='20' max='100'>
           20
         </progress>
       </div>

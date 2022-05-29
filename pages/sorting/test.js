@@ -17,6 +17,7 @@ import SvgRect from "../../components/svg-rect/svg-rect";
 import { randomIntFromInterval } from "../../util/utility";
 import Footer from "../../components/Layout/Footer";
 import Dropdown from "../../components/Dropdown";
+import Bar from "../../components/Bar";
 
 export default function Bubble() {
   const dispatch = useDispatch();
@@ -157,6 +158,11 @@ export default function Bubble() {
   ]);
   const [dataSteps, setDataSteps] = useState([]);
   const [currentStep, setCurrentStep] = useState(0);
+  const [delay, setDelay] = useState(500);
+  const [timeouts, setTimeouts] = useState([]);
+  const [colorKey, setColorKey] = useState([]);
+  const [colorSteps, setColorSteps] = useState([]);
+  const [count, setCount] = useState(12);
 
   const [allColors, setAllColors] = useState([
     "#3B82F6",
@@ -169,6 +175,10 @@ export default function Bubble() {
   ]);
 
   useEffect(() => {
+    clearColorKey();
+  }, []);
+
+  useEffect(() => {
     console.log(currentStep, "currentStep");
     console.log(data, "data");
   }, [currentStep]);
@@ -176,20 +186,28 @@ export default function Bubble() {
   const handleClick = (inputValue) => {
     reset();
 
+    console.log(colorSteps, "colorSteps");
+
     const arrOfInputs = inputValue.split(",").map((str) => Number(str));
     const newChartData = generateChartData(arrOfInputs);
     // const cloneNewChartData = JSON.parse(JSON.stringify(newChartData));
     const cloneNewChartData = cloneDeep(newChartData);
+    const cloneColorSteps = JSON.parse(JSON.stringify(colorSteps));
 
     console.log(newChartData, "newChartData");
     console.log(cloneNewChartData, "cloneNewChartData");
 
-    const dataSteps = generateDataSteps(cloneNewChartData);
+    const { dataSteps, colorSteps: newColorSteps } = generateDataSteps(
+      cloneNewChartData,
+      cloneColorSteps
+    );
 
     console.log(dataSteps, "dataSteps");
 
     setData(newChartData);
     setDataSteps(sampleDataSteps);
+    setColorSteps(newColorSteps);
+    setCurrentStep(0);
 
     // setDataSteps(dataSteps);
   };
@@ -208,16 +226,52 @@ export default function Bubble() {
     if (currentStep === 0) return;
     setCurrentStep(currentStep - 1);
     setData(dataSteps[currentStep - 1]);
+    // setColorKey(colorSteps[currentStep]);
   };
 
   const nextStep = () => {
     if (currentStep >= dataSteps.length - 1) return;
     setCurrentStep(currentStep + 1);
     setData(dataSteps[currentStep + 1]);
+    // setColorKey(colorSteps[currentStep]);
+  };
+
+  const start = () => {
+    // let steps = dataSteps;
+    // let colorSteps = this.state.colorSteps;
+
+    clearTimeouts();
+
+    let timeouts = [];
+    let i = 0;
+
+    while (i < dataSteps.length - currentStep) {
+      let timeout = setTimeout(() => {
+        let currentStep = currentStep;
+        setData(dataSteps[currentStep]);
+        setCurrentStep(currentStep + 1);
+        timeouts.push(timeout);
+      }, delay * i);
+      i++;
+    }
+
+    setTimeouts([...timeouts]);
+  };
+
+  const clearTimeouts = () => {
+    timeouts.forEach((timeout) => clearTimeout(timeout));
+    setTimeouts([]);
   };
 
   const reset = () => {
     setCurrentStep(0);
+  };
+
+  const clearColorKey = () => {
+    let blankKey = new Array(count).fill(0);
+
+    setColorKey([...blankKey]);
+    setColorSteps([blankKey]);
   };
 
   // let regex = new RegExp(/^[0-9](,[1-8])*$/);
@@ -290,13 +344,18 @@ export default function Bubble() {
         </svg>
       </div>
 
+      <div className='flex items-end justify-center gap-3'>
+        {data.map((item, index) => (
+          <Bar item={item} index={index} color={colorKey[index]} />
+        ))}
+      </div>
+
       <button onClick={generateRandom}>Generate Random</button>
 
       <div>
         <input
           type='text'
           value={inputValue}
-          defaultValue='3,4,2'
           placeholder='12,20,33,45,20'
           className='bg-black text-white'
           onChange={(event) => {
@@ -307,6 +366,7 @@ export default function Bubble() {
       </div>
       <Footer
         handleSort={handleBubbleSort}
+        start={start}
         playing={playing}
         nextStep={nextStep}
         previousStep={previousStep}
