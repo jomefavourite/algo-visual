@@ -346,7 +346,7 @@ export default function Bubble() {
 
       <div className='flex items-end justify-center gap-3'>
         {data.map((item, index) => (
-          <Bar item={item} index={index} color={colorKey[index]} />
+          <Bar key={index} item={item} index={index} color={colorKey[index]} />
         ))}
       </div>
 

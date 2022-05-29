@@ -21,10 +21,10 @@ function Bar({ item, index, color }) {
   const boxStyle = {
     width: rectWidth,
     height: rectHeight,
-    background: `${colors[color][0]}`,
+    background: `${colors[color || 0][0]}`,
   };
   return (
-    <div key={index}>
+    <div>
       <div style={boxStyle}>{textValue}</div>
     </div>
   );
