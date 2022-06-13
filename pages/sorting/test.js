@@ -116,7 +116,10 @@ export default function Bubble() {
 
   const handleInputClick = (e, inputValue) => {
     e.preventDefault();
-    setReset(true);
+    // setReset(true);
+    setCurrentStep(0);
+    setColorKey([0, 0, 0, 0, 0, 0, 0, 0, 0, 0]);
+    setColorSteps([[0, 0, 0, 0, 0, 0, 0, 0, 0, 0]]);
     // console.log(colorSteps, "reset handle click");
 
     // console.log(colorSteps, "colorSteps");
@@ -278,7 +281,7 @@ export default function Bubble() {
         <Dropdown />
 
         <div className='mt-20 min-h-[320px]'>
-          <div className='flex items-end justify-center gap-3 px-3'>
+          <div className='flex h-[300px] items-end justify-center gap-3 px-3'>
             {data.map((item, index) => (
               <Bar key={index} item={item} color={colorKey[index]} />
             ))}
