@@ -14,10 +14,6 @@ var purple_color = "#8B5CF6";
 export function generateDataSteps(data, colorSteps) {
   const cloneData = JSON.parse(JSON.stringify(data));
   const cloneData2 = JSON.parse(JSON.stringify(data));
-  console.log(colorSteps, "colorSteps");
-  let colorKey = [...colorSteps[colorSteps.length - 1]];
-  console.log(colorKey, "colorKey");
-  console.log(data, "initData - cloneNewChartData");
 
   let dataSteps = [];
   dataSteps.push(cloneData2);
@@ -28,21 +24,31 @@ export function generateDataSteps(data, colorSteps) {
         swap(cloneData, j, j + 1);
       }
       dataSteps.push([...cloneData]);
+    }
+    dataSteps.push([...cloneData]);
+  }
+  const newColorSteps = generateColorSteps(data);
+  colorSteps = newColorSteps;
+
+  return { dataSteps, colorSteps };
+}
+
+function generateColorSteps(data) {
+  const colorSteps = [[0, 0, 0, 0, 0, 0, 0, 0, 0, 0]];
+  const colorKey = [0, 0, 0, 0, 0, 0, 0, 0, 0, 0];
+  for (let i = 0; i < data.length - 1; i++) {
+    for (let j = 0; j < data.length - i - 1; j++) {
       colorKey[j] = 1;
       colorKey[j + 1] = 1;
-      colorSteps.push([...colorKey]);
+      colorSteps.push(colorKey.slice());
       colorKey[j] = 0;
       colorKey[j + 1] = 0;
-      console.log(dataSteps, "dataSteps--");
     }
-    colorKey[dataSteps.length - 1 - i] = 2;
-    dataSteps.push([...cloneData]);
+    colorKey[data.length - 1 - i] = 2;
     colorSteps.push([...colorKey]);
   }
-  colorSteps[colorSteps.length - 1] = new Array(cloneData.length).fill(2);
-
-  console.log(colorSteps, "colorSteps");
-  return { dataSteps, colorSteps };
+  colorSteps[colorSteps.length - 1] = new Array(data.length).fill(2);
+  return colorSteps;
 }
 
 const swap = (data, i, j) => {

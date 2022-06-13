@@ -5,15 +5,12 @@ import { setArray } from "../../redux/algo.actions";
 import { cloneDeep } from "lodash";
 import Layout from "../../components/Layout/Layout";
 import {
-  // BubbleSort,
-  // bubbleSort,
   generateDataSteps,
   sampleDataSteps,
   waitforAnim,
 } from "../../util/bubblesort";
 
 import { generateChartData } from "../../util/utility";
-import SvgRect from "../../components/svg-rect/svg-rect";
 import { randomIntFromInterval } from "../../util/utility";
 import Footer from "../../components/Layout/Footer";
 import Dropdown from "../../components/Dropdown";
@@ -91,23 +88,10 @@ export default function Bubble() {
   const [timeouts, setTimeouts] = useState([]);
   const [colorKey, setColorKey] = useState([0, 0, 0, 0, 0, 0, 0, 0, 0, 0]);
   const [colorSteps, setColorSteps] = useState([
-    [0, 0, 0, 0, 0, 0, 0, 0, 0, 0], // this directly causes a problem
+    [0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
   ]);
-  const [count, setCount] = useState(12);
-
-  const [allColors, setAllColors] = useState([
-    "#3B82F6",
-    "#8B5CF6",
-    "#F59E0B",
-    "#EF4444",
-    "rgb(13, 121, 15)",
-    "rgb(173, 216, 230)",
-    "rgb(13, 121, 152)",
-  ]);
-
-  useEffect(() => {
-    clearColorKey();
-  }, []);
+  const [count, setCount] = useState(10);
+  const [reset, setReset] = useState(false);
 
   useEffect(() => {
     generateRandom();
@@ -118,9 +102,22 @@ export default function Bubble() {
     console.log(data, "data");
   }, [currentStep]);
 
+  // useEffect(() => {
+  //   if (reset === true) {
+  //     setCurrentStep(0);
+  //     setColorKey([0, 0, 0, 0, 0, 0, 0, 0, 0, 0]);
+  //     setColorSteps([[0, 0, 0, 0, 0, 0, 0, 0, 0, 0]]);
+  //     console.log("reset true");
+  //   }
+  //   return () => {
+  //     setReset(false);
+  //   };
+  // }, [reset]);
+
   const handleInputClick = (e, inputValue) => {
     e.preventDefault();
-    reset();
+    setReset(true);
+    // console.log(colorSteps, "reset handle click");
 
     // console.log(colorSteps, "colorSteps");
 
@@ -138,6 +135,8 @@ export default function Bubble() {
       cloneColorSteps
     );
 
+    console.log(newColorSteps, "newColorSteps");
+
     // console.log(dataSteps, "dataSteps");
 
     setData(newChartData);
@@ -147,12 +146,18 @@ export default function Bubble() {
   };
 
   const generateRandom = () => {
-    const randomArr = Array.from({ length: randomIntFromInterval(8, 10) }, () =>
-      Math.floor(Math.random() * 40)
+    clearTimeouts();
+    clearColorKey();
+
+    // Maximum item in the array is 50 and least is 1
+    const randomArr = Array.from(
+      { length: 10 },
+      () => Math.floor(Math.random() * 49) + 1
     );
     const newChartData = generateChartData(randomArr);
     const cloneNewChartData = cloneDeep(newChartData);
     const cloneColorSteps = JSON.parse(JSON.stringify(colorSteps));
+    // const cloneColorSteps = [[0, 0, 0, 0, 0, 0, 0, 0, 0, 0]];
 
     const { dataSteps, colorSteps: newColorSteps } = generateDataSteps(
       cloneNewChartData,
@@ -206,9 +211,11 @@ export default function Bubble() {
     setTimeouts([]);
   };
 
-  const reset = () => {
-    setCurrentStep(0);
-  };
+  // const reset = () => {
+  //   setCurrentStep(0);
+  //   setColorKey([0, 0, 0, 0, 0, 0, 0, 0, 0, 0]);
+  //   setColorSteps([[0, 0, 0, 0, 0, 0, 0, 0, 0, 0]]);
+  // };
 
   const clearColorKey = () => {
     let blankKey = new Array(count).fill(0);
@@ -270,23 +277,6 @@ export default function Bubble() {
       <section className='h-[calc(100vh-196px)]'>
         <Dropdown />
 
-        {/* 
-      <div id='sort-viz' className='pt-[200px]'>
-        <svg
-          id='viz'
-          // height='580'
-          // width='900'
-          // width={680}
-          // height={300}
-          preserveAspectRatio='xMaxYMid meet'
-          viewBox='-40 0 680 300'
-          className='mx-auto block max-w-[1000px] text-center'
-        >
-          {data.map((item, index) => {
-            return <SvgRect key={index} index={index} item={item} />;
-          })}
-        </svg>
-      </div> */}
         <div className='mt-20 min-h-[320px]'>
           <div className='flex items-end justify-center gap-3 px-3'>
             {data.map((item, index) => (
@@ -337,27 +327,27 @@ Bubble.getLayout = function getLayout(page) {
     },
     {
       value: "Selection Sort",
-      href: "#",
+      href: "/#",
       active: false,
     },
     {
       value: "Insertion Sort",
-      href: "#",
+      href: "/#",
       active: false,
     },
     {
       value: "Merge Sort",
-      href: "#",
+      href: "/#",
       active: false,
     },
     {
       value: "Merge Sort",
-      href: "#",
+      href: "/#",
       active: false,
     },
     {
       value: "Quick Sort",
-      href: "#",
+      href: "/#",
       active: false,
     },
   ];
