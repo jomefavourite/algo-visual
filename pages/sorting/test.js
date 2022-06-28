@@ -187,7 +187,7 @@ export default function Bubble() {
     setColorKey(colorSteps[currentStep + 1]);
   };
 
-  const start = () => {
+  const start = async () => {
     // let steps = dataSteps;
     // let colorSteps = this.state.colorSteps;
 
@@ -196,8 +196,21 @@ export default function Bubble() {
     let timeouts = [];
     let i = 0;
 
+    // while (i < dataSteps.length - currentStep) {
+    //   let timeout = setTimeout(() => {
+    //     console.log(currentStep, "currentStep in while");
+    //     setData(dataSteps[currentStep]);
+    //     setColorKey(colorSteps[currentStep]);
+    //     setCurrentStep(currentStep + 1);
+    //   }, delay * i);
+
+    //   setTimeouts([timeout]);
+    //   i++;
+    // }
+
     while (i < dataSteps.length - currentStep) {
       let timeout = setTimeout(() => {
+        console.log(currentStep, "currentStep in while");
         setData(dataSteps[currentStep]);
         setColorKey(colorSteps[currentStep]);
         setCurrentStep(currentStep + 1);
@@ -212,6 +225,14 @@ export default function Bubble() {
   const clearTimeouts = () => {
     timeouts.forEach((timeout) => clearTimeout(timeout));
     setTimeouts([]);
+  };
+
+  const waitforAnim2 = function (delay = 1000, i) {
+    return new Promise((resolve) => {
+      setTimeout(() => {
+        resolve("");
+      }, delay * i);
+    });
   };
 
   // const reset = () => {
@@ -335,21 +356,6 @@ Bubble.getLayout = function getLayout(page) {
     },
     {
       value: "Insertion Sort",
-      href: "/#",
-      active: false,
-    },
-    {
-      value: "Merge Sort",
-      href: "/#",
-      active: false,
-    },
-    {
-      value: "Merge Sort",
-      href: "/#",
-      active: false,
-    },
-    {
-      value: "Quick Sort",
       href: "/#",
       active: false,
     },

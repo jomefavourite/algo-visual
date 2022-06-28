@@ -46,13 +46,33 @@ export default function Linear() {
   };
 
   const generateRandom = () => {
-    const randomArr = Array.from({ length: 11 }, () =>
-      Math.floor(Math.random() * 40)
+    let randomArr = Array.from(
+      { length: 10 },
+      () => Math.floor(Math.random() * 49) + 1
     );
 
-    const noDuplicateArray = Array.from(new Set(randomArr));
+    // const noDuplicateArray = Array.from(new Set(randomArr));
 
-    const newChartData = generateChartData(noDuplicateArray);
+    let isDuplicate = randomArr.some(
+      (item, index) => randomArr.indexOf(item) !== index
+    );
+
+    while (isDuplicate) {
+      // generateRandom();
+      randomArr = Array.from(
+        { length: 10 },
+        () => Math.floor(Math.random() * 49) + 1
+      );
+      isDuplicate = randomArr.some(
+        (item, index) => randomArr.indexOf(item) === index
+      );
+    }
+
+    console.log(randomArr, "randomArr");
+
+    // const noDuplicateArray = Array.from(new Set(randomArr));
+
+    const newChartData = generateChartData(randomArr);
 
     setData(newChartData);
   };
@@ -66,7 +86,7 @@ export default function Linear() {
       <svg
         preserveAspectRatio='xMaxYMid meet'
         viewBox='-40 0 680 300'
-        className='max-w-[1000px] mx-auto'
+        className='mx-auto max-w-[1000px]'
       >
         {data.map((item, index) => (
           <g
@@ -101,6 +121,8 @@ export default function Linear() {
       {/* <View2 /> */}
 
       <div>
+        <button onClick={generateRandom}>Generate Random</button>
+
         <p>Search for a Number above</p>
 
         <input

@@ -46,8 +46,6 @@ export default function Home() {
             <li>- Bubble sort</li>
             <li>- Selection Sort</li>
             <li>- Insertion Sort</li>
-            <li>- Merge Sort</li>
-            <li>- Quick Sort</li>
           </ul>
 
           <p>
@@ -55,16 +53,7 @@ export default function Home() {
           </p>
           <ul>
             <li>- Breadth First Search</li>
-            <li> - Depth First Search</li>
-          </ul>
-
-          <p>
-            <strong>Scheduling Algorithm</strong>
-          </p>
-          <ul>
-            <li>- First Come First Served Scheduling</li>
-            <li>- Shorted Job Next Scheduling</li>
-            <li>- Priority Scheduling</li>
+            <li>- Depth First Search</li>
           </ul>
         </div>
       </div>

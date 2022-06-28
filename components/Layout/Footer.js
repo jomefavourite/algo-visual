@@ -4,8 +4,8 @@ import { FaPlay, FaStepForward, FaStepBackward, FaPause } from "react-icons/fa";
 
 function Footer({ handleSort, playing, nextStep, previousStep, start }) {
   const handlePlay = () => {
-    handleSort();
-    // start();
+    // handleSort();
+    start();
   };
 
   return (

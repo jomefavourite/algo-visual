@@ -33,7 +33,7 @@ function Bar({ item, color }) {
 
   return (
     <div style={boxStyle} className='flex items-end justify-center'>
-      <span className='mb-3 text-[clamp(1rem,2vw,2rem)]'>{textValue}</span>
+      <span className='mb-3 text-[clamp(1rem,2vw,1.5rem)]'>{textValue}</span>
     </div>
   );
 }
