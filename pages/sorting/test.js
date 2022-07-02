@@ -8,13 +8,14 @@ import {
   generateDataSteps,
   sampleDataSteps,
   waitforAnim,
-} from "../../util/bubblesort";
+} from "../../util/sort/bubblesort";
 
 import { generateChartData } from "../../util/utility";
 import { randomIntFromInterval } from "../../util/utility";
 import Footer from "../../components/Layout/Footer";
 import Dropdown from "../../components/Dropdown";
 import Bar from "../../components/Bar";
+import { handleInputClick, generateRandom } from "../../util/sort";
 
 export default function Bubble() {
   const arr = useSelector((state) => state.algo.arr);
@@ -91,15 +92,26 @@ export default function Bubble() {
     [0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
   ]);
   const [count, setCount] = useState(10);
-  const [reset, setReset] = useState(false);
+  // const [isPaused, setIsPause] = useState(true);
+  // const [startController, setStartController] = useState(false);
 
   useEffect(() => {
-    generateRandom();
+    generateRandom(
+      clearTimeouts,
+      clearColorKey,
+      colorSteps,
+      generateDataSteps,
+      setData,
+      setColorSteps,
+      setCurrentStep,
+      setDataSteps
+    );
   }, []);
 
   useEffect(() => {
     console.log(currentStep, "currentStep");
-    console.log(data, "data");
+    // console.log(data, "data");
+    console.log(dataSteps, "dataSteps");
   }, [currentStep]);
 
   // useEffect(() => {
@@ -114,64 +126,64 @@ export default function Bubble() {
   //   };
   // }, [reset]);
 
-  const handleInputClick = (e, inputValue) => {
-    e.preventDefault();
-    // setReset(true);
-    setCurrentStep(0);
-    setColorKey([0, 0, 0, 0, 0, 0, 0, 0, 0, 0]);
-    setColorSteps([[0, 0, 0, 0, 0, 0, 0, 0, 0, 0]]);
-    // console.log(colorSteps, "reset handle click");
+  // const handleInputClick = (e, inputValue) => {
+  //   e.preventDefault();
+  //   // setReset(true);
+  //   setCurrentStep(0);
+  //   setColorKey([0, 0, 0, 0, 0, 0, 0, 0, 0, 0]);
+  //   setColorSteps([[0, 0, 0, 0, 0, 0, 0, 0, 0, 0]]);
+  //   // console.log(colorSteps, "reset handle click");
 
-    // console.log(colorSteps, "colorSteps");
+  //   // console.log(colorSteps, "colorSteps");
 
-    const arrOfInputs = inputValue.split(",").map((str) => Number(str));
-    const newChartData = generateChartData(arrOfInputs);
-    // const cloneNewChartData = JSON.parse(JSON.stringify(newChartData));
-    const cloneNewChartData = cloneDeep(newChartData);
-    const cloneColorSteps = JSON.parse(JSON.stringify(colorSteps));
+  //   const arrOfInputs = inputValue.split(",").map((str) => Number(str));
+  //   const newChartData = generateChartData(arrOfInputs);
+  //   // const cloneNewChartData = JSON.parse(JSON.stringify(newChartData));
+  //   const cloneNewChartData = cloneDeep(newChartData);
+  //   const cloneColorSteps = JSON.parse(JSON.stringify(colorSteps));
 
-    // console.log(newChartData, "newChartData");
-    // console.log(cloneNewChartData, "cloneNewChartData");
+  //   // console.log(newChartData, "newChartData");
+  //   // console.log(cloneNewChartData, "cloneNewChartData");
 
-    const { dataSteps, colorSteps: newColorSteps } = generateDataSteps(
-      cloneNewChartData,
-      cloneColorSteps
-    );
+  //   const { dataSteps, colorSteps: newColorSteps } = generateDataSteps(
+  //     cloneNewChartData,
+  //     cloneColorSteps
+  //   );
 
-    console.log(newColorSteps, "newColorSteps");
+  //   console.log(newColorSteps, "newColorSteps");
 
-    // console.log(dataSteps, "dataSteps");
+  //   // console.log(dataSteps, "dataSteps");
 
-    setData(newChartData);
-    setColorSteps(newColorSteps);
-    setCurrentStep(0);
-    setDataSteps(dataSteps);
-  };
+  //   setData(newChartData);
+  //   setColorSteps(newColorSteps);
+  //   setCurrentStep(0);
+  //   setDataSteps(dataSteps);
+  // };
 
-  const generateRandom = () => {
-    clearTimeouts();
-    clearColorKey();
+  // const generateRandom = () => {
+  //   clearTimeouts();
+  //   clearColorKey();
 
-    // Maximum item in the array is 50 and least is 1
-    const randomArr = Array.from(
-      { length: 10 },
-      () => Math.floor(Math.random() * 49) + 1
-    );
-    const newChartData = generateChartData(randomArr);
-    const cloneNewChartData = cloneDeep(newChartData);
-    const cloneColorSteps = JSON.parse(JSON.stringify(colorSteps));
-    // const cloneColorSteps = [[0, 0, 0, 0, 0, 0, 0, 0, 0, 0]];
+  //   // Maximum item in the array is 50 and least is 1
+  //   const randomArr = Array.from(
+  //     { length: 10 },
+  //     () => Math.floor(Math.random() * 49) + 1
+  //   );
+  //   const newChartData = generateChartData(randomArr);
+  //   const cloneNewChartData = cloneDeep(newChartData);
+  //   const cloneColorSteps = JSON.parse(JSON.stringify(colorSteps));
+  //   // const cloneColorSteps = [[0, 0, 0, 0, 0, 0, 0, 0, 0, 0]];
 
-    const { dataSteps, colorSteps: newColorSteps } = generateDataSteps(
-      cloneNewChartData,
-      cloneColorSteps
-    );
+  //   const { dataSteps, colorSteps: newColorSteps } = generateDataSteps(
+  //     cloneNewChartData,
+  //     cloneColorSteps
+  //   );
 
-    setData(newChartData);
-    setColorSteps(newColorSteps);
-    setCurrentStep(0);
-    setDataSteps(dataSteps);
-  };
+  //   setData(newChartData);
+  //   setColorSteps(newColorSteps);
+  //   setCurrentStep(0);
+  //   setDataSteps(dataSteps);
+  // };
 
   const previousStep = () => {
     if (currentStep === 0) return;
@@ -194,37 +206,39 @@ export default function Bubble() {
     clearTimeouts();
 
     let timeouts = [];
-    let i = 0;
+    let i = currentStep;
+    console.log(i, "i");
 
-    // while (i < dataSteps.length - currentStep) {
-    //   let timeout = setTimeout(() => {
-    //     console.log(currentStep, "currentStep in while");
-    //     setData(dataSteps[currentStep]);
-    //     setColorKey(colorSteps[currentStep]);
-    //     setCurrentStep(currentStep + 1);
-    //   }, delay * i);
+    setPlaying(true);
 
-    //   setTimeouts([timeout]);
-    //   i++;
-    // }
+    while (i < dataSteps.length - 0) {
+      await new Promise((resolve) => setTimeout(resolve, 500));
+      console.log(currentStep, "currentStep in while");
+      setCurrentStep((prev) => prev + 1);
+      setData(() => dataSteps[i]);
+      setColorKey(() => colorSteps[i]);
 
-    while (i < dataSteps.length - currentStep) {
-      let timeout = setTimeout(() => {
-        console.log(currentStep, "currentStep in while");
-        setData(dataSteps[currentStep]);
-        setColorKey(colorSteps[currentStep]);
-        setCurrentStep(currentStep + 1);
-        timeouts.push(timeout);
-      }, delay * i);
+      if (playing === false) await pauser();
+
       i++;
     }
 
-    setTimeouts([...timeouts]);
+    setPlaying(false);
+
+    // setTimeouts([...timeouts]);
+  };
+
+  const pauser = async () => {
+    return await new Promise((resolve) => {
+      setPlaying(false);
+      resolve("resolved");
+    });
   };
 
   const clearTimeouts = () => {
     timeouts.forEach((timeout) => clearTimeout(timeout));
     setTimeouts([]);
+    0;
   };
 
   const waitforAnim2 = function (delay = 1000, i) {
@@ -252,9 +266,6 @@ export default function Bubble() {
   // let regex2 = new RegExp(/^[0-50]/);
   // const found = regex.test("2,3,4");
   // console.log(regex2.test("59"));
-
-  const speed =
-    570 - Math.pow(arr.length, 2) > 0 ? 570 - Math.pow(arr.length, 2) : 0;
 
   const handleBubbleSort = async () => {
     console.log("clicked called");
@@ -309,9 +320,38 @@ export default function Bubble() {
           </div>
         </div>
 
-        <button onClick={generateRandom}>Generate Random</button>
+        <button
+          onClick={() =>
+            generateRandom(
+              clearTimeouts,
+              clearColorKey,
+              colorSteps,
+              generateDataSteps,
+              setData,
+              setColorSteps,
+              setCurrentStep,
+              setDataSteps
+            )
+          }
+        >
+          Generate Random
+        </button>
 
-        <form onSubmit={(e) => handleInputClick(e, inputValue)}>
+        <form
+          onSubmit={(e) =>
+            handleInputClick(
+              e,
+              inputValue,
+              setCurrentStep,
+              setColorKey,
+              setColorSteps,
+              colorSteps,
+              generateDataSteps,
+              setData,
+              setDataSteps
+            )
+          }
+        >
           <input
             type='text'
             value={inputValue}
@@ -331,6 +371,7 @@ export default function Bubble() {
         playing={playing}
         nextStep={nextStep}
         previousStep={previousStep}
+        pauser={pauser}
       />
     </>
   );

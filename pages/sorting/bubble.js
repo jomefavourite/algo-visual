@@ -8,7 +8,7 @@ import bubbleSort2, {
   BubbleSort,
   bubbleSort,
   waitforAnim,
-} from "../../util/bubblesort";
+} from "../../util/sort/bubblesort";
 
 import { generateChartData } from "../../util/utility";
 import SvgRect from "../../components/svg-rect/svg-rect";
@@ -242,7 +242,7 @@ export default function Bubble() {
           // height={300}
           preserveAspectRatio='xMaxYMid meet'
           viewBox='-40 0 680 300'
-          className='max-w-[1000px] mx-auto text-center block'
+          className='mx-auto block max-w-[1000px] text-center'
         >
           {data.map((item, index) => {
             return <SvgRect key={index} index={index} item={item} />;

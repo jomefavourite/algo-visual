@@ -75,3 +75,15 @@ function determineChartData(arr, h) {
 export function randomIntFromInterval(min, max) {
   return Math.floor(Math.random() * (max - min + 1) + min);
 }
+
+export const swap = (data, i, j) => {
+  const { translateX: x1, translateY: y1 } = data[i];
+  const { translateX: x2, translateY: y2 } = data[j];
+
+  data[i].translateX = x2;
+  data[j].translateX = x1;
+
+  [data[i], data[j]] = [data[j], data[i]];
+
+  // return data;
+};

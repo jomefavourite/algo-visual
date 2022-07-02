@@ -2,10 +2,24 @@ import React, { useState, memo } from "react";
 
 import { FaPlay, FaStepForward, FaStepBackward, FaPause } from "react-icons/fa";
 
-function Footer({ handleSort, playing, nextStep, previousStep, start }) {
-  const handlePlay = () => {
+function Footer({
+  handleSort,
+  playing,
+  nextStep,
+  previousStep,
+  start,
+  pauser,
+}) {
+  const handlePlay = (type) => {
     // handleSort();
-    start();
+    console.log(type);
+
+    if (type === "play") {
+      start();
+    } else {
+      console.log("pause");
+      pauser();
+    }
   };
 
   return (
@@ -14,11 +28,18 @@ function Footer({ handleSort, playing, nextStep, previousStep, start }) {
         <button className='cursor-pointer' onClick={() => previousStep()}>
           <FaStepBackward />
         </button>
-        <button className='cursor-pointer' onClick={handlePlay}>
+        <button
+          className='cursor-pointer'
+          data-key={playing ? "pause" : "play"}
+          onClick={(e) => handlePlay(e.target.dataset.key)}
+        >
           {playing ? (
-            <FaPause className='text-2xl' />
+            <FaPause
+              data-key='pause'
+              className='pointer-events-none text-2xl'
+            />
           ) : (
-            <FaPlay className='text-2xl' />
+            <FaPlay data-key='play' className='pointer-events-none text-2xl' />
           )}
         </button>
         <button className='cursor-pointer' onClick={() => nextStep()}>

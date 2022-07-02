@@ -4,64 +4,39 @@ import {
   setCurrentSwapItems,
   setRunning,
   setArray,
-} from "../redux/algo.actions";
-
-var red_color = "#EF4444"; // picked 2
-var blue_color = "#3B82F6"; // default color
-var yellow_color = "#F59E0B"; // selected
-var purple_color = "#8B5CF6";
+} from "../../redux/algo.actions";
+import { swap } from "../utility";
 
 export function generateDataSteps(data, colorSteps) {
   const cloneData = JSON.parse(JSON.stringify(data));
-  const cloneData2 = JSON.parse(JSON.stringify(data));
+  const newColorSteps = [[0, 0, 0, 0, 0, 0, 0, 0, 0, 0]];
+  const colorKey = [0, 0, 0, 0, 0, 0, 0, 0, 0, 0];
 
   let dataSteps = [];
-  dataSteps.push(cloneData2);
+  dataSteps.push(JSON.parse(JSON.stringify(data)));
 
   for (let i = 0; i < cloneData.length - 1; i++) {
     for (let j = 0; j < cloneData.length - i - 1; j++) {
       if (+cloneData[j].textValue > +cloneData[j + 1].textValue) {
         swap(cloneData, j, j + 1);
       }
-      dataSteps.push([...cloneData]);
-    }
-    dataSteps.push([...cloneData]);
-  }
-  const newColorSteps = generateColorSteps(data);
-  colorSteps = newColorSteps;
-
-  return { dataSteps, colorSteps };
-}
-
-function generateColorSteps(data) {
-  const colorSteps = [[0, 0, 0, 0, 0, 0, 0, 0, 0, 0]];
-  const colorKey = [0, 0, 0, 0, 0, 0, 0, 0, 0, 0];
-  for (let i = 0; i < data.length - 1; i++) {
-    for (let j = 0; j < data.length - i - 1; j++) {
       colorKey[j] = 1;
       colorKey[j + 1] = 1;
-      colorSteps.push(colorKey.slice());
+      dataSteps.push([...cloneData]);
+      newColorSteps.push(colorKey.slice());
       colorKey[j] = 0;
       colorKey[j + 1] = 0;
     }
     colorKey[data.length - 1 - i] = 2;
-    colorSteps.push([...colorKey]);
+    dataSteps.push([...cloneData]);
+    newColorSteps.push([...colorKey]);
   }
-  colorSteps[colorSteps.length - 1] = new Array(data.length).fill(2);
-  return colorSteps;
+  newColorSteps[newColorSteps.length - 1] = new Array(data.length).fill(2);
+  // const newColorSteps = generateColorSteps(data);
+  colorSteps = newColorSteps;
+
+  return { dataSteps, colorSteps };
 }
-
-const swap = (data, i, j) => {
-  const { translateX: x1, translateY: y1 } = data[i];
-  const { translateX: x2, translateY: y2 } = data[j];
-
-  data[i].translateX = x2;
-  data[j].translateX = x1;
-
-  [data[i], data[j]] = [data[j], data[i]];
-
-  // return data;
-};
 
 function swapProperties(sourceObj, sourceKey, targetObj, targetKey) {
   var temp = sourceObj[sourceKey];
