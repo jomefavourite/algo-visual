@@ -7,3 +7,9 @@ text {
   /* font: 20px sans-serif; */
   text-anchor: middle;
 }
+
+.container {
+  width: 90%;
+  max-width: 1400px;
+  margin: 0 auto;
+}

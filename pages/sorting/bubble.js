@@ -1,17 +1,7 @@
 import Head from "next/head";
-import { useState, useEffect, useRef, useLayoutEffect } from "react";
-import { useDispatch, useSelector } from "react-redux";
-import { setArray } from "../../redux/algo.actions";
-import { cloneDeep } from "lodash";
+import { useState, useEffect } from "react";
 import Layout from "../../components/Layout/Layout";
-import {
-  generateDataSteps,
-  sampleDataSteps,
-  waitforAnim,
-} from "../../util/sort/bubblesort";
-
-import { generateChartData } from "../../util/utility";
-import { randomIntFromInterval } from "../../util/utility";
+import { generateDataSteps } from "../../util/sort/bubblesort";
 import Footer from "../../components/Layout/Footer";
 import Dropdown from "../../components/Dropdown";
 import Bar from "../../components/Bar";
@@ -28,7 +18,6 @@ import BoxView from "../../components/BoxView";
 import Loader from "../../components/Loader";
 
 export default function Bubble() {
-  const arr = useSelector((state) => state.algo.arr);
   const [playing, setPlaying] = useState(false);
   const [inputValue, setInputValue] = useState("");
   const [data, setData] = useState([]);
@@ -42,8 +31,6 @@ export default function Bubble() {
   ]);
   const [count, setCount] = useState(10);
   const [view, setView] = useState("chartView");
-  // const [isPaused, setIsPause] = useState(true);
-  // const [startController, setStartController] = useState(false);
 
   useEffect(() => {
     generateRandom(
@@ -123,20 +110,6 @@ export default function Bubble() {
     0;
   };
 
-  const waitforAnim2 = function (delay = 1000, i) {
-    return new Promise((resolve) => {
-      setTimeout(() => {
-        resolve("");
-      }, delay * i);
-    });
-  };
-
-  // const reset = () => {
-  //   setCurrentStep(0);
-  //   setColorKey([0, 0, 0, 0, 0, 0, 0, 0, 0, 0]);
-  //   setColorSteps([[0, 0, 0, 0, 0, 0, 0, 0, 0, 0]]);
-  // };
-
   const clearColorKey = () => {
     let blankKey = new Array(count).fill(0);
 
@@ -149,7 +122,8 @@ export default function Bubble() {
       <Head>
         <title>Bubble Sort</title>
       </Head>
-      <section className='h-[calc(100vh-196px)]'>
+
+      <div className='container h-[calc(100vh-196px)]'>
         <Dropdown view={view} setView={setView} />
 
         <div className='mt-20 grid min-h-[320px] place-content-center'>
@@ -166,7 +140,7 @@ export default function Bubble() {
               )}
 
               {view === "boxView" && (
-                <div className='flex justify-center px-3'>
+                <div className='flex justify-center'>
                   {data.map((item, index) => (
                     <BoxView key={index} item={item} color={colorKey[index]} />
                   ))}
@@ -205,10 +179,9 @@ export default function Bubble() {
           />
           <button>Set inputs</button>
         </form>
-      </section>
+      </div>
 
       <Footer
-        // handleSort={handleBubbleSort}
         start={handleStart}
         playing={playing}
         nextStep={handleNextStep}

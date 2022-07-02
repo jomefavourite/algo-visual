@@ -335,6 +335,7 @@ export default function Insertion() {
 }
 
 Insertion.getLayout = function getLayout(page) {
+  const pageTitle = "Sorting Algorithm";
   const options = handleNavigation("insertion");
 
   return <Layout options={options}>{page}</Layout>;

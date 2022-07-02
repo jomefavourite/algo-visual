@@ -237,58 +237,22 @@ export const handleNavigation = (page) => {
     {
       value: "Home",
       href: "/",
-      active:
-        page === "home"
-          ? true
-          : page === "bubble"
-          ? true
-          : page === "selection"
-          ? true
-          : page === "insertion"
-          ? true
-          : false,
+      active: page === "home" ? true : false,
     },
     {
       value: "Bubble Sort",
       href: "/sorting/bubble",
-      active:
-        page === "home"
-          ? true
-          : page === "bubble"
-          ? true
-          : page === "selection"
-          ? true
-          : page === "insertion"
-          ? true
-          : false,
+      active: page === "bubble" ? true : false,
     },
     {
       value: "Selection Sort",
       href: "/sorting/selection",
-      active:
-        page === "home"
-          ? true
-          : page === "bubble"
-          ? true
-          : page === "selection"
-          ? true
-          : page === "insertion"
-          ? true
-          : false,
+      active: page === "selection" ? true : false,
     },
     {
       value: "Insertion Sort",
       href: "/sorting/insertion",
-      active:
-        page === "home"
-          ? true
-          : page === "bubble"
-          ? true
-          : page === "selection"
-          ? true
-          : page === "insertion"
-          ? true
-          : false,
+      active: page === "insertion" ? true : false,
     },
   ];
 };

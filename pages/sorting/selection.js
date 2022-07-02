@@ -420,28 +420,30 @@ export default function Selection() {
         <title>Selection Sort</title>
       </Head>
 
-      <div className='mt-20 min-h-[320px]'>
-        <div className='flex h-[300px] items-end justify-center gap-3 px-3'>
-          {data.map((item, index) => (
-            <Bar key={index} item={item} color={colorKey[index]} />
-          ))}
+      <section className='h-[calc(100vh-196px)]'>
+        <div className='mt-20 min-h-[320px]'>
+          <div className='flex h-[300px] items-end justify-center gap-3 px-3'>
+            {data.map((item, index) => (
+              <Bar key={index} item={item} color={colorKey[index]} />
+            ))}
+          </div>
         </div>
-      </div>
 
-      <button onClick={generateRandom}>Generate Random</button>
+        <button onClick={generateRandom}>Generate Random</button>
 
-      <form onSubmit={(e) => handleInputClick(e, inputValue)}>
-        <input
-          type='text'
-          value={inputValue}
-          placeholder='12,20,33,45,20'
-          className='bg-black text-white'
-          onChange={(event) => {
-            setInputValue(event.target.value);
-          }}
-        />
-        <button>Set inputs</button>
-      </form>
+        <form onSubmit={(e) => handleInputClick(e, inputValue)}>
+          <input
+            type='text'
+            value={inputValue}
+            placeholder='12,20,33,45,20'
+            className='bg-black text-white'
+            onChange={(event) => {
+              setInputValue(event.target.value);
+            }}
+          />
+          <button>Set inputs</button>
+        </form>
+      </section>
 
       {/* <Footer handleSort={handleSelectionSort} playing={playing} /> */}
 
@@ -458,6 +460,7 @@ export default function Selection() {
 }
 
 Selection.getLayout = function getLayout(page) {
+  const pageTitle = "Sorting Algorithm";
   const options = handleNavigation("selection");
 
   return <Layout options={options}>{page}</Layout>;
