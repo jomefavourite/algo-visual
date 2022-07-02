@@ -24,6 +24,7 @@ import {
   pauser,
   handleNavigation,
 } from "../../util/sort";
+import BoxView from "../../components/BoxView";
 
 export default function Bubble() {
   const arr = useSelector((state) => state.algo.arr);
@@ -100,6 +101,7 @@ export default function Bubble() {
     [0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
   ]);
   const [count, setCount] = useState(10);
+  const [view, setView] = useState("chartView");
   // const [isPaused, setIsPause] = useState(true);
   // const [startController, setStartController] = useState(false);
 
@@ -208,14 +210,24 @@ export default function Bubble() {
         <title>Bubble Sort</title>
       </Head>
       <section className='h-[calc(100vh-196px)]'>
-        <Dropdown />
+        <Dropdown view={view} setView={setView} />
 
-        <div className='mt-20 min-h-[320px]'>
-          <div className='flex h-[300px] items-end justify-center gap-3 px-3'>
-            {data.map((item, index) => (
-              <Bar key={index} item={item} color={colorKey[index]} />
-            ))}
-          </div>
+        <div className='mt-20 grid min-h-[320px] place-content-center'>
+          {view === "chartView" && (
+            <div className='flex h-[300px] items-end justify-center gap-3 px-3'>
+              {data.map((item, index) => (
+                <Bar key={index} item={item} color={colorKey[index]} />
+              ))}
+            </div>
+          )}
+
+          {view === "boxView" && (
+            <div className='flex justify-center px-3'>
+              {data.map((item, index) => (
+                <BoxView key={index} item={item} color={colorKey[index]} />
+              ))}
+            </div>
+          )}
         </div>
 
         <button onClick={() => handleGenerateRandom()}>Generate Random</button>
@@ -240,6 +252,7 @@ export default function Bubble() {
             value={inputValue}
             placeholder='12,20,33,45,20'
             className='bg-black text-white'
+            pattern='^[-+]?(\d{1,3})(,?(?1))*$'
             onChange={(event) => {
               setInputValue(event.target.value);
             }}

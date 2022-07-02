@@ -3,10 +3,10 @@ import React from "react";
 
 export default function Navigation({ options, pageTitle }) {
   return (
-    <nav className='bg-black p-3 text-white'>
+    <nav className='flex w-full items-center bg-black p-3 text-white'>
       <h2 className='text-white'>{pageTitle}</h2>
 
-      <ul className='flex space-x-4 overflow-auto w-full'>
+      <ul className='flex w-full space-x-4'>
         {options.map((option, id) => (
           <li key={id}>
             <Link href={`${option.href}`}>

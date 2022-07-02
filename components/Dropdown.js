@@ -1,15 +1,15 @@
 import { useState } from "react";
 
-export default function Dropdown() {
-  const [options, setOptions] = useState("");
-
-  const handleChange = () => {};
+export default function Dropdown({ view, setView }) {
+  const handleChange = (e) => {
+    setView(e.target.value);
+  };
 
   return (
     <>
       <select name='options' onChange={handleChange} className='border'>
-        <option value='bar view'>Chart View</option>
-        <option value='bar view'>Box View</option>
+        <option value='chartView'>Chart View</option>
+        <option value='boxView'>Box View</option>
       </select>
     </>
   );
