@@ -93,29 +93,49 @@ export const generateRandom = (
   setDataSteps(dataSteps);
 };
 
-const previousStep = () => {
+export const previousStep = (
+  currentStep,
+  setCurrentStep,
+  setData,
+  dataSteps,
+  setColorKey,
+  colorSteps
+) => {
   if (currentStep === 0) return;
   setCurrentStep(currentStep - 1);
   setData(dataSteps[currentStep - 1]);
   setColorKey(colorSteps[currentStep - 1]);
 };
 
-const nextStep = () => {
+export const nextStep = (
+  currentStep,
+  setCurrentStep,
+  setData,
+  dataSteps,
+  setColorKey,
+  colorSteps
+) => {
   if (currentStep >= dataSteps.length - 1) return;
   setCurrentStep(currentStep + 1);
   setData(dataSteps[currentStep + 1]);
   setColorKey(colorSteps[currentStep + 1]);
 };
 
-const start = async () => {
-  // let steps = dataSteps;
-  // let colorSteps = this.state.colorSteps;
-
+export const start = async (
+  clearTimeouts,
+  currentStep,
+  setPlaying,
+  dataSteps,
+  setCurrentStep,
+  setData,
+  setColorKey,
+  playing,
+  colorSteps
+) => {
   clearTimeouts();
 
   let timeouts = [];
   let i = currentStep;
-  console.log(i, "i");
 
   setPlaying(true);
 
@@ -126,7 +146,7 @@ const start = async () => {
     setData(() => dataSteps[i]);
     setColorKey(() => colorSteps[i]);
 
-    if (playing === false) await pauser();
+    if (playing === false) await pauser(setPlaying);
 
     i++;
   }
@@ -136,7 +156,7 @@ const start = async () => {
   // setTimeouts([...timeouts]);
 };
 
-const pauser = async () => {
+export const pauser = async (setPlaying) => {
   return await new Promise((resolve) => {
     setPlaying(false);
     resolve("resolved");
@@ -210,4 +230,65 @@ const handleBubbleSort = async () => {
   }
 
   setPlaying(false);
+};
+
+export const handleNavigation = (page) => {
+  return [
+    {
+      value: "Home",
+      href: "/",
+      active:
+        page === "home"
+          ? true
+          : page === "bubble"
+          ? true
+          : page === "selection"
+          ? true
+          : page === "insertion"
+          ? true
+          : false,
+    },
+    {
+      value: "Bubble Sort",
+      href: "/sorting/bubble",
+      active:
+        page === "home"
+          ? true
+          : page === "bubble"
+          ? true
+          : page === "selection"
+          ? true
+          : page === "insertion"
+          ? true
+          : false,
+    },
+    {
+      value: "Selection Sort",
+      href: "/sorting/selection",
+      active:
+        page === "home"
+          ? true
+          : page === "bubble"
+          ? true
+          : page === "selection"
+          ? true
+          : page === "insertion"
+          ? true
+          : false,
+    },
+    {
+      value: "Insertion Sort",
+      href: "/sorting/insertion",
+      active:
+        page === "home"
+          ? true
+          : page === "bubble"
+          ? true
+          : page === "selection"
+          ? true
+          : page === "insertion"
+          ? true
+          : false,
+    },
+  ];
 };

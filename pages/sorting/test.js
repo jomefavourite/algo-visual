@@ -15,7 +15,15 @@ import { randomIntFromInterval } from "../../util/utility";
 import Footer from "../../components/Layout/Footer";
 import Dropdown from "../../components/Dropdown";
 import Bar from "../../components/Bar";
-import { handleInputClick, generateRandom } from "../../util/sort";
+import {
+  handleInputClick,
+  generateRandom,
+  previousStep,
+  nextStep,
+  start,
+  pauser,
+  handleNavigation,
+} from "../../util/sort";
 
 export default function Bubble() {
   const arr = useSelector((state) => state.algo.arr);
@@ -114,125 +122,57 @@ export default function Bubble() {
     console.log(dataSteps, "dataSteps");
   }, [currentStep]);
 
-  // useEffect(() => {
-  //   if (reset === true) {
-  //     setCurrentStep(0);
-  //     setColorKey([0, 0, 0, 0, 0, 0, 0, 0, 0, 0]);
-  //     setColorSteps([[0, 0, 0, 0, 0, 0, 0, 0, 0, 0]]);
-  //     console.log("reset true");
-  //   }
-  //   return () => {
-  //     setReset(false);
-  //   };
-  // }, [reset]);
-
-  // const handleInputClick = (e, inputValue) => {
-  //   e.preventDefault();
-  //   // setReset(true);
-  //   setCurrentStep(0);
-  //   setColorKey([0, 0, 0, 0, 0, 0, 0, 0, 0, 0]);
-  //   setColorSteps([[0, 0, 0, 0, 0, 0, 0, 0, 0, 0]]);
-  //   // console.log(colorSteps, "reset handle click");
-
-  //   // console.log(colorSteps, "colorSteps");
-
-  //   const arrOfInputs = inputValue.split(",").map((str) => Number(str));
-  //   const newChartData = generateChartData(arrOfInputs);
-  //   // const cloneNewChartData = JSON.parse(JSON.stringify(newChartData));
-  //   const cloneNewChartData = cloneDeep(newChartData);
-  //   const cloneColorSteps = JSON.parse(JSON.stringify(colorSteps));
-
-  //   // console.log(newChartData, "newChartData");
-  //   // console.log(cloneNewChartData, "cloneNewChartData");
-
-  //   const { dataSteps, colorSteps: newColorSteps } = generateDataSteps(
-  //     cloneNewChartData,
-  //     cloneColorSteps
-  //   );
-
-  //   console.log(newColorSteps, "newColorSteps");
-
-  //   // console.log(dataSteps, "dataSteps");
-
-  //   setData(newChartData);
-  //   setColorSteps(newColorSteps);
-  //   setCurrentStep(0);
-  //   setDataSteps(dataSteps);
-  // };
-
-  // const generateRandom = () => {
-  //   clearTimeouts();
-  //   clearColorKey();
-
-  //   // Maximum item in the array is 50 and least is 1
-  //   const randomArr = Array.from(
-  //     { length: 10 },
-  //     () => Math.floor(Math.random() * 49) + 1
-  //   );
-  //   const newChartData = generateChartData(randomArr);
-  //   const cloneNewChartData = cloneDeep(newChartData);
-  //   const cloneColorSteps = JSON.parse(JSON.stringify(colorSteps));
-  //   // const cloneColorSteps = [[0, 0, 0, 0, 0, 0, 0, 0, 0, 0]];
-
-  //   const { dataSteps, colorSteps: newColorSteps } = generateDataSteps(
-  //     cloneNewChartData,
-  //     cloneColorSteps
-  //   );
-
-  //   setData(newChartData);
-  //   setColorSteps(newColorSteps);
-  //   setCurrentStep(0);
-  //   setDataSteps(dataSteps);
-  // };
-
-  const previousStep = () => {
-    if (currentStep === 0) return;
-    setCurrentStep(currentStep - 1);
-    setData(dataSteps[currentStep - 1]);
-    setColorKey(colorSteps[currentStep - 1]);
+  const handlePreviousStep = () => {
+    previousStep(
+      currentStep,
+      setCurrentStep,
+      setData,
+      dataSteps,
+      setColorKey,
+      colorSteps
+    );
   };
 
-  const nextStep = () => {
-    if (currentStep >= dataSteps.length - 1) return;
-    setCurrentStep(currentStep + 1);
-    setData(dataSteps[currentStep + 1]);
-    setColorKey(colorSteps[currentStep + 1]);
+  const handleNextStep = () => {
+    nextStep(
+      currentStep,
+      setCurrentStep,
+      setData,
+      dataSteps,
+      setColorKey,
+      colorSteps
+    );
   };
 
-  const start = async () => {
-    // let steps = dataSteps;
-    // let colorSteps = this.state.colorSteps;
-
-    clearTimeouts();
-
-    let timeouts = [];
-    let i = currentStep;
-    console.log(i, "i");
-
-    setPlaying(true);
-
-    while (i < dataSteps.length - 0) {
-      await new Promise((resolve) => setTimeout(resolve, 500));
-      console.log(currentStep, "currentStep in while");
-      setCurrentStep((prev) => prev + 1);
-      setData(() => dataSteps[i]);
-      setColorKey(() => colorSteps[i]);
-
-      if (playing === false) await pauser();
-
-      i++;
-    }
-
-    setPlaying(false);
-
-    // setTimeouts([...timeouts]);
+  const handleStart = () => {
+    start(
+      clearTimeouts,
+      currentStep,
+      setPlaying,
+      dataSteps,
+      setCurrentStep,
+      setData,
+      setColorKey,
+      playing,
+      colorSteps
+    );
   };
 
-  const pauser = async () => {
-    return await new Promise((resolve) => {
-      setPlaying(false);
-      resolve("resolved");
-    });
+  const handlePause = () => {
+    pauser(setPlaying);
+  };
+
+  const handleGenerateRandom = () => {
+    generateRandom(
+      clearTimeouts,
+      clearColorKey,
+      colorSteps,
+      generateDataSteps,
+      setData,
+      setColorSteps,
+      setCurrentStep,
+      setDataSteps
+    );
   };
 
   const clearTimeouts = () => {
@@ -262,48 +202,6 @@ export default function Bubble() {
     setColorSteps([blankKey]);
   };
 
-  // let regex = new RegExp(/^[0-9](,[1-8])*$/);
-  // let regex2 = new RegExp(/^[0-50]/);
-  // const found = regex.test("2,3,4");
-  // console.log(regex2.test("59"));
-
-  const handleBubbleSort = async () => {
-    console.log("clicked called");
-    setPlaying(true);
-    let res = [...data];
-
-    const swapper = (data, i, j) => {
-      const { translateX: x1, translateY: y1 } = data[i];
-      const { translateX: x2, translateY: y2 } = data[j];
-      data[i].translateX = x2;
-      data[j].translateX = x1;
-      [data[i], data[j]] = [data[j], data[i]];
-    };
-
-    for (let i = res.length; i > 0; i--) {
-      for (var j = 0; j < i - 1; j++) {
-        res[j].fillColor = "#F59E0B";
-        res[j + 1].fillColor = "#F59E0B";
-        setData([...res]);
-        await waitforAnim();
-
-        if (+res[j].textValue > +res[j + 1].textValue) {
-          await waitforAnim();
-          swapper(res, j, j + 1);
-          await waitforAnim();
-          setData([...res]);
-        }
-
-        res[j].fillColor = "rgb(173, 216, 230)";
-        res[j + 1].fillColor = "rgb(173, 216, 230)";
-      }
-
-      res[i - 1].fillColor = "#3B82F6";
-    }
-
-    setPlaying(false);
-  };
-
   return (
     <>
       <Head>
@@ -320,22 +218,7 @@ export default function Bubble() {
           </div>
         </div>
 
-        <button
-          onClick={() =>
-            generateRandom(
-              clearTimeouts,
-              clearColorKey,
-              colorSteps,
-              generateDataSteps,
-              setData,
-              setColorSteps,
-              setCurrentStep,
-              setDataSteps
-            )
-          }
-        >
-          Generate Random
-        </button>
+        <button onClick={() => handleGenerateRandom()}>Generate Random</button>
 
         <form
           onSubmit={(e) =>
@@ -366,12 +249,12 @@ export default function Bubble() {
       </section>
 
       <Footer
-        handleSort={handleBubbleSort}
-        start={start}
+        // handleSort={handleBubbleSort}
+        start={handleStart}
         playing={playing}
-        nextStep={nextStep}
-        previousStep={previousStep}
-        pauser={pauser}
+        nextStep={handleNextStep}
+        previousStep={handlePreviousStep}
+        pauser={handlePause}
       />
     </>
   );
@@ -379,28 +262,7 @@ export default function Bubble() {
 
 Bubble.getLayout = function getLayout(page) {
   const pageTitle = "Sorting Algorithm";
-  const options = [
-    {
-      value: "Home",
-      href: "/",
-      active: false,
-    },
-    {
-      value: "Bubble Sort",
-      href: "/sorting/bubble",
-      active: true,
-    },
-    {
-      value: "Selection Sort",
-      href: "/#",
-      active: false,
-    },
-    {
-      value: "Insertion Sort",
-      href: "/#",
-      active: false,
-    },
-  ];
+  const options = handleNavigation("bubble");
 
   return (
     <Layout pageTitle={pageTitle} options={options}>

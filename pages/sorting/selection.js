@@ -12,6 +12,7 @@ import { randomIntFromInterval } from "../../util/utility";
 import Footer from "../../components/Layout/Footer";
 import { cloneDeep } from "lodash";
 import Bar from "../../components/Bar";
+import { handleNavigation } from "../../util/sort";
 
 export default function Selection() {
   const dispatch = useDispatch();
@@ -457,43 +458,7 @@ export default function Selection() {
 }
 
 Selection.getLayout = function getLayout(page) {
-  const options = [
-    {
-      value: "Home",
-      href: "/",
-      active: false,
-    },
-    {
-      value: "Bubble Sort",
-      href: "/sorting/bubble",
-      active: false,
-    },
-    {
-      value: "Selection Sort",
-      href: "/sorting/selection",
-      active: true,
-    },
-    {
-      value: "Insertion Sort",
-      href: "#",
-      active: false,
-    },
-    {
-      value: "Merge Sort",
-      href: "#",
-      active: false,
-    },
-    {
-      value: "Merge Sort",
-      href: "#",
-      active: false,
-    },
-    {
-      value: "Quick Sort",
-      href: "#",
-      active: false,
-    },
-  ];
+  const options = handleNavigation("selection");
 
   return <Layout options={options}>{page}</Layout>;
 };

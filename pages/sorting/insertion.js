@@ -12,6 +12,7 @@ import { randomIntFromInterval } from "../../util/utility";
 import Footer from "../../components/Layout/Footer";
 import { cloneDeep } from "lodash";
 import Bar from "../../components/Bar";
+import { handleNavigation } from "../../util/sort";
 
 export default function Insertion() {
   const dispatch = useDispatch();
@@ -334,43 +335,7 @@ export default function Insertion() {
 }
 
 Insertion.getLayout = function getLayout(page) {
-  const options = [
-    {
-      value: "Home",
-      href: "/",
-      active: false,
-    },
-    {
-      value: "Bubble Sort",
-      href: "/sorting/bubble",
-      active: false,
-    },
-    {
-      value: "Insertion Sort",
-      href: "/sorting/Insertion",
-      active: true,
-    },
-    {
-      value: "Insertion Sort",
-      href: "#",
-      active: false,
-    },
-    {
-      value: "Merge Sort",
-      href: "#",
-      active: false,
-    },
-    {
-      value: "Merge Sort",
-      href: "#",
-      active: false,
-    },
-    {
-      value: "Quick Sort",
-      href: "#",
-      active: false,
-    },
-  ];
+  const options = handleNavigation("insertion");
 
   return <Layout options={options}>{page}</Layout>;
 };
