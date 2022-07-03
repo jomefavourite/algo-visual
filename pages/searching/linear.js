@@ -6,9 +6,8 @@ import BoxView from "../../components/BoxView";
 import Dropdown from "../../components/Dropdown";
 import Footer from "../../components/Layout/Footer";
 import Layout from "../../components/Layout/Layout";
-import View2 from "../../components/LinearSearch/View2";
 import Loader from "../../components/Loader";
-import { generateDataSteps, LinearSearch } from "../../util/search/linear";
+import { generateDataSteps } from "../../util/search/linear";
 import {
   generateChartData,
   randomIntFromInterval,
