@@ -50,3 +50,64 @@ export function LinearSearch(arr, search_Element) {
   // If element not found
   if (position == -1) return position;
 }
+
+// export const generateDataSteps = (data, steps, key, colorSteps) => {
+//   const cloneData = JSON.parse(JSON.stringify(data));
+//   const newColorSteps = [[0, 0, 0, 0, 0, 0, 0, 0, 0, 0]];
+//   // const colorKey = [0, 0, 0, 0, 0, 0, 0, 0, 0, 0];
+
+//   let dataSteps = [];
+//   dataSteps.push(JSON.parse(JSON.stringify(data)));
+
+//   for (let i = 0; i < array.length; i++) {
+//     let colorKey = new Array(array.length).fill(0);
+//     colorKey[i] = 1;
+//     newColorSteps.push(colorKey.slice());
+//     steps.push(array.slice());
+//     if (array[i] === key) {
+//       colorKey[i] = 2;
+//       newColorSteps.push(colorKey);
+//       steps.push(array.slice());
+//       return;
+//     }
+//   }
+
+//   let colorKey = new Array(array.length).fill(3);
+//   newColorSteps.push(colorKey.slice());
+//   steps.push(array.slice());
+
+//   colorSteps = newColorSteps;
+
+//   return { dataSteps, colorSteps };
+// };
+
+export function generateDataSteps(data, key, colorSteps) {
+  const newColorSteps = [new Array(data.length).fill(0)];
+
+  let dataSteps = [[...data]];
+
+  for (let i = 0; i < data.length; i++) {
+    let colorKey = new Array(data.length).fill(0);
+    colorKey[i] = 1;
+    newColorSteps.push(colorKey.slice());
+    dataSteps.push([...data]);
+
+    if (Number(data[i].textValue) === key) {
+      colorKey[i] = 2;
+      newColorSteps.push(colorKey);
+      dataSteps.push([...data]);
+      colorSteps = newColorSteps;
+
+      return { dataSteps, colorSteps };
+    }
+  }
+
+  // color 3 is when the key isn't found
+  let colorKey = new Array(data.length).fill(3);
+  newColorSteps.push(colorKey.slice());
+  dataSteps.push([...data]);
+
+  colorSteps = newColorSteps;
+
+  return { dataSteps, colorSteps };
+}

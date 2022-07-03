@@ -140,7 +140,7 @@ export const start = async (
   setPlaying(true);
 
   while (i < dataSteps.length - 0) {
-    await new Promise((resolve) => setTimeout(resolve, 500));
+    await new Promise((resolve) => setTimeout(resolve, 10));
     console.log(currentStep, "currentStep in while");
     setCurrentStep((prev) => prev + 1);
     setData(() => dataSteps[i]);

@@ -1,12 +1,11 @@
 import Head from "next/head";
 import { useState, useEffect, useRef } from "react";
-import { useDispatch, useSelector } from "react-redux";
 import { setArray } from "../../redux/algo.actions";
 import { times } from "lodash";
 import Layout from "../../components/Layout/Layout";
 import { generateDataSteps } from "../../util/sort/selectionsort";
 
-import { generateChartData } from "../../util/utility";
+import { generateChartData, waitForme } from "../../util/utility";
 import SvgRect from "../../components/svg-rect/svg-rect";
 import { randomIntFromInterval } from "../../util/utility";
 import Footer from "../../components/Layout/Footer";
@@ -15,7 +14,6 @@ import Bar from "../../components/Bar";
 import { handleNavigation } from "../../util/sort";
 
 export default function Selection() {
-  const dispatch = useDispatch();
   const arr = useSelector((state) => state.algo.arr);
 
   // const [inputValue, setInputValue] = useState("");
@@ -147,68 +145,7 @@ export default function Selection() {
 
   const [playing, setPlaying] = useState(false);
   const [inputValue, setInputValue] = useState("");
-  const [data, setData] = useState([
-    {
-      textValue: "26",
-      textY: "107.04081632653062",
-      rectWidth: "45",
-      rectHeight: "122.04081632653062",
-    },
-    {
-      textValue: "20",
-      textY: "78.87755102040816",
-      rectWidth: "45",
-      rectHeight: "93.87755102040816",
-    },
-    {
-      textValue: "19",
-      textY: "74.18367346938776",
-      rectWidth: "45",
-      rectHeight: "89.18367346938776",
-    },
-    {
-      textValue: "48",
-      textY: "200.30612244897958",
-      rectWidth: "45",
-      rectHeight: "215",
-    },
-    {
-      textValue: "36",
-      textY: "153.9795918367347",
-      rectWidth: "45",
-      rectHeight: "168.9795918367347",
-    },
-    {
-      textValue: "49",
-      textY: "205",
-      rectWidth: "45",
-      rectHeight: "220",
-    },
-    {
-      textValue: "50",
-      textX: "22.5",
-      textY: "215",
-      textY: "92.9591836734694",
-    },
-    {
-      textValue: "4",
-      textY: "35",
-      rectWidth: "45",
-      rectHeight: "48.77551020408163",
-    },
-    {
-      textValue: "27",
-      textY: "111.73469387755101",
-      rectWidth: "45",
-      rectHeight: "126.73469387755101",
-    },
-    {
-      textValue: "45",
-      textY: "196.22448979591837",
-      rectWidth: "45",
-      rectHeight: "211.22448979591837",
-    },
-  ]);
+  const [data, setData] = useState([]);
   const [dataSteps, setDataSteps] = useState([]);
   const [currentStep, setCurrentStep] = useState(0);
   const [delay, setDelay] = useState(500);
@@ -319,7 +256,7 @@ export default function Selection() {
     setPlaying(true);
 
     while (i < dataSteps.length - 0) {
-      await new Promise((resolve) => setTimeout(resolve, 500));
+      await waitForme(delay);
       console.log(currentStep, "currentStep in while");
       setCurrentStep((prev) => prev + 1);
       setData(() => dataSteps[i]);

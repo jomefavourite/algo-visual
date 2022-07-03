@@ -1,80 +1,119 @@
+import { cloneDeep } from "lodash";
 import Head from "next/head";
 import { useEffect, useState } from "react";
+import Bar from "../../components/Bar";
+import BoxView from "../../components/BoxView";
+import Dropdown from "../../components/Dropdown";
+import Footer from "../../components/Layout/Footer";
 import Layout from "../../components/Layout/Layout";
 import View2 from "../../components/LinearSearch/View2";
-import { generateChartData, LinearSearch } from "../../util/search/linear";
-import { randomIntFromInterval } from "../../util/utility";
+import Loader from "../../components/Loader";
+import { generateDataSteps, LinearSearch } from "../../util/search/linear";
+import {
+  generateChartData,
+  randomIntFromInterval,
+  waitForme,
+} from "../../util/utility";
 
 export default function Linear() {
-  const [data, setData] = useState([
-    {
-      textValue: "26",
-      translateX: "0",
-      translateY: "100",
-      rectWidth: "50",
-      rectHeight: "50",
-      textX: "25",
-    },
-    {
-      textValue: "12",
-      translateX: "50",
-      translateY: "100",
-      rectWidth: "50",
-      rectHeight: "50",
-      textX: "75",
-    },
-    {
-      textValue: "20",
-      translateX: "100",
-      translateY: "100",
-      rectWidth: "50",
-      rectHeight: "50",
-      textX: "125",
-    },
-  ]);
-
+  const [data, setData] = useState([]);
+  const [playing, setPlaying] = useState(false);
   const [inputValue, setInputValue] = useState("");
+  const [dataSteps, setDataSteps] = useState([]);
+  const [currentStep, setCurrentStep] = useState(0);
+  const [delay, setDelay] = useState(500);
+  const [timeouts, setTimeouts] = useState([]);
+  const [colorKey, setColorKey] = useState([0, 0, 0, 0, 0, 0, 0, 0, 0, 0]);
+  const [colorSteps, setColorSteps] = useState([
+    [0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+  ]);
+  const [view, setView] = useState("boxView");
+  const [count, setCount] = useState(10);
 
   useEffect(() => {
     generateRandom();
   }, []);
 
-  const handleClick = (inputValue) => {
-    const searchIndex = LinearSearch(data, inputValue);
+  useEffect(() => {
+    console.log(colorSteps, "colorSteps");
+  }, [inputValue]);
 
-    console.log(searchIndex);
-  };
+  // const handleInputClick = (e, inputValue) => {
+  //   e.preventDefault();
+  //   setCurrentStep(0);
+  //   setColorKey([0, 0, 0, 0, 0, 0, 0, 0, 0, 0]);
+  //   setColorSteps([[0, 0, 0, 0, 0, 0, 0, 0, 0, 0]]);
+  //   const searchIndex = LinearSearch(data, inputValue);
+
+  //   console.log(searchIndex);
+  // };
 
   const generateRandom = () => {
+    clearColorKey();
     let randomArr = Array.from(
       { length: 10 },
       () => Math.floor(Math.random() * 49) + 1
     );
 
-    // const noDuplicateArray = Array.from(new Set(randomArr));
-
-    let isDuplicate = randomArr.some(
-      (item, index) => randomArr.indexOf(item) !== index
-    );
-
-    while (isDuplicate) {
-      // generateRandom();
-      randomArr = Array.from(
-        { length: 10 },
-        () => Math.floor(Math.random() * 49) + 1
-      );
-      isDuplicate = randomArr.some(
-        (item, index) => randomArr.indexOf(item) === index
-      );
-    }
-
-    console.log(randomArr, "randomArr");
-
-    // const noDuplicateArray = Array.from(new Set(randomArr));
-
     const newChartData = generateChartData(randomArr);
 
+    const { dataSteps, colorSteps: newColorSteps } = generateDataSteps(
+      data,
+      Number(inputValue) ? Number(inputValue) : 0,
+      colorSteps
+    );
+
+    console.log(newColorSteps);
+
     setData(newChartData);
+    setColorSteps(newColorSteps);
+    setCurrentStep(0);
+    setDataSteps(dataSteps);
+  };
+
+  const startSearch = async () => {
+    for (let i = 0; i < dataSteps.length; i++) {
+      setCurrentStep((prev) => prev + 1);
+      setData(() => dataSteps[i]);
+      setColorKey(() => colorSteps[i]);
+      await waitForme(delay);
+    }
+  };
+
+  const previousStep = () => {
+    if (currentStep === 0) return;
+    setCurrentStep(currentStep - 1);
+    setData(dataSteps[currentStep - 1]);
+    setColorKey(colorSteps[currentStep - 1]);
+  };
+
+  const nextStep = () => {
+    if (currentStep >= dataSteps.length - 1) return;
+    setCurrentStep(currentStep + 1);
+    setData(dataSteps[currentStep + 1]);
+    setColorKey(colorSteps[currentStep + 1]);
+  };
+
+  const clearColorKey = () => {
+    let blankKey = new Array(count).fill(0);
+
+    setColorKey([...blankKey]);
+    setColorSteps([blankKey]);
+  };
+
+  const handleInputChange = (e) => {
+    setInputValue(e.target.value);
+    clearColorKey();
+
+    const { dataSteps, colorSteps: newColorSteps } = generateDataSteps(
+      data,
+      Number(e.target.value),
+      colorSteps
+    );
+
+    setColorSteps(newColorSteps);
+    setCurrentStep(0);
+    setDataSteps(dataSteps);
   };
 
   return (
@@ -83,65 +122,66 @@ export default function Linear() {
         <title>Linear Search</title>
       </Head>
 
-      <svg
-        preserveAspectRatio='xMaxYMid meet'
-        viewBox='-40 0 680 300'
-        className='mx-auto max-w-[1000px]'
-      >
-        {data.map((item, index) => (
-          <g
-            key={index}
-            transform={`translate(${item.translateX},${item.translateY})`}
-          >
-            <rect width='50' height='50' fill='white' stroke='black' />
-            <text dy='.35em' x='25' y='25'>
-              {item.textValue}
-            </text>
-          </g>
-        ))}
-        <g transform='translate(-52,150)'>
-          {data.map((item, index) => (
-            <text key={index} dy='.35em' x={`${item.textX}`} y='25'>
-              {index}
-            </text>
-          ))}
-        </g>
+      <div className='container h-[calc(100vh-196px)]'>
+        <Dropdown view={view} setView={setView} />
 
-        <circle
-          id='linear-circle'
-          cx='24'
-          cy='71'
-          r='16.5'
-          fill='none'
-          stroke='black'
-          transform='translate(0,105)'
-        />
-      </svg>
+        <div className='mt-20 grid min-h-[320px] place-content-center'>
+          {data.length === 0 ? (
+            <Loader />
+          ) : (
+            <>
+              {view === "chartView" && (
+                <div className='flex h-[300px] items-end justify-center gap-3 px-3'>
+                  {data.map((item, index) => (
+                    <Bar key={index} item={item} color={colorKey[index]} />
+                  ))}
+                </div>
+              )}
 
-      {/* <View2 /> */}
+              {view === "boxView" && (
+                <div className='flex justify-center'>
+                  {data.map((item, index) => (
+                    <BoxView key={index} item={item} color={colorKey[index]} />
+                  ))}
+                </div>
+              )}
+            </>
+          )}
+        </div>
+      </div>
 
       <div>
         <button onClick={generateRandom}>Generate Random</button>
 
-        <p>Search for a Number above</p>
+        <form>
+          <p>Search for a Number above</p>
 
-        <input
-          type='number'
-          value={inputValue}
-          placeholder='12'
-          className='bg-black text-white'
-          onChange={(event) => {
-            setInputValue(event.target.value);
-          }}
-        />
-        <button onClick={() => handleClick(inputValue)}>Search</button>
+          <input
+            type='number'
+            value={inputValue}
+            placeholder='12'
+            className='bg-black text-white'
+            onChange={(event) => {
+              handleInputChange(event);
+            }}
+          />
+          {/* <button>Search</button> */}
+        </form>
       </div>
 
-      <div>
+      {/* <div>
         <h3>Pseudo Code</h3>
 
         <code></code>
-      </div>
+      </div> */}
+
+      <Footer
+        start={startSearch}
+        playing={playing}
+        nextStep={nextStep}
+        previousStep={previousStep}
+        // pauser={pauser}
+      />
     </>
   );
 }

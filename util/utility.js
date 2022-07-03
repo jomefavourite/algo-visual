@@ -87,3 +87,11 @@ export const swap = (data, i, j) => {
 
   // return data;
 };
+
+export const waitForme = (delay) => {
+  return new Promise((resolve) => {
+    setTimeout(() => {
+      resolve();
+    }, delay);
+  });
+};

@@ -25,10 +25,16 @@ function Footer({
   return (
     <footer className='mt-8 bg-black p-4 text-center text-white'>
       <div className='flex justify-center gap-10'>
-        <button className='cursor-pointer' onClick={() => previousStep()}>
-          <FaStepBackward />
+        <button
+          title='Previous Step'
+          className='cursor-pointer'
+          onClick={() => previousStep()}
+          aria-label='backward'
+        >
+          <FaStepBackward aria-hidden='true' />
         </button>
         <button
+          title='Play/Pause'
           className='cursor-pointer'
           data-key={playing ? "pause" : "play"}
           onClick={(e) => handlePlay(e.target.dataset.key)}
@@ -42,7 +48,12 @@ function Footer({
             <FaPlay data-key='play' className='pointer-events-none text-2xl' />
           )}
         </button>
-        <button className='cursor-pointer' onClick={() => nextStep()}>
+        <button
+          title='Next Step'
+          className='cursor-pointer'
+          onClick={() => nextStep()}
+          aria-label='forward'
+        >
           <FaStepForward />
         </button>
       </div>
