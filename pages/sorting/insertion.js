@@ -6,7 +6,7 @@ import { times } from "lodash";
 import Layout from "../../components/Layout/Layout";
 import { generateDataSteps } from "../../util/sort/insertionsort";
 
-import { generateChartData } from "../../util/utility";
+import { generateChartData, waitForme } from "../../util/utility";
 import SvgRect from "../../components/svg-rect/svg-rect";
 import { randomIntFromInterval } from "../../util/utility";
 import Footer from "../../components/Layout/Footer";
@@ -84,13 +84,16 @@ export default function Insertion() {
   ]);
   const [dataSteps, setDataSteps] = useState([]);
   const [currentStep, setCurrentStep] = useState(0);
-  const [delay, setDelay] = useState(500);
   const [timeouts, setTimeouts] = useState([]);
   const [colorKey, setColorKey] = useState([0, 0, 0, 0, 0, 0, 0, 0, 0, 0]);
   const [colorSteps, setColorSteps] = useState([
     [0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
   ]);
   const [count, setCount] = useState(10);
+  const [speedControl, setSpeedControl] = useState({
+    speed: 50,
+    delay: 500,
+  });
 
   useEffect(() => {
     generateRandom();
@@ -196,7 +199,7 @@ export default function Insertion() {
     setPlaying(true);
 
     while (i < dataSteps.length - 0) {
-      await new Promise((resolve) => setTimeout(resolve, 500));
+      await waitForme(speedControl.delay);
       console.log(currentStep, "currentStep in while");
       setCurrentStep((prev) => prev + 1);
       setData(() => dataSteps[i]);
@@ -225,14 +228,6 @@ export default function Insertion() {
     0;
   };
 
-  const waitforAnim2 = function (delay = 1000, i) {
-    return new Promise((resolve) => {
-      setTimeout(() => {
-        resolve("");
-      }, delay * i);
-    });
-  };
-
   // const reset = () => {
   //   setCurrentStep(0);
   //   setColorKey([0, 0, 0, 0, 0, 0, 0, 0, 0, 0]);
@@ -240,6 +235,7 @@ export default function Insertion() {
   // };
 
   const clearColorKey = () => {
+    let count = 10;
     let blankKey = new Array(count).fill(0);
 
     setColorKey([...blankKey]);
@@ -250,9 +246,6 @@ export default function Insertion() {
   // let regex2 = new RegExp(/^[0-50]/);
   // const found = regex.test("2,3,4");
   // console.log(regex2.test("59"));
-
-  const speed =
-    570 - Math.pow(arr.length, 2) > 0 ? 570 - Math.pow(arr.length, 2) : 0;
 
   // const handleInsertionSort = async () => {
   //   console.log("Insertion called");
@@ -329,6 +322,8 @@ export default function Insertion() {
         nextStep={nextStep}
         previousStep={previousStep}
         pauser={pauser}
+        speedControl={speedControl}
+        setSpeedControl={setSpeedControl}
       />
     </>
   );

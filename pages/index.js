@@ -10,42 +10,48 @@ export default function Home() {
         <link rel='icon' href='/favicon.ico' />
       </Head>
 
-      <div>
-        <div>
-          <Link href='/sorting/bubble'>
-            <a className='text-blue-600'>Bubble Sort</a>
-          </Link>
-        </div>
-        <div>
-          <Link href='/sorting/selection'>
-            <a className='text-blue-600'>Selection Sort</a>
-          </Link>
-        </div>
-        <div>
-          <Link href='/searching/linear'>
-            <a className='text-blue-600'>Linear Search</a>
-          </Link>
-        </div>
-      </div>
-
-      <div className='mt-8'>
+      <div className=''>
         <h1 className='text-3xl'>Algorithm Visualization</h1>
         <div>
           <p>
             <strong>Searching Algorithm:</strong>
           </p>
           <ul>
-            <li>- Linear Search</li>
-            <li>- Binary Search</li>
-            <li>- Jump Search</li>
+            <li>
+              <Link href='/searching/linear'>
+                <a className='text-blue-600'>Linear Search</a>
+              </Link>
+            </li>
+            <li>
+              <Link href='/searching/binary'>
+                <a className='text-blue-600'>Binary Search</a>
+              </Link>
+            </li>
+            <li>
+              <Link href='/searching/jump'>
+                <a className='text-blue-600'>Jump Search</a>
+              </Link>
+            </li>
           </ul>
           <p>
             <strong>Sorting Algorithm</strong>
           </p>
           <ul>
-            <li>- Bubble sort</li>
-            <li>- Selection Sort</li>
-            <li>- Insertion Sort</li>
+            <li>
+              <Link href='/sorting/bubble'>
+                <a className='text-blue-600'>Bubble Sort</a>
+              </Link>
+            </li>
+            <li>
+              <Link href='/sorting/selection'>
+                <a className='text-blue-600'>Selection Sort</a>
+              </Link>
+            </li>
+            <li>
+              <Link href='/sorting/insertion'>
+                <a className='text-blue-600'>Insertion Sort</a>
+              </Link>
+            </li>
           </ul>
 
           <p>

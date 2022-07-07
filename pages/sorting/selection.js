@@ -12,149 +12,25 @@ import Footer from "../../components/Layout/Footer";
 import { cloneDeep } from "lodash";
 import Bar from "../../components/Bar";
 import { handleNavigation } from "../../util/sort";
+import Dropdown from "../../components/Dropdown";
+import Views from "../../components/Views";
 
 export default function Selection() {
-  const arr = useSelector((state) => state.algo.arr);
-
-  // const [inputValue, setInputValue] = useState("");
-  // const [data, setData] = useState([
-  //   {
-  //     textValue: "26",
-  //     translateX: "0",
-  //     translateY: "107.95918273925781",
-  //     textX: "22.5",
-  //     textY: "107.04081632653062",
-  //     rectWidth: "45",
-  //     rectHeight: "122.04081632653062",
-  //     fillColor: "rgb(173, 216, 230)",
-  //     sortingColor: "rgb(13, 121, 152)",
-  //     sortedColor: "rgb(13, 121, 15)",
-  //   },
-  //   {
-  //     textValue: "20",
-  //     translateX: "50",
-  //     translateY: "136.12245178222656",
-  //     textX: "22.5",
-  //     textY: "78.87755102040816",
-  //     rectWidth: "45",
-  //     rectHeight: "93.87755102040816",
-  //     fillColor: "rgb(173, 216, 230)",
-  //     sortingColor: "rgb(13, 121, 152)",
-  //     sortedColor: "rgb(13, 121, 15)",
-  //   },
-  //   {
-  //     textValue: "19",
-  //     translateX: "100",
-  //     translateY: "140.8163299560547",
-  //     textX: "22.5",
-  //     textY: "74.18367346938776",
-  //     rectWidth: "45",
-  //     rectHeight: "89.18367346938776",
-  //     fillColor: "rgb(173, 216, 230)",
-  //     sortingColor: "rgb(13, 121, 152)",
-  //     sortedColor: "rgb(13, 121, 15)",
-  //   },
-  //   {
-  //     textValue: "48",
-  //     translateX: "150",
-  //     translateY: "14",
-  //     textX: "22.5",
-  //     textY: "200.30612244897958",
-  //     rectWidth: "45",
-  //     rectHeight: "215",
-  //     fillColor: "rgb(173, 216, 230)",
-  //     sortingColor: "rgb(13, 121, 152)",
-  //     sortedColor: "rgb(13, 121, 15)",
-  //   },
-  //   {
-  //     textValue: "36",
-  //     translateX: "200",
-  //     translateY: "61.020408630371094",
-  //     textX: "22.5",
-  //     textY: "153.9795918367347",
-  //     rectWidth: "45",
-  //     rectHeight: "168.9795918367347",
-  //     fillColor: "rgb(173, 216, 230)",
-  //     sortingColor: "rgb(13, 121, 152)",
-  //     sortedColor: "rgb(13, 121, 15)",
-  //   },
-  //   {
-  //     textValue: "49",
-  //     translateX: "250",
-  //     translateY: "10",
-  //     textX: "22.5",
-  //     textY: "205",
-  //     rectWidth: "45",
-  //     rectHeight: "220",
-  //     fillColor: "rgb(173, 216, 230)",
-  //     sortingColor: "rgb(13, 121, 152)",
-  //     sortedColor: "rgb(13, 121, 15)",
-  //   },
-  //   {
-  //     textValue: "50",
-  //     translateX: "300",
-  //     translateY: "122.04081726074219",
-  //     translateY: "0",
-  //     textX: "22.5",
-  //     textY: "215",
-  //     textY: "92.9591836734694",
-  //     rectWidth: "45",
-  //     rectHeight: "107.95918273925781",
-  //     rectHeight: "230",
-  //     fillColor: "rgb(173, 216, 230)",
-  //     sortingColor: "rgb(13, 121, 152)",
-  //     sortedColor: "rgb(13, 121, 15)",
-  //   },
-  //   {
-  //     textValue: "4",
-  //     translateX: "350",
-  //     translateY: "181.2244873046875",
-  //     textX: "22.5",
-  //     textY: "35",
-  //     rectWidth: "45",
-  //     rectHeight: "48.77551020408163",
-  //     fillColor: "rgb(173, 216, 230)",
-  //     sortingColor: "rgb(13, 121, 152)",
-  //     sortedColor: "rgb(13, 121, 15)",
-  //   },
-  //   {
-  //     textValue: "27",
-  //     translateX: "400",
-  //     translateY: "103.26530456542969",
-  //     textX: "22.5",
-  //     textY: "111.73469387755101",
-  //     rectWidth: "45",
-  //     rectHeight: "126.73469387755101",
-  //     fillColor: "rgb(173, 216, 230)",
-  //     sortingColor: "rgb(13, 121, 152)",
-  //     sortedColor: "rgb(13, 121, 15)",
-  //   },
-  //   {
-  //     textValue: "45",
-  //     translateX: "450",
-  //     translateY: "18.775510787963867",
-  //     textX: "22.5",
-  //     textY: "196.22448979591837",
-  //     rectWidth: "45",
-  //     rectHeight: "211.22448979591837",
-  //     fillColor: "rgb(173, 216, 230)",
-  //     sortingColor: "rgb(13, 121, 152)",
-  //     sortedColor: "rgb(13, 121, 15)",
-  //   },
-  // ]);
-
   const [playing, setPlaying] = useState(false);
   const [inputValue, setInputValue] = useState("");
   const [data, setData] = useState([]);
   const [dataSteps, setDataSteps] = useState([]);
   const [currentStep, setCurrentStep] = useState(0);
-  const [delay, setDelay] = useState(500);
   const [timeouts, setTimeouts] = useState([]);
   const [colorKey, setColorKey] = useState([0, 0, 0, 0, 0, 0, 0, 0, 0, 0]);
   const [colorSteps, setColorSteps] = useState([
     [0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
   ]);
-  const [count, setCount] = useState(10);
+  const [view, setView] = useState("chartView");
+  const [speedControl, setSpeedControl] = useState({
+    speed: 50,
+    delay: 500,
+  });
 
   useEffect(() => {
     generateRandom();
@@ -256,7 +132,7 @@ export default function Selection() {
     setPlaying(true);
 
     while (i < dataSteps.length - 0) {
-      await waitForme(delay);
+      await waitForme(speedControl.delay);
       console.log(currentStep, "currentStep in while");
       setCurrentStep((prev) => prev + 1);
       setData(() => dataSteps[i]);
@@ -284,15 +160,6 @@ export default function Selection() {
     setTimeouts([]);
     0;
   };
-
-  const waitforAnim2 = function (delay = 1000, i) {
-    return new Promise((resolve) => {
-      setTimeout(() => {
-        resolve("");
-      }, delay * i);
-    });
-  };
-
   // const reset = () => {
   //   setCurrentStep(0);
   //   setColorKey([0, 0, 0, 0, 0, 0, 0, 0, 0, 0]);
@@ -300,6 +167,7 @@ export default function Selection() {
   // };
 
   const clearColorKey = () => {
+    let count = 10;
     let blankKey = new Array(count).fill(0);
 
     setColorKey([...blankKey]);
@@ -311,8 +179,8 @@ export default function Selection() {
   // const found = regex.test("2,3,4");
   // console.log(regex2.test("59"));
 
-  const speed =
-    570 - Math.pow(arr.length, 2) > 0 ? 570 - Math.pow(arr.length, 2) : 0;
+  // const speed =
+  //   570 - Math.pow(arr.length, 2) > 0 ? 570 - Math.pow(arr.length, 2) : 0;
 
   // const handleSelectionSort = async () => {
   //   console.log("selection called");
@@ -357,14 +225,10 @@ export default function Selection() {
         <title>Selection Sort</title>
       </Head>
 
-      <section className='h-[calc(100vh-196px)]'>
-        <div className='mt-20 min-h-[320px]'>
-          <div className='flex h-[300px] items-end justify-center gap-3 px-3'>
-            {data.map((item, index) => (
-              <Bar key={index} item={item} color={colorKey[index]} />
-            ))}
-          </div>
-        </div>
+      <div className='container h-[calc(100vh)]'>
+        <Dropdown view={view} setView={setView} />
+
+        <Views data={data} view={view} colorKey={colorKey} />
 
         <button onClick={generateRandom}>Generate Random</button>
 
@@ -380,7 +244,7 @@ export default function Selection() {
           />
           <button>Set inputs</button>
         </form>
-      </section>
+      </div>
 
       {/* <Footer handleSort={handleSelectionSort} playing={playing} /> */}
 
@@ -391,6 +255,8 @@ export default function Selection() {
         nextStep={nextStep}
         previousStep={previousStep}
         pauser={pauser}
+        speedControl={speedControl}
+        setSpeedControl={setSpeedControl}
       />
     </>
   );
@@ -400,5 +266,9 @@ Selection.getLayout = function getLayout(page) {
   const pageTitle = "Sorting Algorithm";
   const options = handleNavigation("selection");
 
-  return <Layout options={options}>{page}</Layout>;
+  return (
+    <Layout pageTitle={pageTitle} options={options}>
+      {page}
+    </Layout>
+  );
 };

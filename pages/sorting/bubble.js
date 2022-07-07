@@ -4,7 +4,6 @@ import Layout from "../../components/Layout/Layout";
 import { generateDataSteps } from "../../util/sort/bubblesort";
 import Footer from "../../components/Layout/Footer";
 import Dropdown from "../../components/Dropdown";
-import Bar from "../../components/Bar";
 import {
   handleInputClick,
   generateRandom,
@@ -14,8 +13,7 @@ import {
   pauser,
   handleNavigation,
 } from "../../util/sort";
-import BoxView from "../../components/BoxView";
-import Loader from "../../components/Loader";
+import Views from "../../components/Views";
 
 export default function Bubble() {
   const [playing, setPlaying] = useState(false);
@@ -23,14 +21,16 @@ export default function Bubble() {
   const [data, setData] = useState([]);
   const [dataSteps, setDataSteps] = useState([]);
   const [currentStep, setCurrentStep] = useState(0);
-  const [delay, setDelay] = useState(500);
   const [timeouts, setTimeouts] = useState([]);
   const [colorKey, setColorKey] = useState([0, 0, 0, 0, 0, 0, 0, 0, 0, 0]);
   const [colorSteps, setColorSteps] = useState([
     [0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
   ]);
-  const [count, setCount] = useState(10);
   const [view, setView] = useState("chartView");
+  const [speedControl, setSpeedControl] = useState({
+    speed: 50,
+    delay: 500,
+  });
 
   useEffect(() => {
     generateRandom(
@@ -83,7 +83,8 @@ export default function Bubble() {
       setData,
       setColorKey,
       playing,
-      colorSteps
+      colorSteps,
+      speedControl.delay
     );
   };
 
@@ -111,6 +112,7 @@ export default function Bubble() {
   };
 
   const clearColorKey = () => {
+    const count = 10;
     let blankKey = new Array(count).fill(0);
 
     setColorKey([...blankKey]);
@@ -126,29 +128,7 @@ export default function Bubble() {
       <div className='container h-[calc(100vh-196px)]'>
         <Dropdown view={view} setView={setView} />
 
-        <div className='mt-20 grid min-h-[320px] place-content-center'>
-          {data.length === 0 ? (
-            <Loader />
-          ) : (
-            <>
-              {view === "chartView" && (
-                <div className='flex h-[300px] items-end justify-center gap-3 px-3'>
-                  {data.map((item, index) => (
-                    <Bar key={index} item={item} color={colorKey[index]} />
-                  ))}
-                </div>
-              )}
-
-              {view === "boxView" && (
-                <div className='flex justify-center'>
-                  {data.map((item, index) => (
-                    <BoxView key={index} item={item} color={colorKey[index]} />
-                  ))}
-                </div>
-              )}
-            </>
-          )}
-        </div>
+        <Views data={data} view={view} colorKey={colorKey} />
 
         <button onClick={() => handleGenerateRandom()}>Generate Random</button>
 
@@ -187,6 +167,8 @@ export default function Bubble() {
         nextStep={handleNextStep}
         previousStep={handlePreviousStep}
         pauser={handlePause}
+        speedControl={speedControl}
+        setSpeedControl={setSpeedControl}
       />
     </>
   );

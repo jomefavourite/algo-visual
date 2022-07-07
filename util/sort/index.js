@@ -14,7 +14,7 @@
 // import Dropdown from "../../components/Dropdown";
 // import Bar from "../../components/Bar";
 import { cloneDeep } from "lodash";
-import { generateChartData } from "../../util/utility";
+import { generateChartData, waitForme } from "../../util/utility";
 
 export const handleInputClick = (
   e,
@@ -130,7 +130,8 @@ export const start = async (
   setData,
   setColorKey,
   playing,
-  colorSteps
+  colorSteps,
+  delay
 ) => {
   clearTimeouts();
 
@@ -140,7 +141,7 @@ export const start = async (
   setPlaying(true);
 
   while (i < dataSteps.length - 0) {
-    await new Promise((resolve) => setTimeout(resolve, 10));
+    await waitForme(delay);
     console.log(currentStep, "currentStep in while");
     setCurrentStep((prev) => prev + 1);
     setData(() => dataSteps[i]);

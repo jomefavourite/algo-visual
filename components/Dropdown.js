@@ -7,7 +7,11 @@ export default function Dropdown({ view, setView }) {
 
   return (
     <div className='flex justify-end'>
-      <select name='options' onChange={handleChange} className='border'>
+      <select
+        className='select select-bordered'
+        name='options'
+        onChange={handleChange}
+      >
         <option value='chartView'>Chart View</option>
         <option value='boxView'>Box View</option>
       </select>

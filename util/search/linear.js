@@ -1,20 +1,3 @@
-export function generateChartData(arr) {
-  let translateX = 0;
-  let textX = 25;
-  let res = arr.map((item, index) => {
-    return {
-      textValue: item,
-      translateX: index === 0 ? 0 : (translateX += 50),
-      translateY: "100",
-      rectWidth: "50",
-      rectHeight: "50",
-      textX: (textX += 50),
-    };
-  });
-
-  return res;
-}
-
 export function generateDataSteps(data, key, colorSteps) {
   const newColorSteps = [new Array(data.length).fill(0)];
 

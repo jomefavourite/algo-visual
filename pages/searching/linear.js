@@ -20,14 +20,15 @@ export default function Linear() {
   const [inputValue, setInputValue] = useState("");
   const [dataSteps, setDataSteps] = useState([]);
   const [currentStep, setCurrentStep] = useState(0);
-  const [delay, setDelay] = useState(500);
-  const [timeouts, setTimeouts] = useState([]);
   const [colorKey, setColorKey] = useState([0, 0, 0, 0, 0, 0, 0, 0, 0, 0]);
   const [colorSteps, setColorSteps] = useState([
     [0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
   ]);
   const [view, setView] = useState("boxView");
-  const [count, setCount] = useState(10);
+  const [speedControl, setSpeedControl] = useState({
+    speed: 50,
+    delay: 500,
+  });
 
   useEffect(() => {
     generateRandom();
@@ -36,16 +37,6 @@ export default function Linear() {
   useEffect(() => {
     console.log(colorSteps, "colorSteps");
   }, [inputValue]);
-
-  // const handleInputClick = (e, inputValue) => {
-  //   e.preventDefault();
-  //   setCurrentStep(0);
-  //   setColorKey([0, 0, 0, 0, 0, 0, 0, 0, 0, 0]);
-  //   setColorSteps([[0, 0, 0, 0, 0, 0, 0, 0, 0, 0]]);
-  //   const searchIndex = LinearSearch(data, inputValue);
-
-  //   console.log(searchIndex);
-  // };
 
   const generateRandom = () => {
     clearColorKey();
@@ -75,7 +66,7 @@ export default function Linear() {
       setCurrentStep((prev) => prev + 1);
       setData(() => dataSteps[i]);
       setColorKey(() => colorSteps[i]);
-      await waitForme(delay);
+      await waitForme(speedControl.delay);
     }
   };
 
@@ -94,6 +85,7 @@ export default function Linear() {
   };
 
   const clearColorKey = () => {
+    const count = 10;
     let blankKey = new Array(count).fill(0);
 
     setColorKey([...blankKey]);
@@ -168,24 +160,20 @@ export default function Linear() {
         </form>
       </div>
 
-      {/* <div>
-        <h3>Pseudo Code</h3>
-
-        <code></code>
-      </div> */}
-
       <Footer
         start={startSearch}
         playing={playing}
         nextStep={nextStep}
         previousStep={previousStep}
-        // pauser={pauser}
+        speedControl={speedControl}
+        setSpeedControl={setSpeedControl}
       />
     </>
   );
 }
 
 Linear.getLayout = function getLayout(page) {
+  const pageTitle = "Searching Algorithms";
   const options = [
     {
       value: "Home",
@@ -195,7 +183,15 @@ Linear.getLayout = function getLayout(page) {
       value: "Linear Search",
       href: "/searching/linear",
     },
+    {
+      value: "Binary Search",
+      href: "/searching/binary",
+    },
   ];
 
-  return <Layout options={options}>{page}</Layout>;
+  return (
+    <Layout pageTitle={pageTitle} options={options}>
+      {page}
+    </Layout>
+  );
 };
