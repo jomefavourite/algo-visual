@@ -4,9 +4,11 @@ import { useEffect, useState } from "react";
 import Bar from "../../components/Bar";
 import BoxView from "../../components/BoxView";
 import Dropdown from "../../components/Dropdown";
+import GeneratorController from "../../components/GeneratorController";
 import Footer from "../../components/Layout/Footer";
 import Layout from "../../components/Layout/Layout";
 import Loader from "../../components/Loader";
+import Views from "../../components/Views";
 import { generateDataSteps } from "../../util/search/linear";
 import {
   generateChartData,
@@ -53,8 +55,6 @@ export default function Linear() {
       colorSteps
     );
 
-    console.log(newColorSteps);
-
     setData(newChartData);
     setColorSteps(newColorSteps);
     setCurrentStep(0);
@@ -62,6 +62,7 @@ export default function Linear() {
   };
 
   const startSearch = async () => {
+    console.log(dataSteps, "dataSteps.....");
     for (let i = 0; i < dataSteps.length; i++) {
       setCurrentStep((prev) => prev + 1);
       setData(() => dataSteps[i]);
@@ -93,6 +94,7 @@ export default function Linear() {
   };
 
   const handleInputChange = (e) => {
+    e.preventDefault();
     setInputValue(e.target.value);
     clearColorKey();
 
@@ -116,48 +118,14 @@ export default function Linear() {
       <div className='container h-[calc(100vh-196px)]'>
         <Dropdown view={view} setView={setView} />
 
-        <div className='mt-20 grid min-h-[320px] place-content-center'>
-          {data.length === 0 ? (
-            <Loader />
-          ) : (
-            <>
-              {view === "chartView" && (
-                <div className='flex h-[300px] items-end justify-center gap-3 px-3'>
-                  {data.map((item, index) => (
-                    <Bar key={index} item={item} color={colorKey[index]} />
-                  ))}
-                </div>
-              )}
+        <Views data={data} view={view} colorKey={colorKey} />
 
-              {view === "boxView" && (
-                <div className='flex justify-center'>
-                  {data.map((item, index) => (
-                    <BoxView key={index} item={item} color={colorKey[index]} />
-                  ))}
-                </div>
-              )}
-            </>
-          )}
-        </div>
-      </div>
-
-      <div>
-        <button onClick={generateRandom}>Generate Random</button>
-
-        <form>
-          <p>Search for a Number above</p>
-
-          <input
-            type='number'
-            value={inputValue}
-            placeholder='12'
-            className='bg-black text-white'
-            onChange={(event) => {
-              handleInputChange(event);
-            }}
-          />
-          {/* <button>Search</button> */}
-        </form>
+        <GeneratorController
+          type={"searching"}
+          generateRandom={generateRandom}
+          inputValue={inputValue}
+          handleInputChange={handleInputChange}
+        />
       </div>
 
       <Footer
@@ -167,6 +135,7 @@ export default function Linear() {
         previousStep={previousStep}
         speedControl={speedControl}
         setSpeedControl={setSpeedControl}
+        colorSteps={colorSteps}
       />
     </>
   );

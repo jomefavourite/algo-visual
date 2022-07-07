@@ -1,9 +1,9 @@
 import React, { useState, memo } from "react";
 
 import { FaPlay, FaStepForward, FaStepBackward, FaPause } from "react-icons/fa";
+import { toast } from "react-hot-toast";
 
 function Footer({
-  handleSort,
   playing,
   nextStep,
   previousStep,
@@ -11,13 +11,20 @@ function Footer({
   pauser,
   speedControl,
   setSpeedControl,
+  colorSteps,
+  type,
 }) {
-  const handlePlay = (type) => {
+  const handlePlay = (btnClick) => {
     // handleSort();
-    console.log(type);
+    console.log(btnClick);
+    console.log(colorSteps);
 
-    if (type === "play") {
-      start();
+    if (btnClick === "play") {
+      type === "sorting"
+        ? start()
+        : colorSteps !== undefined && colorSteps?.length > 2
+        ? start()
+        : toast("Please, enter a search key");
     } else {
       console.log("pause");
       pauser();

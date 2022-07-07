@@ -24,7 +24,11 @@ export function generateDataSteps(data, key, colorSteps) {
   newColorSteps.push(colorKey.slice());
   dataSteps.push([...data]);
 
-  colorSteps = newColorSteps;
+  if (key === 0) {
+    colorSteps = [new Array(data.length).fill(0)];
+  } else {
+    colorSteps = newColorSteps;
+  }
 
   return { dataSteps, colorSteps };
 }

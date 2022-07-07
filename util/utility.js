@@ -1,14 +1,12 @@
 import { find, matchesProperty } from "lodash";
 
-export function generateChartData(arr, h = 300) {
-  const res = determineChartData(arr, h);
-
-  return res;
+export function generateChartData(arr, h = 300, sorted) {
+  return determineChartData(arr, h, sorted);
 }
 
 // This function determines the SVG data for the chart,
 // based on the data provided.
-function determineChartData(arr, h) {
+function determineChartData(arr, h, sorted) {
   let arrSorted = [...arr].sort((a, b) => a - b);
 
   let yn = [];
@@ -66,6 +64,10 @@ function determineChartData(arr, h) {
       translateX: `${i === 0 ? 0 : (translateX += 50)}`,
       translateY: `${unsortedNewData[i].translateY}`,
     };
+  }
+
+  if (sorted) {
+    return sortedDataProperties;
   }
 
   return unsortedNewData;

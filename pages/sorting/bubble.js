@@ -14,6 +14,7 @@ import {
   handleNavigation,
 } from "../../util/sort";
 import Views from "../../components/Views";
+import GeneratorController from "../../components/GeneratorController";
 
 export default function Bubble() {
   const [playing, setPlaying] = useState(false);
@@ -105,6 +106,20 @@ export default function Bubble() {
     );
   };
 
+  const handleSubmit = (e) => {
+    handleInputClick(
+      e,
+      inputValue,
+      setCurrentStep,
+      setColorKey,
+      setColorSteps,
+      colorSteps,
+      generateDataSteps,
+      setData,
+      setDataSteps
+    );
+  };
+
   const clearTimeouts = () => {
     timeouts.forEach((timeout) => clearTimeout(timeout));
     setTimeouts([]);
@@ -130,35 +145,12 @@ export default function Bubble() {
 
         <Views data={data} view={view} colorKey={colorKey} />
 
-        <button onClick={() => handleGenerateRandom()}>Generate Random</button>
-
-        <form
-          onSubmit={(e) =>
-            handleInputClick(
-              e,
-              inputValue,
-              setCurrentStep,
-              setColorKey,
-              setColorSteps,
-              colorSteps,
-              generateDataSteps,
-              setData,
-              setDataSteps
-            )
-          }
-        >
-          <input
-            type='text'
-            value={inputValue}
-            placeholder='12,20,33,45,20'
-            className='bg-black text-white'
-            pattern='^[-+]?(\d{1,3})(,?(?1))*$'
-            onChange={(event) => {
-              setInputValue(event.target.value);
-            }}
-          />
-          <button>Set inputs</button>
-        </form>
+        <GeneratorController
+          type={"sorting"}
+          handleGenerateRandom={handleGenerateRandom}
+          handleSubmit={handleSubmit}
+          setInputValue={setInputValue}
+        />
       </div>
 
       <Footer
@@ -169,6 +161,7 @@ export default function Bubble() {
         pauser={handlePause}
         speedControl={speedControl}
         setSpeedControl={setSpeedControl}
+        type='sorting'
       />
     </>
   );

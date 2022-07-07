@@ -4,6 +4,7 @@ import { useEffect, useState } from "react";
 import Bar from "../../components/Bar";
 import BoxView from "../../components/BoxView";
 import Dropdown from "../../components/Dropdown";
+import GeneratorController from "../../components/GeneratorController";
 import Footer from "../../components/Layout/Footer";
 import Layout from "../../components/Layout/Layout";
 import Loader from "../../components/Loader";
@@ -36,7 +37,7 @@ export default function BinarySearch() {
   }, []);
 
   useEffect(() => {
-    console.log(colorSteps, "colorSteps");
+    console.log(colorSteps.length, "colorSteps");
   }, [inputValue]);
 
   const generateRandom = () => {
@@ -46,7 +47,9 @@ export default function BinarySearch() {
       () => Math.floor(Math.random() * 49) + 1
     );
 
-    const newChartData = generateChartData(randomArr);
+    const newChartData = generateChartData(randomArr, 300, true); // true means it's sorted
+
+    // console.log(newChartData);
 
     const { dataSteps, colorSteps: newColorSteps } = generateDataSteps(
       data,
@@ -54,7 +57,7 @@ export default function BinarySearch() {
       colorSteps
     );
 
-    console.log(newColorSteps);
+    // console.log(newColorSteps);
 
     setData(newChartData);
     setColorSteps(newColorSteps);
@@ -94,6 +97,7 @@ export default function BinarySearch() {
   };
 
   const handleInputChange = (e) => {
+    e.preventDefault();
     setInputValue(e.target.value);
     clearColorKey();
 
@@ -118,32 +122,14 @@ export default function BinarySearch() {
         <Dropdown view={view} setView={setView} />
 
         <Views data={data} view={view} colorKey={colorKey} />
+
+        <GeneratorController
+          type={"searching"}
+          generateRandom={generateRandom}
+          inputValue={inputValue}
+          handleInputChange={handleInputChange}
+        />
       </div>
-
-      <div>
-        <button onClick={generateRandom}>Generate Random</button>
-
-        <form>
-          <p>Search for a Number above</p>
-
-          <input
-            type='number'
-            value={inputValue}
-            placeholder='12'
-            className='bg-black text-white'
-            onChange={(event) => {
-              handleInputChange(event);
-            }}
-          />
-          {/* <button>Search</button> */}
-        </form>
-      </div>
-
-      {/* <div>
-        <h3>Pseudo Code</h3>
-
-        <code></code>
-      </div> */}
 
       <Footer
         start={startSearch}
@@ -152,6 +138,7 @@ export default function BinarySearch() {
         previousStep={previousStep}
         speedControl={speedControl}
         setSpeedControl={setSpeedControl}
+        colorSteps={colorSteps}
       />
     </>
   );

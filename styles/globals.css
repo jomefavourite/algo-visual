@@ -13,3 +13,14 @@ text {
   max-width: 1400px;
   margin: 0 auto;
 }
+
+/* Remove arrows from input numbers */
+input::-webkit-outer-spin-button,
+input::-webkit-inner-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+}
+
+input[type="number"] {
+  -moz-appearance: textfield;
+}
