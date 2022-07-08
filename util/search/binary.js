@@ -4,6 +4,7 @@ export function generateDataSteps(data, key, colorSteps) {
   let right = data.length - 1;
 
   let dataSteps = [[...data]];
+  let indexStep = [[0, 4, 9]];
 
   // binary search algorithm
   while (left <= right) {
@@ -12,25 +13,29 @@ export function generateDataSteps(data, key, colorSteps) {
     colorKey[mid] = 1;
     newColorSteps.push([...colorKey]);
     dataSteps.push([...data]);
+    indexStep.push([left, mid, right]);
 
     if (Number(data[mid].textValue) === key) {
       colorKey[mid] = 2;
       newColorSteps.push([...colorKey]);
       dataSteps.push([...data]);
+      indexStep.push([left, mid, right]);
 
       colorSteps = newColorSteps;
 
-      return { dataSteps, colorSteps };
+      return { dataSteps, colorSteps, indexStep };
     } else if (Number(data[mid].textValue) < key) {
       left = mid + 1;
       colorKey[mid] = 1;
       newColorSteps.push([...colorKey]);
       dataSteps.push([...data]);
+      indexStep.push([left, mid, right]);
     } else {
       right = mid - 1;
       colorKey[mid] = 1;
       newColorSteps.push([...colorKey]);
       dataSteps.push([...data]);
+      indexStep.push([left, mid, right]);
     }
   }
 
@@ -38,6 +43,9 @@ export function generateDataSteps(data, key, colorSteps) {
   let colorKey = new Array(data.length).fill(3);
   newColorSteps.push([...colorKey]);
   dataSteps.push([...data]);
+  indexStep.push([0, 4, 9]);
+
+  // console.log(indexStep, "indexStep");
 
   // newColorSteps
   if (key === 0) {
@@ -46,17 +54,17 @@ export function generateDataSteps(data, key, colorSteps) {
     colorSteps = newColorSteps;
   }
 
-  return { dataSteps, colorSteps };
+  return { dataSteps, colorSteps, indexStep };
 }
 
-generateDataSteps(
-  [
-    { textValue: 1 },
-    { textValue: 2 },
-    { textValue: 3 },
-    { textValue: 4 },
-    { textValue: 5 },
-    { textValue: 6 },
-  ],
-  1
-);
+// generateDataSteps(
+//   [
+//     { textValue: 1 },
+//     { textValue: 2 },
+//     { textValue: 3 },
+//     { textValue: 4 },
+//     { textValue: 5 },
+//     { textValue: 6 },
+//   ],
+//   6
+// );

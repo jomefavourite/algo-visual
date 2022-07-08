@@ -10,6 +10,7 @@ import Layout from "../../components/Layout/Layout";
 import Loader from "../../components/Loader";
 import Views from "../../components/Views";
 import { generateDataSteps } from "../../util/search/binary";
+import { searchingNavigationOptions } from "../../util/utility";
 import {
   generateChartData,
   randomIntFromInterval,
@@ -31,6 +32,7 @@ export default function BinarySearch() {
     speed: 50,
     delay: 500,
   });
+  const [indexStep, setIndexStep] = useState([[0, 4, 9]]);
 
   useEffect(() => {
     generateRandom();
@@ -38,7 +40,8 @@ export default function BinarySearch() {
 
   useEffect(() => {
     console.log(colorSteps.length, "colorSteps");
-  }, [inputValue]);
+    console.log(indexStep, "indexStep--useEffect");
+  }, [inputValue, indexStep]);
 
   const generateRandom = () => {
     clearColorKey();
@@ -49,20 +52,23 @@ export default function BinarySearch() {
 
     const newChartData = generateChartData(randomArr, 300, true); // true means it's sorted
 
-    // console.log(newChartData);
-
-    const { dataSteps, colorSteps: newColorSteps } = generateDataSteps(
+    const {
+      dataSteps,
+      colorSteps: newColorSteps,
+      indexStep: newIndexStep,
+    } = generateDataSteps(
       data,
       Number(inputValue) ? Number(inputValue) : 0,
       colorSteps
     );
 
-    // console.log(newColorSteps);
+    console.log(newIndexStep, "newIndexStep");
 
     setData(newChartData);
     setColorSteps(newColorSteps);
     setCurrentStep(0);
     setDataSteps(dataSteps);
+    setIndexStep(newIndexStep);
   };
 
   const startSearch = async () => {
@@ -101,15 +107,16 @@ export default function BinarySearch() {
     setInputValue(e.target.value);
     clearColorKey();
 
-    const { dataSteps, colorSteps: newColorSteps } = generateDataSteps(
-      data,
-      Number(e.target.value),
-      colorSteps
-    );
+    const {
+      dataSteps,
+      colorSteps: newColorSteps,
+      indexStep: newIndexStep,
+    } = generateDataSteps(data, Number(e.target.value), colorSteps);
 
     setColorSteps(newColorSteps);
     setCurrentStep(0);
     setDataSteps(dataSteps);
+    setIndexStep(newIndexStep);
   };
 
   return (
@@ -121,7 +128,14 @@ export default function BinarySearch() {
       <div className='container h-[calc(100vh-196px)]'>
         <Dropdown view={view} setView={setView} />
 
-        <Views data={data} view={view} colorKey={colorKey} />
+        <Views
+          data={data}
+          view={view}
+          colorKey={colorKey}
+          indexStep={indexStep}
+          currentStep={currentStep}
+          binary
+        />
 
         <GeneratorController
           type={"searching"}
@@ -146,23 +160,9 @@ export default function BinarySearch() {
 
 BinarySearch.getLayout = function getLayout(page) {
   const pageTitle = "Searching Algorithms";
-  const options = [
-    {
-      value: "Home",
-      href: "/",
-    },
-    {
-      value: "Linear Search",
-      href: "/searching/linear",
-    },
-    {
-      value: "Binary Search",
-      href: "/searching/binary",
-    },
-  ];
 
   return (
-    <Layout pageTitle={pageTitle} options={options}>
+    <Layout pageTitle={pageTitle} options={searchingNavigationOptions}>
       {page}
     </Layout>
   );

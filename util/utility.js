@@ -97,3 +97,18 @@ export const waitForme = (delay) => {
     }, delay);
   });
 };
+
+export const searchingNavigationOptions = [
+  {
+    value: "Home",
+    href: "/",
+  },
+  {
+    value: "Linear Search",
+    href: "/searching/linear",
+  },
+  {
+    value: "Binary Search",
+    href: "/searching/binary",
+  },
+];
