@@ -11,7 +11,7 @@ import { randomIntFromInterval } from "../../util/utility";
 import Footer from "../../components/Layout/Footer";
 import { cloneDeep } from "lodash";
 import Bar from "../../components/Bar";
-import { handleNavigation } from "../../util/sort";
+import { handleNavigationSort } from "../../util/sort";
 import Dropdown from "../../components/Dropdown";
 import Views from "../../components/Views";
 
@@ -264,7 +264,7 @@ export default function Selection() {
 
 Selection.getLayout = function getLayout(page) {
   const pageTitle = "Sorting Algorithm";
-  const options = handleNavigation("selection");
+  const options = handleNavigationSort("selection");
 
   return (
     <Layout pageTitle={pageTitle} options={options}>

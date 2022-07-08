@@ -12,7 +12,7 @@ import { randomIntFromInterval } from "../../util/utility";
 import Footer from "../../components/Layout/Footer";
 import { cloneDeep } from "lodash";
 import Bar from "../../components/Bar";
-import { handleNavigation } from "../../util/sort";
+import { handleNavigationSort } from "../../util/sort";
 
 export default function Insertion() {
   const dispatch = useDispatch();
@@ -331,7 +331,7 @@ export default function Insertion() {
 
 Insertion.getLayout = function getLayout(page) {
   const pageTitle = "Sorting Algorithm";
-  const options = handleNavigation("insertion");
+  const options = handleNavigationSort("insertion");
 
   return <Layout options={options}>{page}</Layout>;
 };

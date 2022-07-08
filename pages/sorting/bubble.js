@@ -11,7 +11,7 @@ import {
   nextStep,
   start,
   pauser,
-  handleNavigation,
+  handleNavigationSort,
 } from "../../util/sort";
 import Views from "../../components/Views";
 import GeneratorController from "../../components/GeneratorController";
@@ -169,7 +169,7 @@ export default function Bubble() {
 
 Bubble.getLayout = function getLayout(page) {
   const pageTitle = "Sorting Algorithm";
-  const options = handleNavigation("bubble");
+  const options = handleNavigationSort("bubble");
 
   return (
     <Layout pageTitle={pageTitle} options={options}>

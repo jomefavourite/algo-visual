@@ -10,7 +10,7 @@ import Layout from "../../components/Layout/Layout";
 import Loader from "../../components/Loader";
 import Views from "../../components/Views";
 import { generateDataSteps } from "../../util/search/linear";
-import { searchingNavigationOptions } from "../../util/utility";
+import { handleNavigationSearch } from "../../util/utility";
 import {
   generateChartData,
   randomIntFromInterval,
@@ -144,9 +144,10 @@ export default function Linear() {
 
 Linear.getLayout = function getLayout(page) {
   const pageTitle = "Searching Algorithms";
+  const options = handleNavigationSearch("linear");
 
   return (
-    <Layout pageTitle={pageTitle} options={searchingNavigationOptions}>
+    <Layout pageTitle={pageTitle} options={options}>
       {page}
     </Layout>
   );

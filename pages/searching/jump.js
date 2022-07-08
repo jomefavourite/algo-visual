@@ -10,7 +10,10 @@ import Layout from "../../components/Layout/Layout";
 import Loader from "../../components/Loader";
 import Views from "../../components/Views";
 import { generateDataSteps } from "../../util/search/jump";
-import { searchingNavigationOptions } from "../../util/utility";
+import {
+  handleNavigationSearch,
+  searchingNavigationOptions,
+} from "../../util/utility";
 import {
   generateChartData,
   randomIntFromInterval,
@@ -150,9 +153,10 @@ export default function JumpSearch() {
 
 JumpSearch.getLayout = function getLayout(page) {
   const pageTitle = "Searching Algorithms";
+  const options = handleNavigationSearch("jump");
 
   return (
-    <Layout pageTitle={pageTitle} options={searchingNavigationOptions}>
+    <Layout pageTitle={pageTitle} options={options}>
       {page}
     </Layout>
   );

@@ -233,7 +233,7 @@ const handleBubbleSort = async () => {
   setPlaying(false);
 };
 
-export const handleNavigation = (page) => {
+export const handleNavigationSort = (page) => {
   return [
     {
       value: "Home",
