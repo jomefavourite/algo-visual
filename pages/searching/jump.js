@@ -9,7 +9,7 @@ import Footer from "../../components/Layout/Footer";
 import Layout from "../../components/Layout/Layout";
 import Loader from "../../components/Loader";
 import Views from "../../components/Views";
-import { generateDataSteps } from "../../util/search/linear";
+import { generateDataSteps } from "../../util/search/jump";
 import { searchingNavigationOptions } from "../../util/utility";
 import {
   generateChartData,
@@ -48,7 +48,13 @@ export default function JumpSearch() {
       () => Math.floor(Math.random() * 49) + 1
     );
 
-    const newChartData = generateChartData(randomArr);
+    const newChartData = generateChartData(
+      [1, 2, 3, 4, 5, 6, 7, 8, 9, 10],
+      300,
+      true
+    );
+
+    console.log(newChartData, "newChartData");
 
     const { dataSteps, colorSteps: newColorSteps } = generateDataSteps(
       data,
@@ -113,7 +119,7 @@ export default function JumpSearch() {
   return (
     <>
       <Head>
-        <title>Linear Search</title>
+        <title>Jump Search</title>
       </Head>
 
       <div className='container h-[calc(100vh-196px)]'>
