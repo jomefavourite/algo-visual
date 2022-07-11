@@ -2,6 +2,63 @@ import Head from "next/head";
 import Link from "next/link";
 // import {withRedux} from "."
 export default function Home() {
+  const options = [
+    {
+      name: "Searching Algorithm",
+      types: [
+        {
+          name: "Linear Search",
+          link: "/searching/linear",
+          tag: "linear",
+        },
+        {
+          name: "Binary Search",
+          link: "/searching/binary",
+          tag: "binary",
+        },
+        {
+          name: "Jump Search",
+          link: "/searching/jump",
+          tag: "jump",
+        },
+      ],
+    },
+    {
+      name: "Sorting Algorithm",
+      types: [
+        {
+          name: "Bubble Sort",
+          link: "/sorting/bubble",
+          tag: "bubble",
+        },
+        {
+          name: "Selection Sort",
+          link: "/sorting/selection",
+          tag: "selection",
+        },
+        {
+          name: "Insertion Sort",
+          link: "/sorting/insertion",
+          tag: "insertion",
+        },
+      ],
+    },
+    {
+      name: "Graph Traversal Algorithm",
+      types: [
+        {
+          name: "Breadth First Search",
+          link: "/sorting/bubble",
+          tag: "BFS",
+        },
+        {
+          name: "Depth First Search",
+          link: "/sorting/selection",
+          tag: "DFS",
+        },
+      ],
+    },
+  ];
   return (
     <>
       <Head>
@@ -10,8 +67,28 @@ export default function Home() {
         <link rel='icon' href='/favicon.ico' />
       </Head>
 
-      <div className=''>
-        <h1 className='text-3xl'>Algorithm Visualization</h1>
+      <div className='container'>
+        <h1 className='text-center text-3xl'>Algorithm Visualization</h1>
+
+        <div className='flex gap-5'>
+          {options.map((item, id) => (
+            <div
+              key={id}
+              className='h-[200px] w-[200px] rounded-md bg-[#00000065]'
+            >
+              <div>
+                {item.types.map((type, i) => (
+                  <Link href={type.link} key={i}>
+                    <a>
+                      <span className='bg-[#000] text-white'>{type.tag}</span>
+                    </a>
+                  </Link>
+                ))}
+              </div>
+            </div>
+          ))}
+        </div>
+
         <div>
           <p>
             <strong>Searching Algorithm:</strong>
