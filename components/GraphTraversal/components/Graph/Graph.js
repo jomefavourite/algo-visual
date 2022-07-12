@@ -231,7 +231,9 @@ export const Graph = ({
         visualizeGraph(visitedEdges);
       } else if (selectedAlgo?.key === "dfs") {
         let visitedEdges = dfs(edges, startNodeId);
-        // console.log(visitedEdges, "visitedEdges");
+        console.log(visitedEdges, "visitedEdges");
+        console.log(edges, "edges");
+        console.log(startNodeId, "startNodeId");
 
         visualizeGraph(visitedEdges);
       } else if (selectedAlgo.key === "minspantreeprims") {
@@ -653,37 +655,6 @@ export const Graph = ({
           </>
         )}
       </svg>
-      <Modal
-        styles={{
-          main: { minHeight: "0px", minWidth: "0px", height: "31px" },
-          scrollableContent: { display: "flex" },
-        }}
-        isOpen={isModalOpen}
-      >
-        {edge && edge.weight !== null && (
-          <TextField
-            styles={{ fieldGroup: { border: "none" } }}
-            type='number'
-            min={0}
-            max={500}
-            value={edge.weight.toString()}
-            onKeyDown={(e) => {
-              if (e.keyCode === 13) {
-                editEdgeWeight();
-              }
-            }}
-            onChange={(e) => {
-              parseInt(e.target.value) >= 0 && parseInt(e.target.value) <= 500
-                ? setEdge({ ...edge, weight: parseInt(e.target.value) })
-                : e.preventDefault();
-            }}
-          />
-        )}
-
-        <button className={styles.modalButton} onClick={editEdgeWeight}>
-          Set Weight
-        </button>
-      </Modal>
     </>
   );
 };

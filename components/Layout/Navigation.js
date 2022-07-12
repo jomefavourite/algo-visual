@@ -3,7 +3,7 @@ import React from "react";
 
 export default function Navigation({ options, pageTitle }) {
   return (
-    <nav className=' bg-black '>
+    <nav className=' bg-[#000] '>
       <div className='container flex w-full items-center p-3 text-white'>
         <h2 className='text-white'>{pageTitle}</h2>
 

@@ -68,7 +68,7 @@ function Footer({
   };
 
   return (
-    <footer className='mt-8 bg-black p-4 text-center text-white'>
+    <footer className='mt-8 bg-[#060708] p-4 text-center text-white'>
       <div className='container grid grid-cols-[200px,1fr,200px]'>
         <input
           type='range'

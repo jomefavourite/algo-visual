@@ -7,7 +7,7 @@ export default function Layout({ children, options, pageTitle }) {
     <>
       <Toaster position='top-center' reverseOrder={false} />
       <Navigation pageTitle={pageTitle} options={options} />
-      <main>{children}</main>
+      <main className='bg-[ #121419]'>{children}</main>
       {/* <Footer /> */}
     </>
   );

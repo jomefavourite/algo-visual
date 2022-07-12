@@ -1,14 +1,21 @@
 .node {
-  fill: white;
+  fill: rgb(125, 143, 231);
   animation: node;
   animation-duration: 0.3s;
   cursor: pointer;
 }
 
 .directedEdge {
-  stroke: white;
+  stroke: rgb(125, 143, 231);
   fill: transparent;
   stroke-width: 0.2%;
+  animation: edge;
+  animation-duration: 0.3s;
+}
+.undirectedEdge {
+  stroke: rgb(125, 143, 231);
+  fill: transparent;
+  stroke-width: 0.4%;
   animation: edge;
   animation-duration: 0.3s;
 }
@@ -53,17 +60,15 @@
 }
 .deleteNodeMode:hover {
   fill: #a01f1f;
+  color: #fff;
+}
+.deleteNodeMode:hover .nodeText {
+  fill: #fff !important;
 }
 .editEdgeMode:hover {
   stroke: #39b16f;
 }
-.undirectedEdge {
-  stroke: white;
-  fill: transparent;
-  stroke-width: 0.4%;
-  animation: edge;
-  animation-duration: 0.3s;
-}
+
 .deleteEdgeMode:hover {
   stroke: #a01f1f;
 }
@@ -96,7 +101,7 @@
   pointer-events: none;
 }
 .arrow {
-  fill: white;
+  fill: rgb(125, 143, 231);
 }
 
 @media only screen and (min-width: 1200px) {

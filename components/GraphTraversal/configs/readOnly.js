@@ -18,12 +18,12 @@ export const algoOptions = [
     key: "select",
     text: "Select Algorithm",
   },
-  { key: "divider_1", text: "-", itemType: DropdownMenuItemType.Divider },
-  {
-    key: "traversal",
-    text: "Traversal",
-    itemType: DropdownMenuItemType.Header,
-  },
+  // { key: "divider_1", text: "-", itemType: DropdownMenuItemType.Divider },
+  // {
+  //   key: "traversal",
+  //   text: "Traversal",
+  //   itemType: DropdownMenuItemType.Header,
+  // },
   {
     key: "bfs",
     data: "traversal",

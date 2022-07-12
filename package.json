@@ -11,6 +11,8 @@
   "dependencies": {
     "@cutting/svg": "^4.33.0",
     "@fluentui/react": "^8.79.0",
+    "@headlessui/react": "^1.6.6",
+    "@heroicons/react": "^1.0.6",
     "daisyui": "^2.18.0",
     "lodash": "^4.17.21",
     "next": "12.1.0",

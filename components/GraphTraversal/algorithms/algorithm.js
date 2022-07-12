@@ -84,6 +84,7 @@ export const dfs = (edges, startNodeId) => {
       });
     }
   }
+
   return visitedEdges;
 };
 

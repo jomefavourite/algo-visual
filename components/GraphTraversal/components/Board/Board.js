@@ -6,6 +6,7 @@ import { Dropdown, Slider, ProgressIndicator } from "@fluentui/react";
 import { edgeOptions, algoOptions } from "../../configs/readOnly";
 import { optionButtonStyles, sliderOptions } from "./BoardStyles";
 import Link from "next/link";
+import Nav from "./Nav";
 
 export const Board = () => {
   const [options, setOptions] = useState({
@@ -15,6 +16,7 @@ export const Board = () => {
     reset: false,
     editEdge: false,
     deleteEdge: false,
+    selectEdge: false,
   });
   const [isPullDownMenuOpen, setPullDownMenuState] = useState(false);
   const [nodeSelection, setNodeSelection] = useState({
@@ -25,6 +27,7 @@ export const Board = () => {
   const [selectedAlgo, setSelectedAlgo] = useState(algoOptions[0]);
   const [isVisualizing, setVisualizingState] = useState(false);
   const [visualizationSpeed, setVisualizationSpeed] = useState(500);
+  const [isSelectEge, setIsSelectEdge] = useState(false);
 
   useEffect(() => {
     if (!isVisualizing) {
@@ -47,15 +50,20 @@ export const Board = () => {
     });
     setOptions(updatedOptions);
     setPullDownMenuState(false);
+    setIsSelectEdge(false);
   };
 
   //handles the selection of edge options and corresponding toggles for other options in control panel.
   const handleEdgeOptions = (_event, option) => {
+    console.log(_event, "event", option, "option");
     const updatedOptions = mapValues(options, () => false);
+    console.log(updatedOptions, "updatedOptions");
     setOptions(updatedOptions);
     setSelectedAlgo({ key: "select", text: "Select Algorithm" });
     setSelectedEdge(option);
     setPullDownMenuState(false);
+
+    setIsSelectEdge(true);
   };
 
   //handles the selection of algo options and corresponding toggles for other options in control panel.
@@ -80,160 +88,56 @@ export const Board = () => {
     //   setOptions(updatedOptions);
     // }
     setPullDownMenuState(false);
+    setIsSelectEdge(false);
   };
   const handlePullDownMenu = () => {
     setPullDownMenuState(!isPullDownMenuOpen);
   };
   return (
     <>
-      <div className={styles.board}>
-        <div
-          className={styles.controlPanel}
-          style={isPullDownMenuOpen ? { top: "-7%" } : { top: "-125%" }}
-        >
-          <Link style={{ textDecoration: "none" }} href={"/"}>
-            <a>
-              <span className='navbar-brand'> {"◀"} </span>
-            </a>
-          </Link>
-          <div className={styles.appIcon}>
-            Graph{" "}
-            <span style={{ color: "#4039ad", fontWeight: "bold" }}>
-              Traversals
-            </span>
-          </div>
-          <div className={styles.nodeOptions}>
-            <button
-              className={`${styles.optionButtons} ${
-                options.drawNode && styles.selectedButtonOption
-              }`}
-              onClick={() => activateOption("drawNode")}
-              disabled={isVisualizing}
-            >
-              <i className={`${styles.icon} fas fa-circle`}></i>
-              Draw Node
-            </button>
-            <button
-              className={`${styles.optionButtons} ${
-                options.moveNode && styles.selectedButtonOption
-              }`}
-              onClick={() => activateOption("moveNode")}
-              disabled={isVisualizing}
-            >
-              <i className={`${styles.icon} fas fa-arrows-alt`}></i>
-              Move Node
-            </button>
-            <button
-              className={`${styles.optionButtons} ${
-                options.deleteNode && styles.selectedButtonOption
-              }`}
-              onClick={() => activateOption("deleteNode")}
-              disabled={isVisualizing}
-            >
-              <i className={`${styles.icon} fas fa-trash`}></i>
-              Delete Node
-            </button>
-          </div>
-          <div className={styles.edgeOptions}>
-            <Dropdown
-              className={`${styles.dropdownWrapper} ${
-                selectedEdge?.key !== "select" && styles.selectedDropdownOption
-              }`}
-              options={edgeOptions}
-              styles={optionButtonStyles.edgeDropdown}
-              placeholder='Select Edge'
-              selectedKey={selectedEdge && selectedEdge.key}
-              onChange={handleEdgeOptions}
-              disabled={isVisualizing}
-            />
-            <button
-              className={`${styles.optionButtons} ${
-                options.editEdge && styles.selectedButtonOption
-              }`}
-              onClick={() => activateOption("editEdge")}
-              disabled={isVisualizing}
-            >
-              <i className={`${styles.icon} fas fa-pen`}></i>
-              Edit Edge
-            </button>
-            <button
-              className={`${styles.optionButtons} ${
-                options.deleteEdge && styles.selectedButtonOption
-              }`}
-              onClick={() => activateOption("deleteEdge")}
-              disabled={isVisualizing}
-            >
-              <i className={`${styles.icon} fas fa-trash`}></i>
-              Delete Edge
-            </button>
-          </div>
-          <div className={styles.visualizeControls}>
-            <Dropdown
-              className={`${styles.dropdownWrapper} ${
-                selectedAlgo?.key !== "select" && styles.selectedDropdownOption
-              }`}
-              options={algoOptions}
-              styles={optionButtonStyles.algoDropdown}
-              placeholder='Select Algorithm'
-              selectedKey={selectedAlgo && selectedAlgo.key}
-              onChange={handleAlgoOptions}
-              disabled={isVisualizing}
-            />
-            <Slider
-              className={styles.speedSlider}
-              label='Visual Delay'
-              styles={sliderOptions}
-              min={100}
-              max={1000}
-              step={100}
-              value={visualizationSpeed}
-              onChange={setVisualizationSpeed}
-              disabled={isVisualizing}
-            />
-          </div>
-          <div className={styles.miscellaneous}>
-            <button
-              className={`${styles.optionButtons} ${
-                options.reset && styles.selectedButtonOption
-              }`}
-              onClick={() => activateOption("reset")}
-              disabled={isVisualizing}
-            >
-              <i className={`${styles.icon} fas fa-undo-alt`}></i>
-              Reset
-            </button>
-          </div>
-        </div>
+      <nav className='bg-black py-2'>
+        <Nav
+          isPullDownMenuOpen={isPullDownMenuOpen}
+          isVisualizing={isVisualizing}
+          activateOption={activateOption}
+          handleEdgeOptions={handleEdgeOptions}
+          handleAlgoOptions={handleAlgoOptions}
+          visualizationSpeed={visualizationSpeed}
+          setVisualizationSpeed={setVisualizationSpeed}
+          options={options}
+          isSelectEge={isSelectEge}
+          selectedAlgo={selectedAlgo}
+        />
+      </nav>
 
-        <div className={styles.visualizerProgress}>
-          {isVisualizing ? (
-            <ProgressIndicator styles={{ itemProgress: { padding: "0" } }} />
-          ) : (
-            <hr />
-          )}
-        </div>
+      <div className={styles.visualizerProgress}>
+        {isVisualizing ? (
+          <ProgressIndicator styles={{ itemProgress: { padding: "0" } }} />
+        ) : (
+          <hr />
+        )}
+      </div>
 
-        <div className={styles.graphContainer}>
-          <Graph
-            options={options}
-            selectedAlgo={selectedAlgo}
-            selectedEdge={selectedEdge}
-            visualizationSpeed={visualizationSpeed}
-            setVisualizingState={setVisualizingState}
-            isVisualizing={isVisualizing}
-            nodeSelection={nodeSelection}
-            setNodeSelection={setNodeSelection}
-          />
-          <div className={styles.pullDownMenu} onClick={handlePullDownMenu}>
-            <div
-              className={styles.pullDownMenuButton}
-              style={
-                isPullDownMenuOpen
-                  ? { transform: "rotate(225deg)" }
-                  : { transform: "rotate(45deg" }
-              }
-            ></div>
-          </div>
+      <div className='h-[calc(100vh-90px)] w-screen'>
+        <Graph
+          options={options}
+          selectedAlgo={selectedAlgo}
+          selectedEdge={selectedEdge}
+          visualizationSpeed={visualizationSpeed}
+          setVisualizingState={setVisualizingState}
+          isVisualizing={isVisualizing}
+          nodeSelection={nodeSelection}
+          setNodeSelection={setNodeSelection}
+        />
+        <div className={styles.pullDownMenu} onClick={handlePullDownMenu}>
+          <div
+            className={styles.pullDownMenuButton}
+            style={
+              isPullDownMenuOpen
+                ? { transform: "rotate(225deg)" }
+                : { transform: "rotate(45deg" }
+            }
+          ></div>
         </div>
       </div>
     </>
