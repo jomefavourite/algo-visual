@@ -8,6 +8,7 @@ import GeneratorController from "../../components/GeneratorController";
 import Footer from "../../components/Layout/Footer";
 import Layout from "../../components/Layout/Layout";
 import Loader from "../../components/Loader";
+import Modal from "../../components/Modal";
 import Views from "../../components/Views";
 import { generateDataSteps } from "../../util/search/linear";
 import { handleNavigationSearch } from "../../util/utility";
@@ -128,6 +129,8 @@ export default function Linear() {
           handleInputChange={handleInputChange}
         />
       </div>
+
+      <Modal />
 
       <Footer
         start={startSearch}

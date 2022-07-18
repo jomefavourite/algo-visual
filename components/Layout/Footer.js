@@ -19,16 +19,18 @@ function Footer({
     console.log(btnClick);
     console.log(colorSteps);
 
-    if (btnClick === "play") {
-      type === "sorting"
-        ? start()
-        : colorSteps !== undefined && colorSteps?.length > 2
-        ? start()
-        : toast("Please, enter a search key");
-    } else {
-      console.log("pause");
-      pauser();
-    }
+    start();
+
+    // if (btnClick === "play") {
+    //   type === "sorting"
+    //     ? start()
+    //     : colorSteps !== undefined && colorSteps?.length > 2
+    //     ? start()
+    //     : toast("Please, enter a search key");
+    // } else {
+    //   console.log("pause");
+    //   pauser();
+    // }
   };
 
   const handleRange = (range) => {
