@@ -70,7 +70,7 @@ export default function Modal() {
 
   return (
     <>
-      <div className='fixed inset-0 flex items-center justify-center'>
+      <div className='flex items-center justify-center'>
         <button
           type='button'
           onClick={openModal}
