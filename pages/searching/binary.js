@@ -10,7 +10,7 @@ import Layout from "../../components/Layout/Layout";
 import Loader from "../../components/Loader";
 import Views from "../../components/Views";
 import { generateDataSteps } from "../../util/search/binary";
-import { handleNavigationSearch } from "../../util/utility";
+import { handleNavigationSearch } from "../../util/search";
 import {
   generateChartData,
   randomIntFromInterval,

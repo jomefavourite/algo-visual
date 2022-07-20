@@ -1,5 +1,7 @@
+import React, { useState } from "react";
 import Link from "next/link";
-import React from "react";
+import { useRouter } from "next/router";
+import { IoMdArrowRoundBack } from "react-icons/io";
 
 export default function Navigation({
   options,
@@ -7,16 +9,19 @@ export default function Navigation({
   comparison,
   comparisonTitle,
 }) {
+  const router = useRouter();
+  const [isClicked, setIsClicked] = useState(false);
+
   return (
     <>
-      <nav className=' bg-[#000]'>
-        <div className='container flex w-full items-center p-3 text-white'>
+      <nav className='relative bg-[#000] py-4 px-4'>
+        <div className='container grid w-full grid-cols-2 items-center text-white md:grid-cols-[200px,1fr,130px]  '>
           {!comparison && (
             <>
-              <h2 className='text-white'>{pageTitle}</h2>
+              <h2 className='w-fit text-xl text-white'>{pageTitle}</h2>
 
-              <ul className='flex w-full space-x-4'>
-                {[...options.slice(1)].map((option, id) => (
+              <ul className='hidden w-full space-x-4 md:flex '>
+                {[...options.slice(0, options.length - 2)].map((option, id) => (
                   <li key={id}>
                     <Link href={`${option.href}`}>
                       <a
@@ -31,24 +36,62 @@ export default function Navigation({
                 ))}
               </ul>
 
-              <Link href={`${options[0]?.href}`}>
+              <Link href={`${options[options.length - 1]?.href}`}>
                 <a
                   className={`${
-                    options[0]?.active ? "text-white" : "text-[#ffffffbe]"
-                  }`}
+                    options[options.length - 1]?.active
+                      ? "text-white"
+                      : "text-[#ffffffbe]"
+                  } hidden md:block`}
                 >
-                  {options[0]?.value}
+                  {options[options.length - 1]?.value}
                 </a>
               </Link>
+
+              <button
+                className='btn ml-auto w-fit md:hidden'
+                onClick={() => setIsClicked(!isClicked)}
+              >
+                Menu
+              </button>
             </>
           )}
+
           {comparison && (
             <>
-              <button className='mr-4'>Back</button>
+              <button
+                onClick={() => router.back()}
+                className='mr-4 flex items-center gap-1'
+              >
+                <IoMdArrowRoundBack />
+                Back
+              </button>
+
               <h3>{comparisonTitle}</h3>
             </>
           )}
         </div>
+
+        {/* Mobile */}
+        {!comparison && isClicked && (
+          <div className=' absolute left-0 w-full bg-black py-5 md:hidden'>
+            <ul className='flex w-full flex-col items-center space-y-4 space-x-4'>
+              {options.map((option, id) => (
+                <li key={id}>
+                  <Link href={`${option.href}`}>
+                    <a
+                      className={`${
+                        option.active ? "text-white" : "text-[#ffffffbe]"
+                      }`}
+                    >
+                      {option.value}
+                    </a>
+                  </Link>
+                </li>
+              ))}
+            </ul>
+          </div>
+        )}
       </nav>
     </>
   );

@@ -236,11 +236,6 @@ const handleBubbleSort = async () => {
 export const handleNavigationSort = (page) => {
   return [
     {
-      value: "View Comparison",
-      href: "/sorting/comparison",
-      active: page === "comparison" ? true : false,
-    },
-    {
       value: "Home",
       href: "/",
       active: page === "home" ? true : false,
@@ -259,6 +254,11 @@ export const handleNavigationSort = (page) => {
       value: "Insertion Sort",
       href: "/sorting/insertion",
       active: page === "insertion" ? true : false,
+    },
+    {
+      value: "View Comparison",
+      href: "/sorting/comparison",
+      active: page === "comparison" ? true : false,
     },
   ];
 };

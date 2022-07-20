@@ -11,7 +11,7 @@ import Loader from "../../components/Loader";
 import Modal from "../../components/Modal";
 import Views from "../../components/Views";
 import { generateDataSteps } from "../../util/search/linear";
-import { handleNavigationSearch } from "../../util/utility";
+import { handleNavigationSearch } from "../../util/search";
 import {
   generateChartData,
   randomIntFromInterval,
