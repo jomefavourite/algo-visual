@@ -1,5 +1,5 @@
 import Head from "next/head";
-import { useState, useEffect, useRef, useLayoutEffect } from "react";
+import { useState, useEffect, useRef } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { setArray } from "../../redux/algo.actions";
 import { cloneDeep } from "lodash";

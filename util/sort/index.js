@@ -236,6 +236,11 @@ const handleBubbleSort = async () => {
 export const handleNavigationSort = (page) => {
   return [
     {
+      value: "View Comparison",
+      href: "/sorting/comparison",
+      active: page === "comparison" ? true : false,
+    },
+    {
       value: "Home",
       href: "/",
       active: page === "home" ? true : false,
