@@ -2,13 +2,13 @@ import { Dialog, Transition } from "@headlessui/react";
 import { Fragment, useState } from "react";
 import { Tab } from "@headlessui/react";
 import { MdClose } from "react-icons/md";
+import { FaPlay, FaStepForward, FaStepBackward, FaPause } from "react-icons/fa";
 
 function classNames(...classes) {
   return classes.filter(Boolean).join(" ");
 }
 
-export default function Modal() {
-  let [isOpen, setIsOpen] = useState(true);
+export default function Modal({ isModalOpen, setIsModalOpen }) {
   let [categories] = useState({
     Recent: [
       {
@@ -60,31 +60,23 @@ export default function Modal() {
     ],
   });
 
+  const tabItems = ["Intro to Linear Search", "How it works"];
+
   function closeModal() {
-    setIsOpen(false);
+    setIsModalOpen(false);
   }
 
   function openModal() {
-    setIsOpen(true);
+    setIsModalOpen(true);
   }
 
   return (
     <>
-      <div className='flex items-center justify-center'>
-        <button
-          type='button'
-          onClick={openModal}
-          className='rounded-md bg-black bg-opacity-20 px-4 py-2 text-sm font-medium text-white hover:bg-opacity-30 focus:outline-none focus-visible:ring-2 focus-visible:ring-white focus-visible:ring-opacity-75'
-        >
-          Open dialog
-        </button>
-      </div>
-
-      <Transition appear show={isOpen} as={Fragment}>
+      <Transition appear show={isModalOpen} as={Fragment}>
         <Dialog
           as='div'
           className='relative z-10'
-          onClose={() => setIsOpen(true)}
+          onClose={() => setIsModalOpen(true)}
         >
           <Transition.Child
             as={Fragment}
@@ -98,7 +90,7 @@ export default function Modal() {
             <div className='fixed inset-0 bg-black bg-opacity-25' />
           </Transition.Child>
 
-          <div className='fixed inset-0 overflow-y-auto'>
+          <div className='fixed inset-0 min-h-[400px]  overflow-y-auto'>
             <div className='flex min-h-full items-center justify-center p-4 text-center'>
               <Transition.Child
                 as={Fragment}
@@ -110,16 +102,26 @@ export default function Modal() {
                 leaveTo='opacity-0 scale-95'
               >
                 <Dialog.Panel className='w-full max-w-md transform rounded-2xl bg-white p-6 text-left align-middle shadow-xl transition-all'>
-                  {/* <Dialog.Title
-                    as='h3'
-                    className='text-lg font-medium leading-6 text-gray-900'
-                  >
-                    Payment successful
-                  </Dialog.Title> */}
                   <div className='w-full max-w-md px-2 sm:px-0'>
                     <Tab.Group defaultIndex={0}>
                       <Tab.List className='flex space-x-1 rounded-xl bg-black/10 p-1'>
-                        {Object.keys(categories).map((category) => (
+                        {tabItems.map((item, index) => (
+                          <Tab
+                            key={index}
+                            className={({ selected }) =>
+                              classNames(
+                                "text- blue-700 w-full rounded-lg py-2.5 text-sm font-medium leading-5",
+                                "ring-white ring-opacity-60 ring-offset-2 ring-offset-blue-400 focus:outline-none focus:ring-2",
+                                selected
+                                  ? "bg-white shadow"
+                                  : "text-black hover:bg-white/[0.12] hover:text-white"
+                              )
+                            }
+                          >
+                            {item}
+                          </Tab>
+                        ))}
+                        {/* {Object.keys(categories).map((category) => (
                           <Tab
                             key={category}
                             className={({ selected }) =>
@@ -134,10 +136,72 @@ export default function Modal() {
                           >
                             {category}
                           </Tab>
-                        ))}
+                        ))} */}
                       </Tab.List>
                       <Tab.Panels className='mt-2'>
-                        {Object.values(categories).map((posts, idx) => (
+                        <Tab.Panel
+                          className={classNames(
+                            "rounded-xl bg-white p-3",
+                            "ring-white ring-opacity-60 ring-offset-2 ring-offset-blue-400 focus:outline-none "
+                          )}
+                        >
+                          <div>hjjkks</div>
+                        </Tab.Panel>
+                        <Tab.Panel
+                          className={classNames(
+                            "rounded-xl bg-white p-3",
+                            "ring-white ring-opacity-60 ring-offset-2 ring-offset-blue-400 focus:outline-none "
+                          )}
+                        >
+                          <div className='space-y-3'>
+                            <div className='space-y-3'>
+                              {[
+                                {
+                                  text: "Current element being searched",
+                                  color: "rgba(255,48,79,1)",
+                                },
+                                {
+                                  text: "Search key found",
+                                  color: "#83e85a80",
+                                },
+                                {
+                                  text: "Search key not found",
+                                  color: "#eb7b1380",
+                                },
+                              ].map((item, index) => (
+                                <p
+                                  className='flex items-center gap-2'
+                                  key={index}
+                                >
+                                  <span
+                                    aria-hidden='true'
+                                    aria-label='Color type'
+                                    className={`inline-block h-5 w-5 rounded-full bg-[${item.color}]`}
+                                  ></span>{" "}
+                                  {item.text}
+                                </p>
+                              ))}
+                            </div>
+
+                            <hr />
+
+                            <div className='space-y-3'>
+                              <p className='flex items-center gap-2'>
+                                <FaPlay className='text-2xl' /> Play
+                                Visualization
+                              </p>
+                              <p className='flex items-center gap-2'>
+                                <FaStepForward className='text-2xl' /> Move
+                                forwards
+                              </p>
+                              <p className='flex items-center gap-2'>
+                                <FaStepBackward className='text-2xl' /> Move
+                                backwards
+                              </p>
+                            </div>
+                          </div>
+                        </Tab.Panel>
+                        {/* {Object.values(categories).map((posts, idx) => (
                           <Tab.Panel
                             key={idx}
                             className={classNames(
@@ -174,7 +238,7 @@ export default function Modal() {
                               ))}
                             </ul>
                           </Tab.Panel>
-                        ))}
+                        ))} */}
                       </Tab.Panels>
                     </Tab.Group>
                   </div>

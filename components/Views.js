@@ -12,7 +12,7 @@ function Views({ data, view, colorKey, binary, indexStep, currentStep }) {
       ) : (
         <>
           {view === "chartView" && (
-            <div className='flex h-[300px] items-end justify-center gap-3 px-3'>
+            <div className='flex h-[300px] items-end justify-center gap-1 md:gap-3 md:px-3'>
               {data.map((item, index) => (
                 <Bar key={index} item={item} color={colorKey[index]} />
               ))}

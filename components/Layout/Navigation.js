@@ -18,7 +18,9 @@ export default function Navigation({
         <div className='container grid w-full grid-cols-2 items-center text-white md:grid-cols-[200px,1fr,130px]  '>
           {!comparison && (
             <>
-              <h2 className='w-fit text-xl text-white'>{pageTitle}</h2>
+              <h2 className='w-fit text-lg text-white md:text-xl'>
+                {pageTitle}
+              </h2>
 
               <ul className='hidden w-full space-x-4 md:flex '>
                 {[...options.slice(0, options.length - 2)].map((option, id) => (
@@ -74,22 +76,25 @@ export default function Navigation({
 
         {/* Mobile */}
         {!comparison && isClicked && (
-          <div className=' absolute left-0 w-full bg-black py-5 md:hidden'>
-            <ul className='flex w-full flex-col items-center space-y-4 space-x-4'>
-              {options.map((option, id) => (
-                <li key={id}>
-                  <Link href={`${option.href}`}>
-                    <a
-                      className={`${
-                        option.active ? "text-white" : "text-[#ffffffbe]"
-                      }`}
-                    >
-                      {option.value}
-                    </a>
-                  </Link>
-                </li>
-              ))}
-            </ul>
+          <div className='pointer-events-none absolute left-0 z-10 h-screen w-full md:hidden'>
+            <div className='bg-black py-5 '>
+              <ul className='flex w-full flex-col items-center space-y-4'>
+                {options.map((option, id) => (
+                  <li key={id}>
+                    <Link href={`${option.href}`}>
+                      <a
+                        className={`${
+                          option.active ? "text-white" : "text-[#ffffffbe]"
+                        }`}
+                      >
+                        {option.value}
+                      </a>
+                    </Link>
+                  </li>
+                ))}
+              </ul>
+            </div>
+            <div className='pointer-events-auto top-0 h-full w-full bg-[#0000004d]'></div>
           </div>
         )}
       </nav>

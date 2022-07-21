@@ -1,5 +1,4 @@
 import React, { useState, memo } from "react";
-
 import { FaPlay, FaStepForward, FaStepBackward, FaPause } from "react-icons/fa";
 import { toast } from "react-hot-toast";
 
@@ -77,7 +76,7 @@ function Footer({
           min='0'
           max='100'
           value={speedControl.speed}
-          // class='range'
+          className='hidden md:block'
           step='25'
           onChange={(e) => handleRange(e.target.value)}
         />
@@ -98,7 +97,7 @@ function Footer({
               data-key={playing ? "pause" : "play"}
               onClick={(e) => handlePlay(e.target.dataset.key)}
             >
-              {playing ? (
+              {/* {playing ? (
                 <FaPause
                   data-key='pause'
                   className='pointer-events-none text-2xl'
@@ -108,7 +107,12 @@ function Footer({
                   data-key='play'
                   className='pointer-events-none text-2xl'
                 />
-              )}
+              )} */}
+
+              <FaPlay
+                data-key='play'
+                className='pointer-events-none text-2xl'
+              />
             </button>
             <button
               title='Next Step'
