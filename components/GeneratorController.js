@@ -19,7 +19,7 @@ export default function GeneratorController({
         <button
           aria-hidden='true'
           aria-label='generation controller'
-          className='mr-2 h-[100px] w-fit rounded-br-md rounded-tr-md bg-black p-3'
+          className='mr-2 h-[100px] w-fit rounded-br-md rounded-tr-md bg-[#00000075] p-3'
           onClick={() => setIsClicked(!isClicked)}
         >
           {isClicked ? (

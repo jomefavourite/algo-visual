@@ -36,6 +36,10 @@ export default function Linear() {
   const [isModalOpen, setIsModalOpen] = useState(true);
 
   useEffect(() => {
+    setIsModalOpen(localStorage?.getItem("isChecked") ? false : true);
+  }, []);
+
+  useEffect(() => {
     generateRandom();
   }, []);
 

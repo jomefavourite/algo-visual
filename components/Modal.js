@@ -70,6 +70,14 @@ export default function Modal({ isModalOpen, setIsModalOpen }) {
     setIsModalOpen(true);
   }
 
+  const handleInput = (e) => {
+    const isChecked = e.target.checked;
+
+    if (isChecked) {
+      localStorage.setItem("isChecked", isChecked);
+    }
+  };
+
   return (
     <>
       <Transition appear show={isModalOpen} as={Fragment}>
@@ -251,6 +259,18 @@ export default function Modal({ isModalOpen, setIsModalOpen }) {
                     >
                       <MdClose className='text-white' />
                     </button>
+                  </div>
+
+                  <div className='p-3'>
+                    <label htmlFor='show' className='text-sm'>
+                      <input
+                        type='checkbox'
+                        name='show'
+                        id='show'
+                        onChange={handleInput}
+                      />{" "}
+                      Don't show again
+                    </label>
                   </div>
                 </Dialog.Panel>
               </Transition.Child>

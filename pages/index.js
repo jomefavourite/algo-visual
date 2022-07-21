@@ -5,6 +5,7 @@ export default function Home() {
   const options = [
     {
       name: "Searching Algorithm",
+      image: ["/images/searching.png", "/images/searching.gif"],
       types: [
         {
           name: "Linear Search",
@@ -21,10 +22,16 @@ export default function Home() {
           link: "/searching/jump",
           tag: "jump",
         },
+        {
+          name: "Comparison Page",
+          link: "/searching/comparison",
+          tag: "comparison",
+        },
       ],
     },
     {
       name: "Sorting Algorithm",
+      image: ["/images/sorting.png", "/images/sorting.gif"],
       types: [
         {
           name: "Bubble Sort",
@@ -41,20 +48,31 @@ export default function Home() {
           link: "/sorting/insertion",
           tag: "insertion",
         },
+        {
+          name: "Comparison Page",
+          link: "/sorting/comparison",
+          tag: "comparison",
+        },
       ],
     },
     {
       name: "Graph Traversal Algorithm",
+      image: ["/images/graph-traversal.png", "/images/graph-traversal.gif"],
       types: [
         {
           name: "Breadth First Search",
-          link: "/sorting/bubble",
+          link: "/graph_traversal/",
           tag: "BFS",
         },
         {
           name: "Depth First Search",
-          link: "/sorting/selection",
+          link: "/graph_traversal/",
           tag: "DFS",
+        },
+        {
+          name: "Comparison Page",
+          link: "/graph_traversal/comparison",
+          tag: "comparison",
         },
       ],
     },
@@ -67,79 +85,44 @@ export default function Home() {
         <link rel='icon' href='/favicon.ico' />
       </Head>
 
-      <div className='container'>
-        <h1 className='text-center text-3xl'>Algorithm Visualization</h1>
+      <main className='h-screen bg-[#58585813]'>
+        <div className='container'>
+          <h1 className='pt-8 text-center text-3xl'>Algorithm Visualization</h1>
 
-        <div className='flex gap-5'>
-          {options.map((item, id) => (
-            <div
-              key={id}
-              className='h-[200px] w-[200px] rounded-md bg-[#00000065]'
-            >
-              <div>
-                {item.types.map((type, i) => (
-                  <Link href={type.link} key={i}>
-                    <a>
-                      <span className='bg-[#000] text-white'>{type.tag}</span>
-                    </a>
-                  </Link>
-                ))}
+          <div className='mt-5 flex flex-col items-center justify-center gap-5 md:flex-row'>
+            {options.map((item, id) => (
+              <div
+                key={id}
+                className='group  w-[300px] overflow-hidden rounded-md bg-[#fff] shadow-lg'
+              >
+                <img
+                  src={item.image[0]}
+                  alt=''
+                  className='block group-hover:hidden'
+                />
+                <img
+                  src={item.image[1]}
+                  alt=''
+                  className='hidden group-hover:block'
+                />
+
+                <div className='bg-white py-3 px-4'>
+                  <h2 className='text mb-2 font-semibold'>{item.name}</h2>
+                  <div className='flex flex-wrap gap-2'>
+                    {item.types.map((type, i) => (
+                      <Link href={type.link} key={i}>
+                        <a className='rounded-md bg-[#000] px-2 py-[2px] text-sm text-white shadow-md transition-colors ease-in hover:bg-[#00000083]'>
+                          {type.tag}
+                        </a>
+                      </Link>
+                    ))}
+                  </div>
+                </div>
               </div>
-            </div>
-          ))}
+            ))}
+          </div>
         </div>
-
-        <div>
-          <p>
-            <strong>Searching Algorithm:</strong>
-          </p>
-          <ul>
-            <li>
-              <Link href='/searching/linear'>
-                <a className='text-blue-600'>Linear Search</a>
-              </Link>
-            </li>
-            <li>
-              <Link href='/searching/binary'>
-                <a className='text-blue-600'>Binary Search</a>
-              </Link>
-            </li>
-            <li>
-              <Link href='/searching/jump'>
-                <a className='text-blue-600'>Jump Search</a>
-              </Link>
-            </li>
-          </ul>
-          <p>
-            <strong>Sorting Algorithm</strong>
-          </p>
-          <ul>
-            <li>
-              <Link href='/sorting/bubble'>
-                <a className='text-blue-600'>Bubble Sort</a>
-              </Link>
-            </li>
-            <li>
-              <Link href='/sorting/selection'>
-                <a className='text-blue-600'>Selection Sort</a>
-              </Link>
-            </li>
-            <li>
-              <Link href='/sorting/insertion'>
-                <a className='text-blue-600'>Insertion Sort</a>
-              </Link>
-            </li>
-          </ul>
-
-          <p>
-            <strong>Graph Traversal Algoirthms</strong>
-          </p>
-          <ul>
-            <li>- Breadth First Search</li>
-            <li>- Depth First Search</li>
-          </ul>
-        </div>
-      </div>
+      </main>
     </>
   );
 }
