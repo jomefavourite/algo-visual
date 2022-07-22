@@ -8,7 +8,7 @@ function classNames(...classes) {
   return classes.filter(Boolean).join(" ");
 }
 
-export default function Modal({ isModalOpen, setIsModalOpen }) {
+export default function Modal({ isModalOpen, setIsModalOpen, tabItemHeading, children }) {
   let [categories] = useState({
     Recent: [
       {
@@ -59,8 +59,6 @@ export default function Modal({ isModalOpen, setIsModalOpen }) {
       },
     ],
   });
-
-  const tabItems = ["Intro to Linear Search", "How it works"];
 
   function closeModal() {
     setIsModalOpen(false);
@@ -113,7 +111,7 @@ export default function Modal({ isModalOpen, setIsModalOpen }) {
                   <div className='w-full max-w-md px-2 sm:px-0'>
                     <Tab.Group defaultIndex={0}>
                       <Tab.List className='flex space-x-1 rounded-xl bg-black/10 p-1'>
-                        {tabItems.map((item, index) => (
+                        {tabItemHeading.map((item, index) => (
                           <Tab
                             key={index}
                             className={({ selected }) =>
@@ -129,39 +127,16 @@ export default function Modal({ isModalOpen, setIsModalOpen }) {
                             {item}
                           </Tab>
                         ))}
-                        {/* {Object.keys(categories).map((category) => (
-                          <Tab
-                            key={category}
-                            className={({ selected }) =>
-                              classNames(
-                                "text- blue-700 w-full rounded-lg py-2.5 text-sm font-medium leading-5",
-                                "ring-white ring-opacity-60 ring-offset-2 ring-offset-blue-400 focus:outline-none focus:ring-2",
-                                selected
-                                  ? "bg-white shadow"
-                                  : "text-black hover:bg-white/[0.12] hover:text-white"
-                              )
-                            }
-                          >
-                            {category}
-                          </Tab>
-                        ))} */}
                       </Tab.List>
                       <Tab.Panels className='mt-2'>
+                      {children}
                         <Tab.Panel
                           className={classNames(
                             "rounded-xl bg-white p-3",
                             "ring-white ring-opacity-60 ring-offset-2 ring-offset-blue-400 focus:outline-none "
                           )}
                         >
-                          <div>hjjkks</div>
-                        </Tab.Panel>
-                        <Tab.Panel
-                          className={classNames(
-                            "rounded-xl bg-white p-3",
-                            "ring-white ring-opacity-60 ring-offset-2 ring-offset-blue-400 focus:outline-none "
-                          )}
-                        >
-                          <div className='space-y-3'>
+                          <div className='space-y-3 text-sm'>
                             <div className='space-y-3'>
                               {[
                                 {
@@ -193,7 +168,7 @@ export default function Modal({ isModalOpen, setIsModalOpen }) {
 
                             <hr />
 
-                            <div className='space-y-3'>
+                            <div className='space-y-3 text-sm'>
                               <p className='flex items-center gap-2'>
                                 <FaPlay className='text-2xl' /> Play
                                 Visualization

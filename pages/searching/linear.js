@@ -17,6 +17,8 @@ import {
   randomIntFromInterval,
   waitForme,
 } from "../../util/utility";
+import toast from "react-hot-toast";
+import { Tab } from "@headlessui/react";
 
 export default function Linear() {
   const [data, setData] = useState([]);
@@ -34,6 +36,8 @@ export default function Linear() {
     delay: 500,
   });
   const [isModalOpen, setIsModalOpen] = useState(true);
+
+  const tabItemHeading = ["Intro to Linear Search", "How it works"];
 
   useEffect(() => {
     setIsModalOpen(localStorage?.getItem("isChecked") ? false : true);
@@ -76,6 +80,18 @@ export default function Linear() {
       setData(() => dataSteps[i]);
       setColorKey(() => colorSteps[i]);
       await waitForme(speedControl.delay);
+    }
+
+    let indexData = colorSteps[colorSteps.length - 1].findIndex(
+      (item) => item === 2
+    );
+
+    if (colorSteps[colorSteps.length - 1][0] === 3) {
+      toast.error("Search key not found");
+    } else {
+      toast.success(
+        `Search key ${data[indexData].textValue} is found at index ${indexData}`
+      );
     }
   };
 
@@ -141,7 +157,13 @@ export default function Linear() {
         />
       </div>
 
-      <Modal isModalOpen={isModalOpen} setIsModalOpen={setIsModalOpen} />
+      <Modal
+        isModalOpen={isModalOpen}
+        setIsModalOpen={setIsModalOpen}
+        tabItemHeading={tabItemHeading}
+      >
+        <TabPanel />
+      </Modal>
 
       <Footer
         start={startSearch}
@@ -155,6 +177,42 @@ export default function Linear() {
       />
     </>
   );
+}
+
+const TabPanel = () => {
+  return (
+    <>
+      <Tab.Panel
+        className={classNames(
+          "rounded-xl bg-white p-3",
+          "ring-white ring-opacity-60 ring-offset-2 ring-offset-blue-400 focus:outline-none "
+        )}
+      >
+        <div className='space-y-3 text-sm'>
+          <p>
+            Linear search is a sequential searching algorithm where each and
+            every element of the entire list is compared with the search key
+            until it's is found or not.
+          </p>
+          <p>
+            If the comparison is equal, the search ends and is considered
+            successful.
+          </p>
+          <p>
+            The best-case scenario for a list with n items is when the value of
+            the item to be searched is equal to the first element of the list;
+            in this case, only one comparison is required. The worst-case
+            scenario is when the value is not in the list, or just appears once
+            at the end; in this instance, n comparisons are required
+          </p>
+        </div>
+      </Tab.Panel>
+    </>
+  );
+};
+
+function classNames(...classes) {
+  return classes.filter(Boolean).join(" ");
 }
 
 Linear.getLayout = function getLayout(page) {

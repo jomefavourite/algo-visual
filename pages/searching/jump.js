@@ -17,6 +17,7 @@ import {
   waitForme,
 } from "../../util/utility";
 import Modal from "../../components/Modal";
+import toast from "react-hot-toast";
 
 export default function JumpSearch() {
   const [data, setData] = useState([]);
@@ -77,6 +78,18 @@ export default function JumpSearch() {
       setData(() => dataSteps[i]);
       setColorKey(() => colorSteps[i]);
       await waitForme(speedControl.delay);
+    }
+
+    let indexData = colorSteps[colorSteps.length - 1].findIndex(
+      (item) => item === 2
+    );
+
+    if (colorSteps[colorSteps.length - 1][0] === 3) {
+      toast.error("Search key not found");
+    } else {
+      toast.success(
+        `Search key ${data[indexData].textValue} is found at index ${indexData}`
+      );
     }
   };
 

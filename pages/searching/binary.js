@@ -17,6 +17,8 @@ import {
   waitForme,
 } from "../../util/utility";
 import Modal from "../../components/Modal";
+import toast from "react-hot-toast";
+import { Tab } from "@headlessui/react";
 
 export default function BinarySearch() {
   const [data, setData] = useState([]);
@@ -35,6 +37,8 @@ export default function BinarySearch() {
   });
   const [indexStep, setIndexStep] = useState([[0, 4, 9]]);
   const [isModalOpen, setIsModalOpen] = useState(true);
+
+  const tabItemHeading = ["Intro to Binary Search", "How it works"];
 
   useEffect(() => {
     generateRandom();
@@ -79,6 +83,18 @@ export default function BinarySearch() {
       setData(() => dataSteps[i]);
       setColorKey(() => colorSteps[i]);
       await waitForme(speedControl.delay);
+    }
+
+    let indexData = colorSteps[colorSteps.length - 1].findIndex(
+      (item) => item === 2
+    );
+
+    if (colorSteps[colorSteps.length - 1][0] === 3) {
+      toast.error("Search key not found");
+    } else {
+      toast.success(
+        `Search key ${data[indexData].textValue} is found at index ${indexData}`
+      );
     }
   };
 
@@ -152,7 +168,13 @@ export default function BinarySearch() {
         />
       </div>
 
-      <Modal isModalOpen={isModalOpen} setIsModalOpen={setIsModalOpen} />
+      <Modal
+        isModalOpen={isModalOpen}
+        setIsModalOpen={setIsModalOpen}
+        tabItemHeading={tabItemHeading}
+      >
+        <TabPanel />
+      </Modal>
 
       <Footer
         start={startSearch}
@@ -166,6 +188,41 @@ export default function BinarySearch() {
     </>
   );
 }
+
+const TabPanel = () => {
+  const classNames = (...classes) => {
+    return classes.filter(Boolean).join(" ");
+  };
+  return (
+    <>
+      <Tab.Panel
+        className={classNames(
+          "rounded-xl bg-white p-3",
+          "ring-white ring-opacity-60 ring-offset-2 ring-offset-blue-400 focus:outline-none "
+        )}
+      >
+        <div className='space-y-3 text-sm'>
+          <p>
+            Binary Search is a searching algorithm for finding an element's
+            position in a sorted array.
+          </p>
+          <p>
+            It is a fast search algorithm with the runtime complexity as O (log
+            n) which uses the Divide and Conquer principle for its search
+            algorithm.
+          </p>
+          <p>
+            In binary search, the search key is compared first with the middle
+            position element in the data collection. If the search key and the middle element is the same,  right away if
+            there is a match. If the key is less than the middle key, the item
+            must be found in the lower half of the data set; if it is greater,
+            the item must be found in the upper half
+          </p>
+        </div>
+      </Tab.Panel>
+    </>
+  );
+};
 
 BinarySearch.getLayout = function getLayout(page) {
   const pageTitle = "Searching Algorithms";
