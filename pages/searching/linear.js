@@ -69,7 +69,8 @@ export default function Linear() {
   };
 
   const startSearch = async () => {
-    console.log(dataSteps, "dataSteps.....");
+    // setPlaying(true);
+    // console.log(dataSteps, "dataSteps.....");
     for (let i = 0; i < dataSteps.length; i++) {
       setCurrentStep((prev) => prev + 1);
       setData(() => dataSteps[i]);
@@ -150,6 +151,7 @@ export default function Linear() {
         speedControl={speedControl}
         setSpeedControl={setSpeedControl}
         colorSteps={colorSteps}
+        setPlaying={setPlaying}
       />
     </>
   );

@@ -1,5 +1,5 @@
-import React, { useState, memo } from "react";
-import { FaPlay, FaStepForward, FaStepBackward, FaPause } from "react-icons/fa";
+import React, { memo } from "react";
+import { FaPlay, FaStepForward, FaStepBackward } from "react-icons/fa";
 import { toast } from "react-hot-toast";
 
 function Footer({
@@ -12,24 +12,32 @@ function Footer({
   setSpeedControl,
   colorSteps,
   type,
+  setPlaying,
 }) {
-  const handlePlay = (btnClick) => {
+  // useEffect(() => {
+  //   console.log(playing, "playing");
+  // }, [playing]);
+
+  const handlePlay = () => {
     // handleSort();
-    console.log(btnClick);
-    console.log(colorSteps);
+    // console.log(colorSteps);
+    // setPlaying(true);
 
-    start();
+    if (type === "sorting") {
+      start();
+    } else if (colorSteps !== undefined && colorSteps?.length > 2) {
+      start();
+    } else {
+      toast("Please, enter a search key");
+    }
 
-    // if (btnClick === "play") {
-    //   type === "sorting"
-    //     ? start()
-    //     : colorSteps !== undefined && colorSteps?.length > 2
-    //     ? start()
-    //     : toast("Please, enter a search key");
-    // } else {
-    //   console.log("pause");
-    //   pauser();
-    // }
+    // setPlaying(false);
+
+    // type === "sorting"
+    //   ? start()
+    //   : colorSteps !== undefined && colorSteps?.length > 2
+    //   ? start()
+    //   : toast("Please, enter a search key");
   };
 
   const handleRange = (range) => {
@@ -70,7 +78,7 @@ function Footer({
 
   return (
     <footer className='mt-8 bg-[#060708] p-4 text-center text-white'>
-      <div className='container grid grid-cols-[200px,1fr,200px]'>
+      <div className='container grid md:grid-cols-[200px,1fr,200px]'>
         <input
           type='range'
           min='0'
@@ -95,7 +103,7 @@ function Footer({
               title='Play/Pause'
               className='cursor-pointer'
               data-key={playing ? "pause" : "play"}
-              onClick={(e) => handlePlay(e.target.dataset.key)}
+              onClick={() => handlePlay()}
             >
               {/* {playing ? (
                 <FaPause

@@ -23,7 +23,7 @@ export default function Navigation({
               </h2>
 
               <ul className='hidden w-full space-x-4 md:flex '>
-                {[...options.slice(0, options.length - 2)].map((option, id) => (
+                {[...options.slice(0, options.length - 1)].map((option, id) => (
                   <li key={id}>
                     <Link href={`${option.href}`}>
                       <a

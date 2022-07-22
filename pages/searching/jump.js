@@ -16,6 +16,7 @@ import {
   randomIntFromInterval,
   waitForme,
 } from "../../util/utility";
+import Modal from "../../components/Modal";
 
 export default function JumpSearch() {
   const [data, setData] = useState([]);
@@ -32,6 +33,7 @@ export default function JumpSearch() {
     speed: 50,
     delay: 500,
   });
+  const [isModalOpen, setIsModalOpen] = useState(true);
 
   useEffect(() => {
     generateRandom();
@@ -123,7 +125,12 @@ export default function JumpSearch() {
       </Head>
 
       <div className='container h-[calc(100vh-196px)]'>
-        <Dropdown view={view} setView={setView} />
+        <Dropdown
+          view={view}
+          setView={setView}
+          isModalOpen={isModalOpen}
+          setIsModalOpen={setIsModalOpen}
+        />
 
         <Views data={data} view={view} colorKey={colorKey} />
 
@@ -134,6 +141,8 @@ export default function JumpSearch() {
           handleInputChange={handleInputChange}
         />
       </div>
+
+      <Modal isModalOpen={isModalOpen} setIsModalOpen={setIsModalOpen} />
 
       <Footer
         start={startSearch}

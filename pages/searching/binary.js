@@ -16,6 +16,7 @@ import {
   randomIntFromInterval,
   waitForme,
 } from "../../util/utility";
+import Modal from "../../components/Modal";
 
 export default function BinarySearch() {
   const [data, setData] = useState([]);
@@ -33,6 +34,7 @@ export default function BinarySearch() {
     delay: 500,
   });
   const [indexStep, setIndexStep] = useState([[0, 4, 9]]);
+  const [isModalOpen, setIsModalOpen] = useState(true);
 
   useEffect(() => {
     generateRandom();
@@ -126,7 +128,12 @@ export default function BinarySearch() {
       </Head>
 
       <div className='container h-[calc(100vh-196px)]'>
-        <Dropdown view={view} setView={setView} />
+        <Dropdown
+          view={view}
+          setView={setView}
+          isModalOpen={isModalOpen}
+          setIsModalOpen={setIsModalOpen}
+        />
 
         <Views
           data={data}
@@ -144,6 +151,8 @@ export default function BinarySearch() {
           handleInputChange={handleInputChange}
         />
       </div>
+
+      <Modal isModalOpen={isModalOpen} setIsModalOpen={setIsModalOpen} />
 
       <Footer
         start={startSearch}
