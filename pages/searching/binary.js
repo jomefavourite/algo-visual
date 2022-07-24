@@ -11,11 +11,7 @@ import Loader from "../../components/Loader";
 import Views from "../../components/Views";
 import { generateDataSteps } from "../../util/search/binary";
 import { handleNavigationSearch } from "../../util/search";
-import {
-  generateChartData,
-  classNames,
-  waitForme,
-} from "../../util/utility";
+import { generateChartData, classNames, waitForme } from "../../util/utility";
 import Modal from "../../components/Modal";
 import toast from "react-hot-toast";
 import { Tab } from "@headlessui/react";
@@ -190,7 +186,6 @@ export default function BinarySearch() {
 }
 
 const TabPanel = () => {
-
   return (
     <>
       <Tab.Panel
@@ -211,10 +206,11 @@ const TabPanel = () => {
           </p>
           <p>
             In binary search, the search key is compared first with the middle
-            position element in the data collection. If the search key and the middle element is the same,  right away if
-            there is a match. If the key is less than the middle key, the item
-            must be found in the lower half of the data set; if it is greater,
-            the item must be found in the upper half
+            position element in the data collection. If the search key and the
+            middle element is the same, right away if there is a match. If the
+            key is less than the middle key, the item must be found in the lower
+            half of the data set; if it is greater, the item must be found in
+            the upper half
           </p>
         </div>
       </Tab.Panel>

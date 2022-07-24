@@ -14,6 +14,7 @@ import { handleNavigationSearch } from "../../util/search";
 import { generateChartData, classNames, waitForme } from "../../util/utility";
 import Modal from "../../components/Modal";
 import toast from "react-hot-toast";
+import { Tab } from "@headlessui/react";
 
 export default function JumpSearch() {
   const [data, setData] = useState([]);
@@ -31,6 +32,8 @@ export default function JumpSearch() {
     delay: 500,
   });
   const [isModalOpen, setIsModalOpen] = useState(true);
+
+  const tabItemHeading = ["Intro to Jump Search", "How it works"];
 
   useEffect(() => {
     generateRandom();
@@ -151,7 +154,11 @@ export default function JumpSearch() {
         />
       </div>
 
-      <Modal isModalOpen={isModalOpen} setIsModalOpen={setIsModalOpen} >
+      <Modal
+        isModalOpen={isModalOpen}
+        setIsModalOpen={setIsModalOpen}
+        tabItemHeading={tabItemHeading}
+      >
         <TabPanel />
       </Modal>
 
@@ -179,27 +186,33 @@ const TabPanel = () => {
       >
         <div className='space-y-3 text-sm'>
           <p>
-            Linear search is a sequential searching algorithm where each and
-            every element of the entire list is compared with the search key
-            until it's is found or not.
+            The jump search algorithm is also called a block search algorithm.
+            The items in the list of arrays must be sorted before the Jump
+            search algorithm can be used. In the jump search algorithm, it is
+            not at all necessary to scan every element in the list as it is in
+            the linear search algorithm.
           </p>
           <p>
-            If the comparison is equal, the search ends and is considered
-            successful.
+            The algorithm checks the m element, and if it is less than the key
+            element, then we move to the m + m element, where all the elements
+            between m element and m + m element are skipped. This process is
+            continued until m element becomes equal to or greater than the key
+            element called boundary value. The value of m is given by m = √n,
+            where n is the total number of elements in an array.
           </p>
           <p>
-            The best-case scenario for a list with n items is when the value of
-            the item to be searched is equal to the first element of the list;
-            in this case, only one comparison is required. The worst-case
-            scenario is when the value is not in the list, or just appears once
-            at the end; in this instance, n comparisons are required
+            Once the m elements attain the boundary value, a linear search is
+            done to find the key-value and its position in the array. And the
+            numbers of comparisons are equal to (n/m + m -1). It must be noted
+            that in the Jump search algorithm, a linear search is done in a
+            reverse manner, that is, from boundary value to the previous value
+            of m
           </p>
         </div>
       </Tab.Panel>
     </>
   );
 };
-
 
 JumpSearch.getLayout = function getLayout(page) {
   const pageTitle = "Searching Algorithms";

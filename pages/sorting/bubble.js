@@ -17,7 +17,8 @@ import Views from "../../components/Views";
 import GeneratorController from "../../components/GeneratorController";
 import { toast } from "react-hot-toast";
 import Modal from "../../components/Modal";
-import {  classNames } from "../../util/utility";
+import { classNames } from "../../util/utility";
+import { Tab } from "@headlessui/react";
 
 export default function Bubble() {
   const [playing, setPlaying] = useState(false);
@@ -37,7 +38,7 @@ export default function Bubble() {
   });
   const [isModalOpen, setIsModalOpen] = useState(true);
 
-   const tabItemHeading = ["Intro to Bubble Sort", "How it works"];
+  const tabItemHeading = ["Intro to Bubble Sort", "How it works"];
 
   useEffect(() => {
     generateRandom(
@@ -159,7 +160,12 @@ export default function Bubble() {
       </Head>
 
       <div className='container min-h-[calc(100vh-196px)]'>
-        <Dropdown view={view} setView={setView} />
+        <Dropdown
+          view={view}
+          setView={setView}
+          isModalOpen={isModalOpen}
+          setIsModalOpen={setIsModalOpen}
+        />
 
         <Views data={data} view={view} colorKey={colorKey} />
 
@@ -204,20 +210,24 @@ const TabPanel = () => {
       >
         <div className='space-y-3 text-sm'>
           <p>
-            Linear search is a sequential searching algorithm where each and
-            every element of the entire list is compared with the search key
-            until it's is found or not.
+            Bubble Sort is a simple but slow sorting algorithm that operates on
+            the concept of bubbling out the smallest or largest element from an
+            array depending on whether it needs to be sorted in descending or
+            ascending order.
           </p>
           <p>
-            If the comparison is equal, the search ends and is considered
-            successful.
+            It compares each array element to its neighboring element and swaps
+            them if they are in the wrong order. If the array has n elements,
+            the first round involves 'n-1' comparisons of neighbouring values,
+            which filters out the element with rank 'n' and moves it to the last
+            position.
           </p>
           <p>
-            The best-case scenario for a list with n items is when the value of
-            the item to be searched is equal to the first element of the list;
-            in this case, only one comparison is required. The worst-case
-            scenario is when the value is not in the list, or just appears once
-            at the end; in this instance, n comparisons are required
+            This process is repeated 'n-1' times or until the array is sorted,
+            at which point it makes a pass around the array without exchanging
+            any pairs of elements. This approach is inefficient when the length
+            of the input array is quite long; hence it should not be used for a
+            huge dataset
           </p>
         </div>
       </Tab.Panel>
