@@ -27,6 +27,7 @@ const DynamicComplexitySeries = dynamic(
     ssr: false,
   }
 );
+
 function Comparison() {
   return (
     <>
@@ -41,11 +42,15 @@ function Comparison() {
           <button className=''>Generate Random</button>
         </div>
 
-        <DynamicComplexityChart>
+        <DynamicComplexityChart title='Time complexity of sorting algorithms on a sorted list of numbers'>
           <DynamicComplexitySeries />
           <DynamicAnalysisSeries
             id='bubble-sort-sorted'
-            algorithms={[Algorithms.bubbleSort]}
+            algorithms={[
+              Algorithms.bubbleSort,
+              Algorithms.selectionSort,
+              Algorithms.insertionSort,
+            ]}
             dataSets={[DataSets.sorted]}
           />
         </DynamicComplexityChart>

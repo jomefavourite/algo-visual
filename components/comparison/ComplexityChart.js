@@ -69,7 +69,7 @@ const ComplexityChart = ({ title, children }) => {
       <Chart
         marginRight={chartMarginRight}
         spacing={chartSpacing}
-        zoomType='xy'
+        // zoomType='xy'
         backgroundColor='transparent'
       />
       <Title>{title}</Title>
