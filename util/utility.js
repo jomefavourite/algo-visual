@@ -97,3 +97,7 @@ export const waitForme = (delay) => {
     }, delay);
   });
 };
+
+export function classNames(...classes) {
+  return classes.filter(Boolean).join(" ");
+}

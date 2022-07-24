@@ -17,7 +17,7 @@ import { cloneDeep } from "lodash";
 import { generateChartData, waitForme } from "../../util/utility";
 
 export const handleInputClick = (
-  e,
+  // e,
   inputValue,
   setCurrentStep,
   setColorKey,
@@ -27,7 +27,7 @@ export const handleInputClick = (
   setData,
   setDataSteps
 ) => {
-  e.preventDefault();
+  // e.preventDefault();
   // setReset(true);
   setCurrentStep(0);
   setColorKey([0, 0, 0, 0, 0, 0, 0, 0, 0, 0]);

@@ -12,11 +12,7 @@ import Modal from "../../components/Modal";
 import Views from "../../components/Views";
 import { generateDataSteps } from "../../util/search/linear";
 import { handleNavigationSearch } from "../../util/search";
-import {
-  generateChartData,
-  randomIntFromInterval,
-  waitForme,
-} from "../../util/utility";
+import { generateChartData, waitForme, classNames } from "../../util/utility";
 import toast from "react-hot-toast";
 import { Tab } from "@headlessui/react";
 
@@ -210,10 +206,6 @@ const TabPanel = () => {
     </>
   );
 };
-
-function classNames(...classes) {
-  return classes.filter(Boolean).join(" ");
-}
 
 Linear.getLayout = function getLayout(page) {
   const pageTitle = "Searching Algorithms";

@@ -324,6 +324,7 @@ export default function Insertion() {
         pauser={pauser}
         speedControl={speedControl}
         setSpeedControl={setSpeedControl}
+        type='sorting'
       />
     </>
   );

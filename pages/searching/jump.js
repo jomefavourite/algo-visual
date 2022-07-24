@@ -11,11 +11,7 @@ import Loader from "../../components/Loader";
 import Views from "../../components/Views";
 import { generateDataSteps } from "../../util/search/jump";
 import { handleNavigationSearch } from "../../util/search";
-import {
-  generateChartData,
-  randomIntFromInterval,
-  waitForme,
-} from "../../util/utility";
+import { generateChartData, classNames, waitForme } from "../../util/utility";
 import Modal from "../../components/Modal";
 import toast from "react-hot-toast";
 
@@ -155,7 +151,9 @@ export default function JumpSearch() {
         />
       </div>
 
-      <Modal isModalOpen={isModalOpen} setIsModalOpen={setIsModalOpen} />
+      <Modal isModalOpen={isModalOpen} setIsModalOpen={setIsModalOpen} >
+        <TabPanel />
+      </Modal>
 
       <Footer
         start={startSearch}
@@ -169,6 +167,39 @@ export default function JumpSearch() {
     </>
   );
 }
+
+const TabPanel = () => {
+  return (
+    <>
+      <Tab.Panel
+        className={classNames(
+          "rounded-xl bg-white p-3",
+          "ring-white ring-opacity-60 ring-offset-2 ring-offset-blue-400 focus:outline-none "
+        )}
+      >
+        <div className='space-y-3 text-sm'>
+          <p>
+            Linear search is a sequential searching algorithm where each and
+            every element of the entire list is compared with the search key
+            until it's is found or not.
+          </p>
+          <p>
+            If the comparison is equal, the search ends and is considered
+            successful.
+          </p>
+          <p>
+            The best-case scenario for a list with n items is when the value of
+            the item to be searched is equal to the first element of the list;
+            in this case, only one comparison is required. The worst-case
+            scenario is when the value is not in the list, or just appears once
+            at the end; in this instance, n comparisons are required
+          </p>
+        </div>
+      </Tab.Panel>
+    </>
+  );
+};
+
 
 JumpSearch.getLayout = function getLayout(page) {
   const pageTitle = "Searching Algorithms";

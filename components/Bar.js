@@ -35,7 +35,7 @@ function Bar({ item, color }) {
   return (
     <div
       style={boxStyle}
-      className='flex w-[35px] max-w-[70px] items-end justify-center md:w-[clamp(2rem,10vw,5rem)]'
+      className={`flex w-[35px] max-w-[70px] items-end justify-center md:w-[clamp(2rem,10vw,5rem)]`}
     >
       <span className='mb-3 text-[clamp(1rem,2vw,1.5rem)]'>{textValue}</span>
     </div>

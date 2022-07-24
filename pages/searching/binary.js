@@ -13,7 +13,7 @@ import { generateDataSteps } from "../../util/search/binary";
 import { handleNavigationSearch } from "../../util/search";
 import {
   generateChartData,
-  randomIntFromInterval,
+  classNames,
   waitForme,
 } from "../../util/utility";
 import Modal from "../../components/Modal";
@@ -190,9 +190,7 @@ export default function BinarySearch() {
 }
 
 const TabPanel = () => {
-  const classNames = (...classes) => {
-    return classes.filter(Boolean).join(" ");
-  };
+
   return (
     <>
       <Tab.Panel
