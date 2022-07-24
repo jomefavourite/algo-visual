@@ -2,7 +2,7 @@
 import { AreaSeries } from "react-jsx-highcharts";
 import React from "react";
 import { useMediaQuery } from "react-responsive";
-import { Complexities } from "../../util/complexities";
+import { Complexities } from "./complexities";
 // import getColorForComplexity from "../util/get-color-for-complexity";
 import { useDataSetSize } from "./settings";
 
@@ -30,7 +30,7 @@ const ComplexitySeries = () => {
       align: isDesktop ? "left" : "center",
       verticalAlign: "middle",
       format: `{series.userOptions.notation}`,
-      x: isDesktop ? 0 : 5,
+      x: isDesktop ? 0 : 10,
     },
   };
   const xPoints = Array.from({ length: 42 }, (v, i) =>

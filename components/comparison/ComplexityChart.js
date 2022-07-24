@@ -33,9 +33,9 @@ const plotOptions = {
 const ComplexityChart = ({ title, children }) => {
   // const { theme } = useThemeUI();
   const isDesktop = useMediaQuery({ minDeviceWidth: 740 });
-  const yAxisLabels = isDesktop
-    ? { rotation: 0, padding: 5, x: -8 }
-    : { rotation: -90, padding: 0, x: -3 };
+  // const yAxisLabels = isDesktop
+  //   ? { rotation: 0, padding: 5, x: -8 }
+  //   : { rotation: -90, padding: 0, x: -3 };
   // const titleStyle = isDesktop ? { fontSize: "14px" } : { fontSize: "12px" };
   const chartMarginRight = isDesktop ? 70 : 0;
   const chartSpacing = isDesktop ? [10, 10, 15, 10] : [10, 5, 15, 5];
@@ -43,9 +43,6 @@ const ComplexityChart = ({ title, children }) => {
   // const isDark = colorMode === `dark`
   const [xAxisMax] = useDataSetSize();
   const yAxisMax = xAxisMax ** 2;
-
-  console.log(xAxisMax, "xAxisMax");
-  console.log(yAxisMax, "yAxisMax");
 
   // const setTheme = chart => {
   //   if (isDark) {
@@ -72,28 +69,17 @@ const ComplexityChart = ({ title, children }) => {
       <Chart
         marginRight={chartMarginRight}
         spacing={chartSpacing}
-        // zoomType='xy'
+        zoomType='xy'
         backgroundColor='transparent'
       />
       <Title>{title}</Title>
       <Loading>Running analysis...</Loading>
       <Legend />
       <Tooltip />
-      <XAxis
-        type='logarithmic'
-        min={10}
-        max={xAxisMax}
-        // max={100}
-      >
+      <XAxis type='logarithmic' min={10} max={xAxisMax}>
         <XAxis.Title>Elements (n)</XAxis.Title>
       </XAxis>
-      <YAxis
-        type='logarithmic'
-        min={10}
-        max={yAxisMax}
-        // max={100}
-        labels={yAxisLabels}
-      >
+      <YAxis type='logarithmic' min={10} max={yAxisMax}>
         <YAxis.Title>Operations (O)</YAxis.Title>
         {children}
       </YAxis>
