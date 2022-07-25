@@ -200,8 +200,8 @@ const TabPanel = () => {
             position in a sorted array.
           </p>
           <p>
-            It is a fast search algorithm with the runtime complexity as O (log
-            n) which uses the Divide and Conquer principle for its search
+            It is a fast search algorithm with the runtime complexity as O
+            (logn) which uses the Divide and Conquer principle for its search
             algorithm.
           </p>
           <p>

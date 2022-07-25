@@ -91,7 +91,6 @@ const AnalysisSeries = (props) => {
         x: current.dataSetSize,
         low: current.expectedOperationsBest,
 
-        // eslint-disable-next-line @typescript-eslint/no-explicit-any
         high: current.expectedOperationsWorst,
       }); // @todo find a better solution for this
 
