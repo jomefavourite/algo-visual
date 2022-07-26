@@ -1,4 +1,5 @@
 import { find, matchesProperty } from "lodash";
+import { alpha } from "@theme-ui/color";
 
 export function generateChartData(arr, h = 300, sorted) {
   return determineChartData(arr, h, sorted);
@@ -100,4 +101,8 @@ export const waitForme = (delay) => {
 
 export function classNames(...classes) {
   return classes.filter(Boolean).join(" ");
+}
+
+export function getColorForComplexity(theme, complexity) {
+  return alpha(theme.colors?.complexities[complexity.rating], 0.6)(theme);
 }

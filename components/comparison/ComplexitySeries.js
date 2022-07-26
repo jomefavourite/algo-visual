@@ -3,8 +3,9 @@ import { AreaSeries } from "react-jsx-highcharts";
 import React from "react";
 import { useMediaQuery } from "react-responsive";
 import { Complexities } from "./complexities";
-// import getColorForComplexity from "../util/get-color-for-complexity";
 import { useDataSetSize } from "./settings";
+import theme from "../../theme";
+import { getColorForComplexity } from "../../util/utility";
 
 const ComplexitySeries = () => {
   // const { theme } = useThemeUI()
@@ -40,19 +41,7 @@ const ComplexitySeries = () => {
     <AreaSeries
       key={r.name}
       name={r.name}
-      // color={getColorForComplexity(theme, r)}
-      // color={[
-      //   "#a6f0ff",
-      //   "#70d49e",
-      //   "#e898a5",
-      //   "#007faa",
-      //   "#f9db72",
-      //   "#f45b5b",
-      //   "#1e824c",
-      //   "#e7934c",
-      //   "#dadfe1",
-      //   "#a0618b"
-      // ]}
+      color={getColorForComplexity(theme, r)}
       notation={r.notation}
       data={xPoints.map((x) => ({ x, y: r.calculate(x) }))}
       {...plotOptions}
@@ -65,5 +54,9 @@ const ComplexitySeries = () => {
   );
   return complexitySeries;
 };
+
+// function getColorForComplexity(theme, complexity) {
+//   return alpha(theme.colors?.complexities[complexity.rating], 0.6)(theme);
+// }
 
 export default ComplexitySeries;

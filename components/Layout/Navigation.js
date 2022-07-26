@@ -15,7 +15,11 @@ export default function Navigation({
   return (
     <>
       <nav className='relative bg-[#000] py-4 px-4'>
-        <div className='container grid w-full grid-cols-2 items-center text-white md:grid-cols-[200px,1fr,130px]  '>
+        <div
+          className={`container grid w-full items-center text-white  ${
+            comparison ? "" : "grid-cols-2 md:grid-cols-[200px,1fr,130px]"
+          }  `}
+        >
           {!comparison && (
             <>
               <h2 className='w-fit text-lg text-white md:text-xl'>
@@ -60,7 +64,7 @@ export default function Navigation({
           )}
 
           {comparison && (
-            <>
+            <div className='flex w-full'>
               <button
                 onClick={() => router.back()}
                 className='mr-4 flex items-center gap-1'
@@ -69,8 +73,8 @@ export default function Navigation({
                 Back
               </button>
 
-              <h3>{comparisonTitle}</h3>
-            </>
+              <h3 className='w-full'>{comparisonTitle}</h3>
+            </div>
           )}
         </div>
 

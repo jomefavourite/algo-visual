@@ -43,6 +43,7 @@ const AnalysisSeries = (props) => {
       (async function runAnalysis() {
         let data = preanalyzed(props.id);
         if (preanalyzedMode !== PreanalyzedMode.Enabled || !data) {
+          console.log("preanalyzedMode", preanalyzedMode);
           const stopwatch = new Stopwatch("Analyzer");
           data = await analyzer(
             props.algorithms,
@@ -60,7 +61,7 @@ const AnalysisSeries = (props) => {
         }
         chart.hideLoading();
 
-        console.log(data);
+        // console.log(data, "data");
 
         setAnalysis(data);
       })();
@@ -70,6 +71,7 @@ const AnalysisSeries = (props) => {
   return analysis.reduce((series, current) => {
     const scatterKey = keyify("scatter", current.name);
     const errorKey = keyify("error", current.name);
+
     let scatterSeries = series.find((s) => s.key === scatterKey);
     let errorSeries = series.find((s) => s.key === errorKey);
     if (scatterSeries === undefined) {
@@ -90,7 +92,6 @@ const AnalysisSeries = (props) => {
       errorSeries.props.data.push({
         x: current.dataSetSize,
         low: current.expectedOperationsBest,
-
         high: current.expectedOperationsWorst,
       }); // @todo find a better solution for this
 
