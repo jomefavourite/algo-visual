@@ -79,15 +79,18 @@ function Footer({
   return (
     <footer className='mt-8 bg-[#060708] p-4 text-center text-white'>
       <div className='container grid md:grid-cols-[200px,1fr,200px]'>
-        <input
-          type='range'
-          min='0'
-          max='100'
-          value={speedControl.speed}
-          className='hidden md:block'
-          step='25'
-          onChange={(e) => handleRange(e.target.value)}
-        />
+        <div className='hidden md:block'>
+          <span className='block text-white'>Delay {speedControl.speed}</span>
+          <input
+            type='range'
+            min='0'
+            max='100'
+            value={speedControl.speed}
+            className='hidden w-full md:block'
+            step='25'
+            onChange={(e) => handleRange(e.target.value)}
+          />
+        </div>
 
         <div>
           <div className='flex justify-center gap-10'>

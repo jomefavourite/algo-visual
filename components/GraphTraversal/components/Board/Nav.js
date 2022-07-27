@@ -105,10 +105,10 @@ function Nav({
         />
 
         <div>
-          <span className='block text-white'>Visual Delay</span>
+          <span className='block text-white'>Delay</span>
           <input
             type='range'
-            name='Visual Delay'
+            name='Delay'
             id=''
             min={100}
             max={1000}
