@@ -38,7 +38,7 @@ export default function Bubble() {
   });
   const [isModalOpen, setIsModalOpen] = useState(true);
 
-  const tabItemHeading = ["Intro to Bubble Sort", "How it works"];
+  const tabItemHeading = ["Bubble Sort", "Algorithm", "Guide"];
 
   useEffect(() => {
     generateRandom(
@@ -181,6 +181,7 @@ export default function Bubble() {
         isModalOpen={isModalOpen}
         setIsModalOpen={setIsModalOpen}
         tabItemHeading={tabItemHeading}
+        sorting={true}
       >
         <TabPanel />
       </Modal>
@@ -229,6 +230,29 @@ const TabPanel = () => {
             of the input array is quite long; hence it should not be used for a
             huge dataset
           </p>
+        </div>
+      </Tab.Panel>
+      <Tab.Panel
+        className={classNames(
+          "rounded-xl bg-white p-3",
+          "ring-white ring-opacity-60 ring-offset-2 ring-offset-blue-400 focus:outline-none "
+        )}
+      >
+        <div className='text-sm'>
+          <span className='block'>BubbleSort ( Array Arr )</span>
+          <span className='block'>// Arr is the name of the array</span>
+          <span className='block'>Step 1: n = length(Arr) </span>
+          <span className='block'>Step 2: repeat </span>
+          <span className='block'>Step 3: swapped = false </span>
+          <span className='block'>Step 4: for i = 1 to n - 1 </span>
+          <span className='block'>Step 5: if Arr[i - 1] > Arr[i], then </span>
+          <span className='block'>Step 6: swap(Arr[i - 1], Arr[i]) </span>
+          <span className='block'>Step 7: swapped = true </span>
+          <span className='block'>Step 8: end if </span>
+          <span className='block'>Step 9: end for</span>
+          <span className='block'>Step 10: n = n - 1 </span>
+          <span className='block'>Step 11: until not swapped </span>
+          <span className='block'>Step 12: end BubbleSort</span>
         </div>
       </Tab.Panel>
     </>

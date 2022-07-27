@@ -44,6 +44,7 @@ export default function Comparison() {
 
         <DynamicComplexityChart>
           <DynamicComplexitySeries />
+          <DynamicAnalysisSeries id='all-search-worst' />
         </DynamicComplexityChart>
       </main>
     </>

@@ -8,58 +8,13 @@ function classNames(...classes) {
   return classes.filter(Boolean).join(" ");
 }
 
-export default function Modal({ isModalOpen, setIsModalOpen, tabItemHeading, children }) {
-  let [categories] = useState({
-    Recent: [
-      {
-        id: 1,
-        title: "Does drinking coffee make you smarter?",
-        date: "5h ago",
-        commentCount: 5,
-        shareCount: 2,
-      },
-      {
-        id: 2,
-        title: "So you've bought coffee... now what?",
-        date: "2h ago",
-        commentCount: 3,
-        shareCount: 2,
-      },
-    ],
-    Popular: [
-      {
-        id: 1,
-        title: "Is tech making coffee better or worse?",
-        date: "Jan 7",
-        commentCount: 29,
-        shareCount: 16,
-      },
-      {
-        id: 2,
-        title: "The most innovative things happening in coffee",
-        date: "Mar 19",
-        commentCount: 24,
-        shareCount: 12,
-      },
-    ],
-    Trending: [
-      {
-        id: 1,
-        title: "Ask Me Anything: 10 answers to your questions about coffee",
-        date: "2d ago",
-        commentCount: 9,
-        shareCount: 5,
-      },
-      {
-        id: 2,
-        title: "The worst advice we've ever heard about coffee",
-        date: "4d ago",
-        commentCount: 1,
-        shareCount: 2,
-      },
-    ],
-  });
-
+export default function Modal({
+  isModalOpen,
+  setIsModalOpen,
+  tabItemHeading,
+  children,
+  sorting,
+}) {
   function closeModal() {
     setIsModalOpen(false);
   }
@@ -129,7 +84,7 @@ export default function Modal({ isModalOpen, setIsModalOpen, tabItemHeading, chi
                         ))}
                       </Tab.List>
                       <Tab.Panels className='mt-2'>
-                      {children}
+                        {children}
                         <Tab.Panel
                           className={classNames(
                             "rounded-xl bg-white p-3",
@@ -141,7 +96,7 @@ export default function Modal({ isModalOpen, setIsModalOpen, tabItemHeading, chi
                               {[
                                 {
                                   text: "Current element being searched",
-                                  color: "rgba(255,48,79,1)",
+                                  color: "#ff304fff",
                                 },
                                 {
                                   text: "Search key found",
@@ -159,7 +114,10 @@ export default function Modal({ isModalOpen, setIsModalOpen, tabItemHeading, chi
                                   <span
                                     aria-hidden='true'
                                     aria-label='Color type'
-                                    className={`inline-block h-5 w-5 rounded-full bg-[${item.color}]`}
+                                    style={{
+                                      backgroundColor: `${item.color}`,
+                                    }}
+                                    className={`block h-5 w-5 rounded-full `}
                                   ></span>{" "}
                                   {item.text}
                                 </p>
@@ -181,6 +139,63 @@ export default function Modal({ isModalOpen, setIsModalOpen, tabItemHeading, chi
                                 <FaStepBackward className='text-2xl' /> Move
                                 backwards
                               </p>
+                            </div>
+
+                            <hr />
+
+                            <div>
+                              <div className='flex items-center gap-3'>
+                                <button className='btn disabled h-[2rem] min-h-[2rem] normal-case'>
+                                  Generate Random
+                                </button>
+                                <p>
+                                  Click on the button to generate random data
+                                  set
+                                </p>
+                              </div>
+                              <div className='mt-3 flex items-center gap-3'>
+                                {!sorting ? (
+                                  <>
+                                    <form className='form-control pointer-events-none w-[148px]'>
+                                      <label className='input-group input-group-vertical rounded-[9px] border-2  focus-within:ring-2 focus-within:ring-blue-400'>
+                                        <span className='py-1 text-sm'>
+                                          Search Key
+                                        </span>
+                                        <input
+                                          type='number'
+                                          title='Search Key'
+                                          placeholder='12'
+                                          className=' appearance-none bg-[#00000025] p-3 text-black outline-none placeholder:text-[#0000007e]'
+                                        />
+                                      </label>
+                                    </form>
+                                    <p>
+                                      Enter a search key to search for the key
+                                      in the data set
+                                    </p>
+                                  </>
+                                ) : (
+                                  <>
+                                    <form
+                                      className='form-control pointer-events-none w-[148px]'
+                                    >
+                                      <label className='input-group input-group-vertical rounded-[9px] border-2  focus-within:ring-2 focus-within:ring-blue-400'>
+                                        <span className='py-1 text-sm'>
+                                          Enter data sets
+                                        </span>
+                                        <input
+                                          type='text'
+                                          placeholder='12,20,33,45,20'
+                                          className=' appearance-none bg-[#00000025] p-3 text-black outline-none placeholder:text-[#0000007e]'
+                                        />
+                                      </label>
+                                      </form>
+                                       <p>
+                                        Enter your dataset with the format of 12,20,33,45,20
+                                        </p>
+                                  </>
+                                )}
+                              </div>
                             </div>
                           </div>
                         </Tab.Panel>

@@ -33,7 +33,7 @@ export default function JumpSearch() {
   });
   const [isModalOpen, setIsModalOpen] = useState(true);
 
-  const tabItemHeading = ["Intro to Jump Search", "How it works"];
+  const tabItemHeading = ["Jump Search", "Algorithm", "Guide"];
 
   useEffect(() => {
     generateRandom();
@@ -50,11 +50,7 @@ export default function JumpSearch() {
       () => Math.floor(Math.random() * 49) + 1
     );
 
-    const newChartData = generateChartData(
-      [1, 2, 3, 4, 5, 6, 7, 8, 9, 10],
-      300,
-      true
-    );
+    const newChartData = generateChartData(randomArr, 300, true);
 
     console.log(newChartData, "newChartData");
 
@@ -208,6 +204,50 @@ const TabPanel = () => {
             reverse manner, that is, from boundary value to the previous value
             of m
           </p>
+        </div>
+      </Tab.Panel>
+      <Tab.Panel
+        className={classNames(
+          "rounded-xl bg-white p-3",
+          "ring-white ring-opacity-60 ring-offset-2 ring-offset-blue-400 focus:outline-none "
+        )}
+      >
+        <div>
+          <div className='text-sm'>
+            <span className='block'>
+              JumpSearch (Array Arr, Value key, Value n)
+            </span>
+            <span className='block'>
+              // Input: Arr is the name of the array, and the key is the
+              searched element.
+            </span>
+            <span className='block'>// n is the length of the array</span>
+            <span className='block'>Step 1: Set i=0 and m= √n </span>
+            <span className='block'>
+              {
+                "Step 2: Compare Arr[i] with key. If Arr[i] != key and Arr[i] < key, then jump to the next block. Also, do the following:"
+              }
+            </span>
+            <span className='ml-5 block'>1. Set i = m </span>
+            <span className='ml-5 block'>2. Increment m by √n </span>
+            <span className='block'>
+              {"Step 3: Repeat the step till m < n-1 "}
+            </span>
+            <span className='block'>
+              {
+                "Step 4: If Arr[i] > key, then move to the beginning of the current block and perform a linear search. "
+              }
+            </span>
+            <span className='ml-5 block'>1. Set x = i</span>
+            <span className='ml-5 block'>
+              2. Compare Arr[x] with key. If Arr[x] == key, then print x as the
+              valid location else set x++
+            </span>
+            <span className='ml-5 block'>
+              {"3. Repeat Step 4.1 and 4.2 till x < m"}
+            </span>
+            <span className='block'>Step 5: End</span>
+          </div>
         </div>
       </Tab.Panel>
     </>

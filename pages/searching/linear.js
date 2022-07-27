@@ -33,7 +33,7 @@ export default function Linear() {
   });
   const [isModalOpen, setIsModalOpen] = useState(true);
 
-  const tabItemHeading = ["Intro to Linear Search", "How it works"];
+  const tabItemHeading = ["Linear Search", "Algorithm", "Guide"];
 
   useEffect(() => {
     setIsModalOpen(localStorage?.getItem("isChecked") ? false : true);
@@ -201,6 +201,36 @@ const TabPanel = () => {
             scenario is when the value is not in the list, or just appears once
             at the end; in this instance, n comparisons are required
           </p>
+        </div>
+      </Tab.Panel>
+      <Tab.Panel
+        className={classNames(
+          "rounded-xl bg-white p-3",
+          "ring-white ring-opacity-60 ring-offset-2 ring-offset-blue-400 focus:outline-none "
+        )}
+      >
+        <div className='text-sm'>
+          <span className='block'>Linear Search ( Array Arr, Value key ) </span>
+          <span className='block'>
+            // Input: Arr is the name of the array, the key is the search
+            element
+          </span>
+          <span className='block'>Step 1: Set i to 0 </span>
+          <span className='block'>
+            {
+              "Step 2: if i > n then go to step 7 // n is the number of elements in array"
+            }
+          </span>
+          <span className='block'>
+            Step 3: if Arr[i] = key then go to step 6
+          </span>
+          <span className='block'>Step 4: Set i to i + 1</span>
+          <span className='block'>Step 5: Goto step 2</span>
+          <span className='block'>
+            Step 6: Print the element key found at index i and go to step 8
+          </span>
+          <span className='block'>Step 7: Print element not found</span>
+          <span className='block'>Step 8: Exit</span>
         </div>
       </Tab.Panel>
     </>

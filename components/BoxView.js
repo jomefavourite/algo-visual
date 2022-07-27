@@ -13,10 +13,10 @@ function BoxView({ item, color }) {
   } = item;
 
   const colors = [
-    ["rgba(61, 90, 241, 0.5)", "rgba(61, 90, 241, 0.2)"],
-    ["rgba(255, 48, 79, 1)", "rgba(255, 48, 79, 0.5)"],
-    ["rgba(131, 232, 90, 0.5)", "rgba(131, 232, 90, 0.2)"],
-    ["rgba(235, 123, 19, 0.5)", "rgba(235, 123, 19, 0.2)"],
+    ["#3d5af17f", "#3d5af133"], // current color
+    ["#ff304fff", "#ff304f7f"], // comparison color
+    ["#83e85a7f", "#83e85a33"], // found color
+    ["#eb7b137f", "#eb7b1333"], // not found color
   ];
 
   return (

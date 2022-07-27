@@ -78,9 +78,7 @@ export default function GeneratorController({
                   onSubmit={(e) => handleSubmit(e)}
                 >
                   <label className='input-group input-group-vertical rounded-[9px] border-2  focus-within:ring-2 focus-within:ring-blue-400'>
-                    <span className='bg-white py-1 text-sm'>
-                      Enter data sets
-                    </span>
+                    <span className='py-1 text-sm'>Enter data sets</span>
                     <input
                       type='text'
                       value={inputValue}

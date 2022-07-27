@@ -9,29 +9,29 @@ function ComplexityTable() {
     <tr key={x.name}>
       <td>{x.name}</td>
       <td
-        style={{
-          color: "heading",
-          backgroundColor: (theme) =>
-            getColorForComplexity(theme, x.timeComplexityBest),
-        }}
+        // style={{
+        //   color: "heading",
+        //   backgroundColor: (theme) =>
+        //     getColorForComplexity(theme, x.timeComplexityBest),
+        // }}
       >
         <code>{x.timeComplexityBest.notation}</code>
       </td>
       <td
-        style={{
-          color: "heading",
-          backgroundColor: (theme) =>
-            getColorForComplexity(theme, x.timeComplexityAverage),
-        }}
+        // style={{
+        //   color: "heading",
+        //   backgroundColor: (theme) =>
+        //     getColorForComplexity(theme, x.timeComplexityAverage),
+        // }}
       >
         <code>{x.timeComplexityAverage.notation}</code>
       </td>
       <td
-        style={{
-          color: "heading",
-          backgroundColor: (theme) =>
-            getColorForComplexity(theme, x.timeComplexityWorst),
-        }}
+        // style={{
+        //   color: "heading",
+        //   backgroundColor: (theme) =>
+        //     getColorForComplexity(theme, x.timeComplexityWorst),
+        // }}
         className={`bg-[${getColorForComplexity(
           theme,
           x.timeComplexityWorst

@@ -34,7 +34,7 @@ export default function BinarySearch() {
   const [indexStep, setIndexStep] = useState([[0, 4, 9]]);
   const [isModalOpen, setIsModalOpen] = useState(true);
 
-  const tabItemHeading = ["Intro to Binary Search", "How it works"];
+  const tabItemHeading = ["Binary Search", "Algorithm", "Guide"];
 
   useEffect(() => {
     generateRandom();
@@ -200,8 +200,8 @@ const TabPanel = () => {
             position in a sorted array.
           </p>
           <p>
-            It is a fast search algorithm with the runtime complexity as O
-            (logn) which uses the Divide and Conquer principle for its search
+            It is a fast search algorithm with the runtime complexity as O (log
+            N) which uses the Divide and Conquer principle for its search
             algorithm.
           </p>
           <p>
@@ -212,6 +212,29 @@ const TabPanel = () => {
             half of the data set; if it is greater, the item must be found in
             the upper half
           </p>
+        </div>
+      </Tab.Panel>
+      <Tab.Panel
+        className={classNames(
+          "rounded-xl bg-white p-3",
+          "ring-white ring-opacity-60 ring-offset-2 ring-offset-blue-400 focus:outline-none "
+        )}
+      >
+        <div className='text-sm'>
+          <span className='block'>BinarySearch (Array Arr, Value key)</span>
+          <span className='block'>
+            // Input: Arr is the name of the array, and key is the searched
+            element.
+          </span>
+          <span className='block'>Step 1: Left = 0</span>
+          <span className='block'>Step 2: Right = Arr(n - 1) </span>
+          <span className='block'>{"Step 3: While left < =right"}</span>
+          <span className='block'>Step 4: Middle = (left + right )/2</span>
+          <span className='block'>{"Step 5: If Arr[middle] < key then"}</span>
+          <span className='block'>Step 6: Left = middle + 1</span>
+          <span className='block'>{"Step 7: Else if Arr[middle] > key"}</span>
+          <span className='block'>Step 8: Right = middle - 1</span>
+          <span className='block'>Step 9: Else return middle</span>
         </div>
       </Tab.Panel>
     </>
