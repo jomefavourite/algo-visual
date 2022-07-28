@@ -57,7 +57,7 @@ function Comparison() {
               Algorithms.selectionSort,
               Algorithms.insertionSort,
             ]}
-            dataSets={[DataSets.random]}
+            // dataSets={[DataSets.random]}
           />
         </DynamicComplexityChart>
 
@@ -65,12 +65,12 @@ function Comparison() {
           <DynamicComplexitySeries />
           <DynamicAnalysisSeries
             id='all-algorithms-sorted'
-            algorithms={[
-              Algorithms.bubbleSort,
-              Algorithms.selectionSort,
-              Algorithms.insertionSort,
-            ]}
-            dataSets={[DataSets.sorted]}
+            // algorithms={[
+            //   Algorithms.bubbleSort,
+            //   Algorithms.selectionSort,
+            //   Algorithms.insertionSort,
+            // ]}
+            // dataSets={[DataSets.sorted]}
           />
         </DynamicComplexityChart>
 
@@ -78,11 +78,11 @@ function Comparison() {
           <DynamicComplexitySeries />
           <DynamicAnalysisSeries
             id='all-algorithms-reversed'
-            algorithms={[
-              Algorithms.bubbleSort,
-              Algorithms.selectionSort,
-              Algorithms.insertionSort,
-            ]}
+            // algorithms={[
+            //   Algorithms.bubbleSort,
+            //   Algorithms.selectionSort,
+            //   Algorithms.insertionSort,
+            // ]}
             // dataSets={[DataSets.sorted]}
           />
         </DynamicComplexityChart>

@@ -10,52 +10,28 @@ function binary() {
     nums.add(Math.floor(Math.random() * 100) + 1);
   }
 
-  let sorted = [...nums].sort(function (a, b) {
-    return a - b;
-  });
-
-  sorted;
-
-  let key = sorted[sorted.length - 1];
-  key;
-  let start = 0,
-    end = sorted.length - 1;
-
-  let operationCount = 0;
-
-  // Iterate while start not meets end
-  while (start <= end) {
-    // Find the mid index
-    let mid = Math.floor((start + end) / 2);
-    operationCount++;
-
-    // If element is present at mid, return True
-    if (sorted[mid] === key) {
-      operationCount++;
-      return true;
+  let len = array.length,
+    swapped;
+  do {
+    this.incrementOpCounter();
+    swapped = false;
+    for (let i = 0; i < len; i++) {
+      this.incrementOpCounter();
+      if (array[i] > array[i + 1]) {
+        let tmp = array[i];
+        array[i] = array[i + 1];
+        array[i + 1] = tmp;
+        swapped = true;
+      }
     }
-    // Else look in left or right half accordingly
-    else if (sorted[mid] < key) {
-      operationCount++;
-      operationCount;
-      start = mid + 1;
-    } else {
-      end = mid - 1;
-      operationCount++;
-      operationCount;
-    }
-  }
-
-  operationCount++;
-
-  return false;
+  } while (swapped);
 }
 
 // binary();
 
 function jumpSearch(arrayToSearch, valueToSearch) {
   const nums = new Set();
-  while (nums.size !== 200) {
+  while (nums.size !== 10) {
     nums.add(Math.floor(Math.random() * 100) + 1);
   }
 
@@ -103,7 +79,7 @@ function jumpSearch(arrayToSearch, valueToSearch) {
   return -1;
 }
 
-jumpSearch();
+// jumpSearch();
 
 // [
 //   ["Binary Search", "Binary Search", "Search", 10, 10, 1, 10, 10],
@@ -116,3 +92,30 @@ jumpSearch();
 //   ["Binary Search", "Binary Search", "Search", 100, 19, 1, 10, 10],
 //   ["Binary Search", "Binary Search", "Search", 150, 10, 1, 10, 10],
 // ]
+
+// bubbleSort function
+function bubbleSort() {
+  let arr = [1, 3, 5, 4, 10, 6, 7, 8, 9, 2];
+
+  let operationCount = 0;
+
+  for (var i = 0; i < arr.length; i++) {
+    // increment operation count by 1
+    operationCount++;
+    for (var j = 0; j < arr.length - i - 1; j++) {
+      // increment operation count by 1
+      operationCount++;
+
+      if (arr[j] > arr[j + 1]) {
+        operationCount++;
+
+        // If the condition is true then swap them
+        var temp = arr[j];
+        arr[j] = arr[j + 1];
+        arr[j + 1] = temp;
+      }
+    }
+  }
+}
+
+bubbleSort();
