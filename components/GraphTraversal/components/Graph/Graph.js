@@ -612,8 +612,9 @@ export const Graph = ({
         ))}
 
       <svg ref={graph} className={styles.graph} onClick={handleSelect}>
-        {nodes.map((node) => (
+        {nodes.map((node, i) => (
           <Node
+            key={i}
             handleEdge={handleEdge}
             handleMove={handleMove}
             key={node.id}

@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-// import { initializeIcons } from "@fluentui/react";
+import { initializeIcons } from "@fluentui/react";
 import "../../components/GraphTraversal/GraphTraversal.module.css";
 import { Board } from "../../components/GraphTraversal/components/Board/Board";
 // import { Board } from "./components/Board/Board";
@@ -8,7 +8,7 @@ import Modal from "../../components/Modal";
 import { Tab } from "@headlessui/react";
 import { classNames } from "../../util/utility";
 
-// initializeIcons();
+initializeIcons();
 
 function GraphTraversal() {
   const tabItemHeading = ["Graph Traversal", "Algorithm", "How it works"];
@@ -72,26 +72,17 @@ const TabPanel = () => {
             </p>
           </div>
           <div className='space-y-2'>
-            <h4 className='font-bold'>Breadth-first search</h4>
+            <h4 className='font-bold'>Depth First Search (DFS)</h4>
             <p>
-              Breadth-first search (BFS) is a graph search technique in which
-              the search is limited to essentially two operations: (a) visit and
-              inspect a graph node; and (b) get access to visit the nodes that
-              are adjacent to the currently visited node. The BFS begins at a
-              root node and inspects all the neighbouring nodes. Then for each
-              of those neighbour nodes, in turn, it inspects their neighbour
-              nodes which were unvisited, and so on
-            </p>
-            <p>
-              BFS is implemented as a queue, with the first node visited
-              becoming the first node whose successors are visited. The BFS
-              algorithm adds a node to a queue that is assumed to be empty at
-              first. It is presumed that every entry in the array mark has never
-              been visited. If the graph is not connected, BFS must be called on
-              a node of each connected component. To avoid placing a node on the
-              queue more than once in BFS, we must mark it as visited before
-              inserting it into the queue. The algorithm terminates when the
-              queue becomes empty
+              DFS is a graph traversal algorithm in which one begins at the root
+              and travels as far as possible along each branch before
+              backtracking. DFS is an uninformed search that advances by
+              extending the first child node of the search tree that emerges,
+              continuing deeper and deeper until a destination node is
+              identified or reaching a node with no children. The search then
+              goes backward (backtracking), returning to the most recent node it
+              hasn't yet explored. All newly expanded nodes are added to a stack
+              for exploration in a non-recursive implementation
             </p>
           </div>
         </div>

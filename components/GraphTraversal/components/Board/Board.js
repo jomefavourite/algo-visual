@@ -2,7 +2,7 @@ import React, { useState, useEffect } from "react";
 import { Graph } from "../Graph/Graph";
 import styles from "./Board.module.css";
 import { mapValues } from "lodash";
-import { Dropdown, Slider, ProgressIndicator } from "@fluentui/react";
+import { ProgressIndicator } from "@fluentui/react";
 import { edgeOptions, algoOptions } from "../../configs/readOnly";
 import { optionButtonStyles, sliderOptions } from "./BoardStyles";
 import Link from "next/link";
@@ -18,7 +18,6 @@ export const Board = () => {
     deleteEdge: false,
     selectEdge: false,
   });
-  const [isPullDownMenuOpen, setPullDownMenuState] = useState(false);
   const [nodeSelection, setNodeSelection] = useState({
     isStartNodeSelected: false,
     isEndNodeSelected: false,
@@ -49,7 +48,6 @@ export const Board = () => {
       isEndNodeSelected: false,
     });
     setOptions(updatedOptions);
-    setPullDownMenuState(false);
     setIsSelectEdge(false);
   };
 
@@ -57,11 +55,9 @@ export const Board = () => {
   const handleEdgeOptions = (_event, option) => {
     console.log(_event, "event", option, "option");
     const updatedOptions = mapValues(options, () => false);
-    console.log(updatedOptions, "updatedOptions");
     setOptions(updatedOptions);
     setSelectedAlgo({ key: "select", text: "Select Algorithm" });
     setSelectedEdge(option);
-    setPullDownMenuState(false);
 
     setIsSelectEdge(true);
   };
@@ -78,26 +74,15 @@ export const Board = () => {
       const updatedOptions = mapValues(options, () => false);
       setOptions(updatedOptions);
     }
-    // else if (option?.data === "pathfinding") {
-    //   setNodeSelection({
-    //     ...nodeSelection,
-    //     isStartNodeSelected: true,
-    //     isEndNodeSelected: true,
-    //   });
-    //   const updatedOptions = mapValues(options, () => false);
-    //   setOptions(updatedOptions);
-    // }
-    setPullDownMenuState(false);
+
     setIsSelectEdge(false);
   };
-  const handlePullDownMenu = () => {
-    setPullDownMenuState(!isPullDownMenuOpen);
-  };
+
   return (
     <>
       <nav className='bg-black py-2'>
         <Nav
-          isPullDownMenuOpen={isPullDownMenuOpen}
+          // isPullDownMenuOpen={isPullDownMenuOpen}
           isVisualizing={isVisualizing}
           activateOption={activateOption}
           handleEdgeOptions={handleEdgeOptions}
@@ -129,16 +114,6 @@ export const Board = () => {
           nodeSelection={nodeSelection}
           setNodeSelection={setNodeSelection}
         />
-        <div className={styles.pullDownMenu} onClick={handlePullDownMenu}>
-          <div
-            className={styles.pullDownMenuButton}
-            style={
-              isPullDownMenuOpen
-                ? { transform: "rotate(225deg)" }
-                : { transform: "rotate(45deg" }
-            }
-          ></div>
-        </div>
       </div>
     </>
   );
