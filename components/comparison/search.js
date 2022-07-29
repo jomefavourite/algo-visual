@@ -95,7 +95,7 @@ function jumpSearch(arrayToSearch, valueToSearch) {
 
 // bubbleSort function
 function bubbleSort() {
-  let arr = [1, 3, 5, 4, 10, 6, 7, 8, 9, 2];
+  let arr = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15];
 
   let operationCount = 0;
 
@@ -105,9 +105,10 @@ function bubbleSort() {
     for (var j = 0; j < arr.length - i - 1; j++) {
       // increment operation count by 1
       operationCount++;
+      operationCount;
 
       if (arr[j] > arr[j + 1]) {
-        operationCount++;
+        // operationCount++;
 
         // If the condition is true then swap them
         var temp = arr[j];
