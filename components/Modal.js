@@ -62,7 +62,7 @@ export default function Modal({
                 leaveFrom='opacity-100 scale-100'
                 leaveTo='opacity-0 scale-95'
               >
-                <Dialog.Panel className='w-full max-w-md transform rounded-2xl bg-white p-6 text-left align-middle shadow-xl transition-all'>
+                <Dialog.Panel className='max-h-[600px] w-full max-w-md transform  rounded-2xl bg-white p-6 text-left align-middle shadow-xl transition-all'>
                   <div className='w-full max-w-md px-2 sm:px-0'>
                     <Tab.Group defaultIndex={0}>
                       <Tab.List className='flex space-x-1 rounded-xl bg-black/10 p-1'>
@@ -83,7 +83,7 @@ export default function Modal({
                           </Tab>
                         ))}
                       </Tab.List>
-                      <Tab.Panels className='mt-2'>
+                      <Tab.Panels className='mt-2 '>
                         {children}
                         <Tab.Panel
                           className={classNames(
@@ -176,9 +176,7 @@ export default function Modal({
                                   </>
                                 ) : (
                                   <>
-                                    <form
-                                      className='form-control pointer-events-none w-[148px]'
-                                    >
+                                    <form className='form-control pointer-events-none w-[148px]'>
                                       <label className='input-group input-group-vertical rounded-[9px] border-2  focus-within:ring-2 focus-within:ring-blue-400'>
                                         <span className='py-1 text-sm'>
                                           Enter data sets
@@ -189,10 +187,11 @@ export default function Modal({
                                           className=' appearance-none bg-[#00000025] p-3 text-black outline-none placeholder:text-[#0000007e]'
                                         />
                                       </label>
-                                      </form>
-                                       <p>
-                                        Enter your dataset with the format of 12,20,33,45,20
-                                        </p>
+                                    </form>
+                                    <p>
+                                      Enter your dataset with the format of
+                                      12,20,33,45,20
+                                    </p>
                                   </>
                                 )}
                               </div>

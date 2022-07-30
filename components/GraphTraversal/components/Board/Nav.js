@@ -42,7 +42,7 @@ function Nav({
               disabled={isVisualizing}
             />
 
-            <div>
+            <div className='hidden md:block'>
               <span className='block text-white'>Delay</span>
               <input
                 type='range'
@@ -57,7 +57,7 @@ function Nav({
             </div>
           </div>
         </div>
-        <div className='flex  flex-wrap gap-3'>
+        <div className='mt-2 flex flex-wrap gap-2 md:gap-3'>
           <button
             className={`${styles.optionButtons} ${
               options.drawNode && styles.selectedButtonOption
