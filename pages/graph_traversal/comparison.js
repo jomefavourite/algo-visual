@@ -13,10 +13,10 @@ export default function Comparison() {
       />
 
       <main className='container'>
-        <table className=' table-compact table w-full'>
+        <table className='table-zebra table-compact  w-full border text-left'>
           <tbody>
             <tr>
-              <th>S. No. &nbsp; &nbsp; &nbsp;&nbsp;</th>
+              <th>S.No.</th>
               <th>Parameters</th>
               <th>BFS</th>
               <th>DFS</th>

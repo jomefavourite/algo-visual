@@ -11,7 +11,7 @@ import { classNames } from "../../util/utility";
 initializeIcons();
 
 function GraphTraversal() {
-  const tabItemHeading = ["Graph Traversal", "BFS", "DFS", "How it works"];
+  const tabItemHeading = ["Graph Traversal", "BFS", "DFS", "Guide"];
   const [isModalOpen, setIsModalOpen] = useState(true);
   return (
     <>
@@ -56,7 +56,7 @@ const TabPanel = () => {
           " max-h-[400px] overflow-y-scroll text-sm ring-white ring-opacity-60 ring-offset-2 ring-offset-blue-400 focus:outline-none"
         )}
       >
-        <div className='space-y-2'>
+        <div className='space-y-2 text-sm'>
           <h4 className='font-bold'>Breadth-first search</h4>
           <p>
             Breadth-first search (BFS) is a graph search technique in which the
@@ -115,7 +115,7 @@ const TabPanel = () => {
           "max-h-[400px] overflow-y-scroll ring-white ring-opacity-60 ring-offset-2 ring-offset-blue-400 focus:outline-none "
         )}
       >
-        <div className='space-y-2'>
+        <div className='space-y-2 text-sm'>
           <h4 className='font-bold'>Depth First Search (DFS)</h4>
           <p>
             DFS is a graph traversal algorithm in which one begins at the root
@@ -158,6 +158,46 @@ const TabPanel = () => {
           </span>
           <span className='block'>Step 10: Mark c as visited</span>
           <span className='block'>Step 11: Return false</span>
+        </div>
+      </Tab.Panel>
+      <Tab.Panel
+        className={classNames(
+          "rounded-xl bg-white p-3",
+          "max-h-[400px] overflow-y-scroll ring-white ring-opacity-60 ring-offset-2 ring-offset-blue-400 focus:outline-none "
+        )}
+      >
+        <div className='space-y-2'>
+          <div className=''>
+            <img src='/images/draw_node.png' alt='' />
+            <p> Nodes are drawn by clicking on the white board</p>
+          </div>
+          <div className=''>
+            <img src='/images/move_node.png' alt='' />
+            <p>Allows nodes to be moved on the white board</p>
+          </div>
+          <div className=''>
+            <img src='/images/delete_node.png' alt='' />
+            <p>Deletes selected node</p>
+          </div>
+          <div className=''>
+            <img src='/images/edge.png' alt='' />
+            <p>Draw edges between two nodes</p>
+          </div>
+          <div className=''>
+            <img src='/images/delete_edge.png' alt='' />
+            <p>Delete a selected edge</p>
+          </div>
+          <div className=''>
+            <img src='/images/reset.png' alt='' />
+            <p>Clears all nodes and edges from the white board</p>
+          </div>
+          <div className=''>
+            <img src='/images/select_algorthm.png' alt='' />
+            <p>
+              Once graph or tree structure is drawn, select algorithm to be
+              visualized
+            </p>
+          </div>
         </div>
       </Tab.Panel>
     </>

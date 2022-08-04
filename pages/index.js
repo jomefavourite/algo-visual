@@ -87,9 +87,9 @@ export default function Home() {
 
       <main className='h-screen bg-[#58585813]'>
         <div className='container'>
-          <h1 className='pt-8 text-center text-3xl'>Algorithm Visualization</h1>
+          <h1 className='pt-8 text-center text-3xl'>The AlgoVisual Platform</h1>
 
-          <div className='mt-5 flex flex-col items-center justify-center gap-5 md:flex-row'>
+          <div className='mt-8 flex flex-col items-center justify-center gap-5 md:flex-row'>
             {options.map((item, id) => (
               <div
                 key={id}
