@@ -1,4 +1,5 @@
 export function generateDataSteps(data, key, colorSteps) {
+  // Jump Search Algorithm
   const newColorSteps = [new Array(data.length).fill(0)];
   let colorKey = new Array(data.length).fill(0);
   let dataSteps = [[...data]];

@@ -1,5 +1,5 @@
 export function generateDataSteps(data, key, colorSteps) {
-  console.log(data, "init data");
+  // Linear Search Algorithm
   const newColorSteps = [new Array(data.length).fill(0)];
 
   let dataSteps = [[...data]];
