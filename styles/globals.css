@@ -8,6 +8,11 @@ text {
   text-anchor: middle;
 }
 
+body:has(main#home) {
+  overflow: hidden;
+  background-color: #58585813;
+}
+
 .container {
   width: 90%;
   max-width: 1400px;

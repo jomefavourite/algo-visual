@@ -1,5 +1,7 @@
 import Head from "next/head";
 import Link from "next/link";
+import { FaGithub } from "react-icons/fa";
+import { AiFillTwitterCircle } from "react-icons/ai";
 
 export default function Home() {
   const options = [
@@ -85,7 +87,7 @@ export default function Home() {
         <link rel='icon' href='/favicon.ico' />
       </Head>
 
-      <main className='h-screen bg-[#58585813]'>
+      <main id='home' className='md:h-[calc(100vh-50px)]'>
         <div className='container'>
           <h1 className='pt-8 text-center text-3xl'>The AlgoVisual Platform</h1>
 
@@ -123,6 +125,38 @@ export default function Home() {
           </div>
         </div>
       </main>
+
+      <footer className='p-3'>
+        <div className='container flex items-center justify-between border-t'>
+          <div>
+            <p>
+              @ {new Date().getFullYear()}{" "}
+              <a
+                href='https://github.com/jomefavourite'
+                className='text-[#535353] hover:text-black'
+              >
+                Favourite Jome.
+              </a>{" "}
+              All rights reserved.
+            </p>
+          </div>
+
+          <div className='flex space-x-3'>
+            <a
+              href='https://github.com/jomefavourite'
+              className='transform transition-transform ease-out hover:scale-110'
+            >
+              <FaGithub size='1.4em' />
+            </a>
+            <a
+              href='https://twitter.com/favouritejome1'
+              className='transform transition-transform ease-out hover:scale-110'
+            >
+              <AiFillTwitterCircle size='1.4em' />
+            </a>
+          </div>
+        </div>
+      </footer>
     </>
   );
 }
