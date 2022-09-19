@@ -250,11 +250,11 @@ export const handleNavigationSort = (page) => {
       href: "/sorting/selection",
       active: page === "selection" ? true : false,
     },
-    {
-      value: "Insertion Sort",
-      href: "/sorting/insertion",
-      active: page === "insertion" ? true : false,
-    },
+    // {
+    //   value: "Insertion Sort",
+    //   href: "/sorting/insertion",
+    //   active: page === "insertion" ? true : false,
+    // },
     {
       value: "View Comparison",
       href: "/sorting/comparison",
