@@ -43,11 +43,11 @@ export default function Home() {
           link: "/sorting/selection",
           tag: "selection",
         },
-        {
-          name: "Insertion Sort",
-          link: "/sorting/insertion",
-          tag: "insertion",
-        },
+        // {
+        //   name: "Insertion Sort",
+        //   link: "/sorting/insertion",
+        //   tag: "insertion",
+        // },
         {
           name: "Comparison Page",
           link: "/sorting/comparison",
