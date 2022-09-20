@@ -1,4 +1,4 @@
-<h1><center>AlgoVisaul</center></h1>
+<h1><center>AlgoVisual</center></h1>
 
 Algorithm Visualizer for some selected Sorting, Searching and Graph Traversal Algorithms with comparative analysis of each algorithms.
 
