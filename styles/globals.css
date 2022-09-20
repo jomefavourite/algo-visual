@@ -9,14 +9,18 @@ text {
 }
 
 body:has(main#home) {
-  overflow: hidden;
+  overflow-x: hidden;
   background-color: #58585813;
+}
+
+body:has(main#home) main.thank-you a {
+  color: #3e59a5e5;
 }
 
 .container {
   width: 90%;
   max-width: 1400px;
-  margin: 0 auto;
+  margin-inline: auto;
 }
 
 /* Remove arrows from input numbers */

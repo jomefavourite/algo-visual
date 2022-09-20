@@ -87,7 +87,7 @@ export default function Home() {
         <link rel='icon' href='/favicon.ico' />
       </Head>
 
-      <main id='home' className='md:h-[calc(100vh-50px)]'>
+      <main id='home' className='md:h-[calc(100vh-128px)]'>
         <div className='container'>
           <h1 className='pt-8 text-center text-3xl'>The AlgoVisual Platform</h1>
 
@@ -127,33 +127,42 @@ export default function Home() {
       </main>
 
       <footer className='p-3'>
-        <div className='container flex items-center justify-between border-t'>
-          <div>
-            <p>
-              @ {new Date().getFullYear()}{" "}
-              <a
-                href='https://github.com/jomefavourite'
-                className='text-[#535353] hover:text-black'
-              >
-                Favourite Jome.
-              </a>{" "}
-              All rights reserved.
-            </p>
+        <div className='container  border-t'>
+          <div className=' mt-5 w-full rounded-md bg-base-100 p-4 shadow md:w-96'>
+            Thanks to all{" "}
+            <Link href='/thank-you'>
+              <a className='text-[#3e59a5e5]'>contributors</a>
+            </Link>
           </div>
 
-          <div className='flex space-x-3'>
-            <a
-              href='https://github.com/jomefavourite'
-              className='transform transition-transform ease-out hover:scale-110'
-            >
-              <FaGithub size='1.4em' />
-            </a>
-            <a
-              href='https://twitter.com/favouritejome1'
-              className='transform transition-transform ease-out hover:scale-110'
-            >
-              <AiFillTwitterCircle size='1.4em' />
-            </a>
+          <div className='flex items-center justify-between'>
+            <div>
+              <p>
+                © {new Date().getFullYear()}{" "}
+                <a
+                  href='https://github.com/jomefavourite'
+                  className='text-[#535353] hover:text-black'
+                >
+                  Favourite Jome.
+                </a>{" "}
+                All rights reserved.
+              </p>
+            </div>
+
+            <div className='flex space-x-3'>
+              <a
+                href='https://github.com/jomefavourite'
+                className='transform transition-transform ease-out hover:scale-110'
+              >
+                <FaGithub size='1.4em' />
+              </a>
+              <a
+                href='https://twitter.com/favouritejome1'
+                className='transform transition-transform ease-out hover:scale-110'
+              >
+                <AiFillTwitterCircle size='1.4em' />
+              </a>
+            </div>
           </div>
         </div>
       </footer>
