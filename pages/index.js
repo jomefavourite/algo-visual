@@ -131,7 +131,7 @@ export default function Home() {
           <div className=' mt-5 w-full rounded-md bg-base-100 p-4 shadow md:w-96'>
             Thanks to all{" "}
             <Link href='/thank-you'>
-              <a className='text-[#3e59a5e5]'>contributors</a>
+              <a className='text-[#3e59a5e5]'>contributors and OSS</a>
             </Link>
           </div>
 
